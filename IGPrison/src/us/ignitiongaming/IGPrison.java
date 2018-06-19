@@ -1,20 +1,26 @@
 package us.ignitiongaming;
 
+import net.milkbowl.vault.economy.Economy;
+
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.ignitiongaming.command.AdminCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
 import us.ignitiongaming.command.RankupCommand;
+import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.event.player.PlayerChatEvent;
 import us.ignitiongaming.event.player.PlayerRecordEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
 import us.ignitiongaming.event.server.ServerListEvent;
 
 
-public class IGPrison extends JavaPlugin {
-
+public class IGPrison extends JavaPlugin {	
 	public void onEnable() {
+		
+		//You know? Vault is kinda stupid for making me use a global variable...
+		setupEconomy();
 		
 		/* Events */
 		this.getServer().getPluginManager().registerEvents(new PlayerVerificationEvent(), this);
@@ -42,4 +48,20 @@ public class IGPrison extends JavaPlugin {
 	public void onDisable() {
 		
 	}
+	
+	/**
+	 * WEEEEEE private function to assign global variable >.>
+	 * @return
+	 */
+	private boolean setupEconomy()
+    {
+		
+        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        if (economyProvider != null) {
+            ServerDefaults.econ = economyProvider.getProvider();
+            
+        }
+
+        return (ServerDefaults.econ != null);
+    }
 }
