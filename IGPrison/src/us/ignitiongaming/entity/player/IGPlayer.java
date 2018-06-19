@@ -12,7 +12,7 @@ public class IGPlayer extends HasID {
 	 * IGPlayer's MySQL Table name.
 	 */
 	public static final String TABLE_NAME = "player";
-	private String name;
+	private String name, ip;
 	private UUID uuid;
 	
 	/**
@@ -35,13 +35,16 @@ public class IGPlayer extends HasID {
 	public void setUUID(UUID uuid) { this.uuid = uuid; }
 	public UUID getUUID() { return uuid; }
 	
+	public void setIP(String ip) { this.ip = ip; }
+	public String getIP() { return ip; }
+	
 	/**
 	 * 
 	 * Determine if the entities is valid.
 	 * @return
 	 */
 	public boolean isValid() {
-		return (uuid == null || !hasId() || name == null);
+		return (uuid == null || !hasId() || name == null || ip == null);
 	}
 	
 	/**

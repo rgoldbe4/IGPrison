@@ -78,8 +78,8 @@ public class IGPlayerFactory {
 			
 			// -- Add IGPlayer --
 			SQLQuery query = new SQLQuery(QueryType.INSERT, IGPlayer.TABLE_NAME);
-			query.addGrabColumns("name", "uuid");
-			query.addValues(player.getName(), player.getUniqueId());
+			query.addGrabColumns("name", "uuid", "ip");
+			query.addValues(player.getName(), player.getUniqueId(), player.getAddress().getAddress().getHostAddress());
 			query.execute();
 			
 			//Grab the IGPlayer for usage.

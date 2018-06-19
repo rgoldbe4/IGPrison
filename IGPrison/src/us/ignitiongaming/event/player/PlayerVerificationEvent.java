@@ -79,4 +79,19 @@ public class PlayerVerificationEvent implements Listener {
 			
 		}
 	}
+	
+	@EventHandler
+	public void updateIP(PlayerJoinEvent event) {
+		try {
+			Player player = event.getPlayer();
+			IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
+			String playerIP = player.getAddress().getAddress().getHostAddress();
+			if (!igPlayer.getIP().equalsIgnoreCase(playerIP)) {
+				igPlayer.setIP(playerIP);
+				igPlayer.save();
+			}
+		} catch (Exception ex) {
+			
+		}
+	}
 }
