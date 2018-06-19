@@ -7,21 +7,17 @@ import org.bukkit.entity.Player;
 
 import us.ignitiongaming.config.GlobalMessages;
 
-public class RankupCommand implements CommandExecutor{
+public class HelpCommand implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String lbl, String[] args) {
 		try {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
-				// [/rankup]
-				if (lbl.equalsIgnoreCase("rankup")) {
+				// [/ighelp]
+				if (lbl.equalsIgnoreCase("ighelp")) {
 					player.sendMessage(GlobalMessages.UNDER_CONSTRUCTION);
-				}
-				
-			
-				
-				
+				}				
 			}
 		} catch (Exception ex) {
 			

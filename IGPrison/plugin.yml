@@ -1,0 +1,20 @@
+name: IGPrison
+version: 0.0.1
+description: Ignition Gaming Prison
+author: BuffsOverNexus
+main: us.ignitiongaming.IGPrison
+depends: [Vault]
+
+commands:
+     iga:
+        description: Access the administrative commands of Ignition Gaming.
+     rankup:
+        description: Rankup to the next level if you're still within the prison!
+     donate:
+        description: View the link to donate to our server!
+     claimdonator:
+        description: Claim the donator rank if you haven't already.
+     points:
+        description: View your donation point count.
+     donatorpoints:
+        description: View your donation point count.
