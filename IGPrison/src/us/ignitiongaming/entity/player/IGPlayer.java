@@ -24,6 +24,7 @@ public class IGPlayer extends HasID {
 			setId(results);
 			setName(results.getString("name"));
 			setUUID(UUID.fromString(results.getString("uuid")));
+			setIP(results.getString("ip"));
 		} catch (Exception ex) {
 			
 		}
@@ -57,6 +58,7 @@ public class IGPlayer extends HasID {
 				SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
 				query.addSet("uuid", uuid);
 				query.addSet("name", name);
+				query.addSet("ip", ip);
 				query.addWhere("ID", getId());
 				query.execute();
 			}

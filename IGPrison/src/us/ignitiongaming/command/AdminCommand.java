@@ -55,6 +55,7 @@ public class AdminCommand implements CommandExecutor{
 							player.sendMessage("Joined: " + stats.getJoinedFriendly());
 							player.sendMessage("Last Login: " + stats.getLastLoginFriendly());
 							player.sendMessage("Is Donator: " + isDonator);
+							player.sendMessage("IP: " + igPlayer.getIP());
 							
 						}
 					}
