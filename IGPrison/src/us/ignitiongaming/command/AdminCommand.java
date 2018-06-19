@@ -7,10 +7,13 @@ import org.bukkit.entity.Player;
 
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.entity.player.IGPlayer;
+import us.ignitiongaming.entity.player.IGPlayerStats;
 import us.ignitiongaming.entity.rank.IGRank;
 import us.ignitiongaming.enums.IGRanks;
+import us.ignitiongaming.factory.player.IGPlayerDonatorFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerRankFactory;
+import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
 import us.ignitiongaming.factory.rank.IGRankFactory;
 
 public class AdminCommand implements CommandExecutor{
@@ -34,8 +37,26 @@ public class AdminCommand implements CommandExecutor{
 					boolean hasWarden = player.hasPermission(warden.getNode()) || hasStaff || playerRank.getId() == warden.getId();
 					
 					// [/iga help]
-					if (hasWarden || hasStaff || hasGuard) {
-						player.sendMessage(GlobalMessages.UNDER_CONSTRUCTION);
+					if (args.length == 1) {
+						if (args[0].equalsIgnoreCase("help")) {
+							if (hasWarden || hasStaff || hasGuard) {
+								player.sendMessage(GlobalMessages.UNDER_CONSTRUCTION);
+							}
+						}
+						
+						if (args[0].equalsIgnoreCase("pi")) {
+							IGPlayerStats stats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
+							boolean isDonator = IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer);
+							player.sendMessage("Player ID: " + igPlayer.getId());
+							player.sendMessage("Rank: " + playerRank.getTag());
+							player.sendMessage("Kills: " + stats.getKills());
+							player.sendMessage("Deaths: " + stats.getDeaths());
+							player.sendMessage("Donator Points: " + stats.getDonatorPoints());
+							player.sendMessage("Joined: " + stats.getJoinedFriendly());
+							player.sendMessage("Last Login: " + stats.getLastLoginFriendly());
+							player.sendMessage("Is Donator: " + isDonator);
+							
+						}
 					}
 					
 				}

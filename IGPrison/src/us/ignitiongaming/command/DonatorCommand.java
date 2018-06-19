@@ -5,6 +5,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import us.ignitiongaming.config.GlobalMessages;
+import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerStats;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
@@ -19,19 +21,19 @@ public class DonatorCommand implements CommandExecutor{
 				Player player = (Player) sender;
 				// [/donate]
 				if (lbl.equalsIgnoreCase("donate")) {
-					player.sendMessage("§8Donation URL: §l§o§ahttp://www.ignitiongaming.us/donate§r");
+					player.sendMessage(GlobalTags.DONATION + "§8URL: §7§o§nhttp://www.ignitiongaming.us/donate§r");
 				}
 				
 				// [/claimdonator]
 				if (lbl.equalsIgnoreCase("claimdonator")) {
-					
+					player.sendMessage(GlobalTags.DONATION + GlobalMessages.UNDER_CONSTRUCTION);
 				}
 				
 				// [/points]
 				if (lbl.equalsIgnoreCase("points") || lbl.equalsIgnoreCase("donatorpoints")) {
 					IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 					IGPlayerStats igStats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
-					player.sendMessage("§8[§5Donation§8] §rCurrent Points: " + igStats.getDonatorPoints());
+					player.sendMessage(GlobalTags.DONATION + " Current Points: " + igStats.getDonatorPoints());
 				}
 				
 				

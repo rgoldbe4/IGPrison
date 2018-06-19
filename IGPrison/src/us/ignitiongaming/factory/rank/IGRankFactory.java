@@ -59,4 +59,24 @@ public class IGRankFactory {
 			return null;
 		}
 	}
+	
+	public static IGRank getIGRankById(int id) {
+		try {
+			IGRank igRank = new IGRank();
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGRank.TABLE_NAME);
+			query.addID(id);
+			ResultSet results = query.getResults();
+			
+			//Make sure that we a rank.
+			if (DatabaseUtils.getNumRows(results) == 0) return null;
+			
+			while (results.next()) {
+				igRank.assign(results);
+			}
+			
+			return igRank;
+		} catch (Exception ex) {
+			return null;
+		}
+	}
 }

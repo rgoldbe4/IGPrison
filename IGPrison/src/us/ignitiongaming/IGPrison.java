@@ -6,16 +6,21 @@ import us.ignitiongaming.command.AdminCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
 import us.ignitiongaming.command.RankupCommand;
+import us.ignitiongaming.event.player.PlayerChatEvent;
+import us.ignitiongaming.event.player.PlayerRecordEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
+import us.ignitiongaming.event.server.ServerListEvent;
 
 
 public class IGPrison extends JavaPlugin {
 
-	@Override
 	public void onEnable() {
 		
 		/* Events */
 		this.getServer().getPluginManager().registerEvents(new PlayerVerificationEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerRecordEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new ServerListEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerChatEvent(), this);
 		
 		/* Commands */
 		// -- Help Command --
@@ -34,7 +39,6 @@ public class IGPrison extends JavaPlugin {
 		this.getCommand("rankup").setExecutor(new RankupCommand());
 	}
 	
-	@Override
 	public void onDisable() {
 		
 	}

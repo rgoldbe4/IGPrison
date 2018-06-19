@@ -24,7 +24,7 @@ public class Database {
 				if (!connection.isClosed()) connection.close();
 			}
 			connection = DriverManager.getConnection("jdbc:mysql://ignitiongaming.us:3306/igminecraft?verifyServerCertificate=false&maxReconnects=10&useSSL=true&retainStatementAfterResultSetClose=true",
-					"igminecraft", "53cCDFfxLALLGLy8");
+					"igminecraft", "7xXTvmgXyrUGvsh6");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

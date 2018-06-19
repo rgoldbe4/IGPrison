@@ -8,6 +8,9 @@ depends: [Vault]
 commands:
      iga:
         description: Access the administrative commands of Ignition Gaming.
+     ighelp:
+        description: Spawn a book that describes the server.
+     
      rankup:
         description: Rankup to the next level if you're still within the prison!
      donate:

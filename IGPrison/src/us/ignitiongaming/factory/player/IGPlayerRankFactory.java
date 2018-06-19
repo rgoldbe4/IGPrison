@@ -8,22 +8,25 @@ import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerRank;
 import us.ignitiongaming.entity.rank.IGRank;
+import us.ignitiongaming.factory.rank.IGRankFactory;
 
 public class IGPlayerRankFactory {
 
 	
 	public static IGRank getIGPlayerRank(IGPlayer igPlayer) {
 		try {
-			IGRank rank = new IGRank();
+			IGRank rank = null;
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerRank.TABLE_NAME);
 			query.addWhere("playerID", igPlayer.getId());
 			ResultSet results = query.getResults();
 			
 			//Player does not have a rank, which shouldn't happen.
-			if (DatabaseUtils.getNumRows(results) == 0)  return null;
+			if (DatabaseUtils.getNumRows(results) == 0) return null;
 			
 			while (results.next()) {
-				rank.assign(results);
+				IGPlayerRank playerRank = new IGPlayerRank();
+				playerRank.assign(results);
+				rank = IGRankFactory.getIGRankById(playerRank.getRankId());
 			}
 			
 			return rank;			

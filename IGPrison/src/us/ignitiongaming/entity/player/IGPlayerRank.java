@@ -1,5 +1,9 @@
 package us.ignitiongaming.entity.player;
 
+import java.sql.ResultSet;
+
+import us.ignitiongaming.database.QueryType;
+import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.entity.HasID;
 
 public class IGPlayerRank extends HasID {
@@ -8,6 +12,25 @@ public class IGPlayerRank extends HasID {
 	
 	private int playerId = 0, rankId = 0;
 	
+	public void assign(ResultSet results) {
+		try {
+			setId(results.getInt("ID"));
+			setPlayerId(results.getInt("playerID"));
+			setRankId(results.getInt("rankID"));
+		} catch (Exception ex) {
+			
+		}
+	}
+	
+	public void save() {
+		if (isValid()) {
+			SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
+			query.addSet("playerID", playerId);
+			query.addSet("rankID", rankId);
+			query.addID(getId());
+			query.execute();
+		}
+	}
 	public void setPlayerId(int playerId) { this.playerId = playerId; }
 	public int getPlayerId() { return playerId; }
 	

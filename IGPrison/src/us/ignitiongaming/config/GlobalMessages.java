@@ -6,4 +6,6 @@ public class GlobalMessages {
 	public static final String NO_PERMISSIONS = "§4You do not have permission to access that command.";
 	
 	public static final String INVALID_COMMAND = "§cYou have entered in an invalid command.";
+	
+	public static final String THANK_YOU_DONATE = GlobalTags.DONATION + "§7Thank you for donating!";
 }

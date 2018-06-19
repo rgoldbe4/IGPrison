@@ -8,7 +8,7 @@ public class IGRank extends HasID {
 
 	public static final String TABLE_NAME = "rank";
 	
-	private String name, node, tag;
+	private String name, node, tag, nameColor;
 	
 	public void assign(ResultSet results) {
 		try {
@@ -16,6 +16,7 @@ public class IGRank extends HasID {
 			setName(results.getString("name"));
 			setNode(results.getString("node"));
 			setTag(results.getString("tag"));
+			setNameColor(results.getString("namecolor"));
 		} catch (Exception ex) {
 			
 		}
@@ -29,6 +30,9 @@ public class IGRank extends HasID {
 	
 	public void setTag(String tag) { this.tag = tag; }
 	public String getTag() { return tag; }
+	
+	public void setNameColor(String nameColor) { this.nameColor = nameColor; }
+	public String getNameColor() { return nameColor; }
 	
 	public boolean isValid() {
 		return (!hasId() || node == null || name == null || tag == null);
