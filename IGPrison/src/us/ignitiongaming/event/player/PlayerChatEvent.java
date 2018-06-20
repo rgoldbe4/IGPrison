@@ -17,6 +17,6 @@ public class PlayerChatEvent implements Listener {
 	public static void onPlayerTalk(AsyncPlayerChatEvent event) {
 		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(event.getPlayer());
 		IGRank igRank = IGPlayerRankFactory.getIGPlayerRank(igPlayer);
-		event.setFormat((IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer)? PlayerTags.DONATOR:"") + igRank.getTag() + igRank.getNameColor() + igPlayer.getName() + " §r> " + event.getMessage());
+		event.setFormat((IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) && !igRank.isStaff()? PlayerTags.DONATOR:"") + igRank.getTag() + igRank.getNameColor() + igPlayer.getName() + " §r> " + event.getMessage());
 	}
 }
