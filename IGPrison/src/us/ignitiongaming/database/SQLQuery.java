@@ -3,6 +3,9 @@ package us.ignitiongaming.database;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
 /**
  * Create an acceptable SQLQuery dynamically.
  */
@@ -225,6 +228,16 @@ public class SQLQuery {
 	 */
 	public void addID(int ID) {
 		addWhere("ID", ID);
+	}
+	
+	public void logQuery() {
+		generateQuery();
+		Bukkit.getLogger().log(Level.INFO, "Query: " + query);
+	}
+	
+	public void broadcastQuery() {
+		generateQuery();
+		Bukkit.broadcast(query, "igprison.staff");
 	}
 
 	public enum CombinationType {

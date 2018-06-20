@@ -2,7 +2,7 @@ package us.ignitiongaming.enums;
 
 public enum SignOres {
 
-IRON ("Iron"), GOLD ("Gold"), DIAMOND ("Diamond"), EMERALD ("Emerald");
+IRON ("IRON"), GOLD ("GOLD"), DIAMOND ("DIAMOND"), EMERALD ("EMERALD");
 	
 	private String name;
 	

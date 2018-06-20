@@ -9,11 +9,17 @@ import us.ignitiongaming.command.AdminCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
 import us.ignitiongaming.command.RankupCommand;
+import us.ignitiongaming.command.SmeltCommand;
+import us.ignitiongaming.command.SolitaryCommand;
+import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.config.ServerDefaults;
+import us.ignitiongaming.event.player.InteractSellSignEvent;
+import us.ignitiongaming.event.player.PlaceSellSignEvent;
 import us.ignitiongaming.event.player.PlayerChatEvent;
 import us.ignitiongaming.event.player.PlayerRecordEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
 import us.ignitiongaming.event.server.ServerListEvent;
+import us.ignitiongaming.event.solitary.VerifySolitaryEvent;
 
 
 public class IGPrison extends JavaPlugin {	
@@ -27,10 +33,14 @@ public class IGPrison extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new PlayerRecordEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new ServerListEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerChatEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new VerifySolitaryEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new InteractSellSignEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new PlaceSellSignEvent(), this);
 		
 		/* Commands */
 		// -- Help Command --
 		this.getCommand("ighelp").setExecutor(new HelpCommand());
+		this.getCommand("now").setExecutor(new HelpCommand());
 		
 		// -- Donator Commands --
 		this.getCommand("donate").setExecutor(new DonatorCommand());
@@ -43,6 +53,18 @@ public class IGPrison extends JavaPlugin {
 		
 		// -- Rankup Command --
 		this.getCommand("rankup").setExecutor(new RankupCommand());
+		
+		// -- Teleport Commands --
+		this.getCommand("spawn").setExecutor(new TeleportCommand());
+		this.getCommand("warp").setExecutor(new TeleportCommand());
+		this.getCommand("setspawn").setExecutor(new TeleportCommand());
+		
+		// -- Solitary Commands --
+		this.getCommand("solitary").setExecutor(new SolitaryCommand());
+		this.getCommand("solitarylist").setExecutor(new SolitaryCommand());
+		
+		// -- Smelt Command --
+		this.getCommand("smelt").setExecutor(new SmeltCommand());
 	}
 	
 	public void onDisable() {

@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import us.ignitiongaming.config.GlobalMessages;
+import us.ignitiongaming.util.convert.DateConverter;
 
 public class HelpCommand implements CommandExecutor{
 
@@ -17,7 +18,12 @@ public class HelpCommand implements CommandExecutor{
 				// [/ighelp]
 				if (lbl.equalsIgnoreCase("ighelp")) {
 					player.sendMessage(GlobalMessages.UNDER_CONSTRUCTION);
-				}				
+				}
+				
+				// [/now] -> Display the time...
+				if (lbl.equalsIgnoreCase("now")) {
+					player.sendMessage("§eCurrent Time: §f" + DateConverter.toFriendlyDate(DateConverter.getCurrentTimeString()));
+				}
 			}
 		} catch (Exception ex) {
 			

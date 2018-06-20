@@ -1,5 +1,7 @@
 package us.ignitiongaming.event.player;
 
+import net.md_5.bungee.api.ChatColor;
+
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -7,8 +9,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import us.ignitiongaming.config.ServerDefaults;
+import us.ignitiongaming.config.SignTags;
 import us.ignitiongaming.enums.SignOres;
 
 public class InteractSellSignEvent implements Listener {
@@ -24,16 +28,22 @@ public class InteractSellSignEvent implements Listener {
 				//Verify if the user is right clicking a sign.
 				if (event.getClickedBlock().getState() instanceof Sign)
 				{
-					
+					//Example sign...
+					/*
+					 * 0 -> "[Sell]"
+					 * 1 -> $10.00
+					 * 2 -> Iron
+					 */
 					//Sign found... Verify it's a pickaxe sign
 					Sign sign = (Sign) event.getClickedBlock().getState();
 					Player player = (Player) event.getPlayer();
-					if (sign.getLine(0).equalsIgnoreCase("[Sell]"))
-					{
-						double price = Double.parseDouble(sign.getLine(1).replace("$", "").replace(",", ""));
-						SignOres item = SignOres.getItem(sign.getLine(2));
-					
+					player.sendMessage("Is Equal: " + sign.getLine(0).contains(SignTags.SELL));
+					if (sign.getLine(0).contains(SignTags.SELL)) {
+						double price = Double.parseDouble(ChatColor.stripColor(sign.getLine(1).replace("$", "").replace(",", "")));
+						SignOres item = SignOres.getItem(sign.getLine(2).toUpperCase());
+						player.sendMessage(item.getName());
 						int amount = removeOres(player, item);
+						player.sendMessage("Total Amount: " + amount);
 						double totalRewarded = amount * price;
 						ServerDefaults.econ.depositPlayer(player, totalRewarded);
 					}
@@ -49,40 +59,28 @@ public class InteractSellSignEvent implements Listener {
 	
 	private int removeOres(Player player, SignOres ore) {
 		int amount = 0;
+		Material material = Material.IRON_INGOT;
 		switch (ore) {
 			case IRON:
-				for (int i = 0; i < player.getInventory().getContents().length; i++) {
-					if (player.getInventory().getContents()[i].getType() == Material.IRON_INGOT) {
-						amount += player.getInventory().getContents()[i].getAmount();
-						player.getInventory().getContents()[i].setType(Material.AIR);
-					}
-				}
+				material = Material.IRON_INGOT;
 				break;
 			case GOLD:
-				for (int i = 0; i < player.getInventory().getContents().length; i++) {
-					if (player.getInventory().getContents()[i].getType() == Material.GOLD_INGOT) {
-						amount += player.getInventory().getContents()[i].getAmount();
-						player.getInventory().getContents()[i].setType(Material.AIR);
-					}
-				}
+				material = Material.GOLD_INGOT;
 				break;
 			case DIAMOND:
-				for (int i = 0; i < player.getInventory().getContents().length; i++) {
-					if (player.getInventory().getContents()[i].getType() == Material.DIAMOND) {
-						amount += player.getInventory().getContents()[i].getAmount();
-						player.getInventory().getContents()[i].setType(Material.AIR);
-					}
-				}
+				material = Material.DIAMOND;
 				break;
 			case EMERALD:
-				for (int i = 0; i < player.getInventory().getContents().length; i++) {
-					if (player.getInventory().getContents()[i].getType() == Material.EMERALD) {
-						amount += player.getInventory().getContents()[i].getAmount();
-						player.getInventory().getContents()[i].setType(Material.AIR);
-					}
-				}				
+				material = Material.EMERALD;
 				break;
 		}
+		for (int i = 0; i < player.getInventory().getSize(); i++) {
+			if (player.getInventory().getItem(i).getType() == material) {
+				amount += player.getInventory().getItem(i).getAmount();
+				player.getInventory().setItem(i, new ItemStack(Material.AIR));
+			}
+		}
+		player.sendMessage("Amount: " + amount);
 		return amount;
 	}
 	

@@ -21,3 +21,17 @@ commands:
         description: View your donation point count.
      donatorpoints:
         description: View your donation point count.
+     solitary:
+        description: Add or remove a player from solitary confinement.
+     solitarylist:
+        description: View all players in solitary.
+     spawn:
+        description: Go to spawn based on your rank.
+     setspawn:
+        description: Set the spawn of a location.
+     warp:
+        description: Warp to a location.
+     now:
+        description: The current time based on the server.
+     smelt:
+        description: Smell all of the ore in your inventory.

@@ -3,6 +3,7 @@ package us.ignitiongaming.util.convert;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 
@@ -170,5 +171,38 @@ public class DateConverter {
 	public static String compareDatesToSeconds(Date start, Date expires) {
 		long seconds = (expires.getTime()-start.getTime())/1000;
 		return seconds + " second(s)";
+	}
+	
+	public static long compareDates(Date start, Date expires) {
+		return (expires.getTime() - start.getTime());
+	}
+	
+	public static String compareDatesFriendly(Date start, Date expires) {
+		String format = "";
+		long duration = compareDates(start, expires);
+		long days = TimeUnit.MILLISECONDS.toDays(duration);
+		duration -= TimeUnit.DAYS.toMillis(days);
+
+		long hours = TimeUnit.MILLISECONDS.toHours(duration);
+		duration -= TimeUnit.HOURS.toMillis(hours);
+
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+		duration -= TimeUnit.MINUTES.toMillis(minutes);
+
+		long seconds = TimeUnit.MILLISECONDS.toSeconds(duration);
+		if (days != 0) {
+			format += days + " day(s) ";
+		}
+		if (hours != 0) {
+			format += hours + " hour(s) ";
+		}
+		if (minutes != 0) {
+			format += minutes + " minute(s) ";
+		}
+		if (seconds != 0) {
+			format += seconds + " second(s).";
+		}
+		
+		return format;
 	}
 }

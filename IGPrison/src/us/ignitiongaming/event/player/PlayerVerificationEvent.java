@@ -43,9 +43,11 @@ public class PlayerVerificationEvent implements Listener {
 			Player player = event.getPlayer();
 			IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 			
-			if (!igPlayer.getName().equalsIgnoreCase(player.getName())) {
-				igPlayer.setName(player.getName());
-				igPlayer.save();
+			if (igPlayer != null) {
+				if (!igPlayer.getName().equalsIgnoreCase(player.getName())) {
+					igPlayer.setName(player.getName());
+					igPlayer.save();
+				}
 			}
 		} catch (Exception ex) {
 			
@@ -57,9 +59,11 @@ public class PlayerVerificationEvent implements Listener {
 		try {
 			Player player = event.getPlayer();
 			IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
-			boolean isDonator = IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer);
-			if (isDonator) {
-				player.sendMessage(GlobalMessages.THANK_YOU_DONATE);
+			if (igPlayer != null) {
+				boolean isDonator = IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer);
+				if (isDonator) {
+					player.sendMessage(GlobalMessages.THANK_YOU_DONATE);
+				}
 			}
 			
 		} catch (Exception ex) {
@@ -72,9 +76,11 @@ public class PlayerVerificationEvent implements Listener {
 		try {
 			Player player = event.getPlayer();
 			IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
-			IGPlayerStats igStats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
-			igStats.setLastLogin(DateConverter.getCurrentTimeString());
-			igStats.save();
+			if (igPlayer != null) {
+				IGPlayerStats igStats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
+				igStats.setLastLogin(DateConverter.getCurrentTimeString());
+				igStats.save();
+			}
 		} catch (Exception ex) {
 			
 		}
@@ -85,10 +91,12 @@ public class PlayerVerificationEvent implements Listener {
 		try {
 			Player player = event.getPlayer();
 			IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
-			String playerIP = player.getAddress().getAddress().getHostAddress();
-			if (!igPlayer.getIP().equalsIgnoreCase(playerIP)) {
-				igPlayer.setIP(playerIP);
-				igPlayer.save();
+			if (igPlayer != null) {
+				String playerIP = player.getAddress().getAddress().getHostAddress();
+				if (!igPlayer.getIP().equalsIgnoreCase(playerIP)) {
+					igPlayer.setIP(playerIP);
+					igPlayer.save();
+				}
 			}
 		} catch (Exception ex) {
 			
