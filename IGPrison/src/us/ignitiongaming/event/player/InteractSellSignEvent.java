@@ -37,15 +37,18 @@ public class InteractSellSignEvent implements Listener {
 					//Sign found... Verify it's a pickaxe sign
 					Sign sign = (Sign) event.getClickedBlock().getState();
 					Player player = (Player) event.getPlayer();
-					player.sendMessage("Is Equal: " + sign.getLine(0).contains(SignTags.SELL));
 					if (sign.getLine(0).contains(SignTags.SELL)) {
 						double price = Double.parseDouble(ChatColor.stripColor(sign.getLine(1).replace("$", "").replace(",", "")));
-						SignOres item = SignOres.getItem(sign.getLine(2).toUpperCase());
-						player.sendMessage(item.getName());
+						
+						SignOres item = SignOres.getItem(ChatColor.stripColor(sign.getLine(2).toUpperCase()));
 						int amount = removeOres(player, item);
-						player.sendMessage("Total Amount: " + amount);
-						double totalRewarded = amount * price;
-						ServerDefaults.econ.depositPlayer(player, totalRewarded);
+						if (amount == 0) {
+							player.sendMessage(SignTags.SELL + " §4You do not have any " + item.getName().toUpperCase());
+						} else {
+							double totalRewarded = amount * price;
+							ServerDefaults.econ.depositPlayer(player, totalRewarded);
+							player.sendMessage(SignTags.SELL + " §a$" + totalRewarded + "§f was given to you.");
+						}
 					}
 				}
 			}
@@ -60,6 +63,7 @@ public class InteractSellSignEvent implements Listener {
 	private int removeOres(Player player, SignOres ore) {
 		int amount = 0;
 		Material material = Material.IRON_INGOT;
+		
 		switch (ore) {
 			case IRON:
 				material = Material.IRON_INGOT;
@@ -74,13 +78,14 @@ public class InteractSellSignEvent implements Listener {
 				material = Material.EMERALD;
 				break;
 		}
+		
 		for (int i = 0; i < player.getInventory().getSize(); i++) {
+			if (player.getInventory().getItem(i) == null) { continue; }
 			if (player.getInventory().getItem(i).getType() == material) {
 				amount += player.getInventory().getItem(i).getAmount();
 				player.getInventory().setItem(i, new ItemStack(Material.AIR));
 			}
 		}
-		player.sendMessage("Amount: " + amount);
 		return amount;
 	}
 	

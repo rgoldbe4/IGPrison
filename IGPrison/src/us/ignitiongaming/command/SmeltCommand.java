@@ -19,6 +19,7 @@ public class SmeltCommand implements CommandExecutor{
 				if (lbl.equalsIgnoreCase("smelt")) {
 					//Go through the user's inventory and smelt all in their inventory.
 					for (int i = 0; i < player.getInventory().getSize(); i++) {
+						if (player.getInventory().getItem(i) == null) { continue; }
 						Material material = player.getInventory().getItem(i).getType();
 						int amount = player.getInventory().getItem(i).getAmount();
 						if (material == Material.IRON_ORE) {
