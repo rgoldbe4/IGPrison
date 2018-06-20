@@ -9,6 +9,7 @@ import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerStats;
+import us.ignitiongaming.factory.player.IGPlayerDonatorFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
 
@@ -31,7 +32,7 @@ public class DonatorCommand implements CommandExecutor{
 					IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 					IGPlayerStats igStats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
 					if(igStats.getDonatorPoints() >= REQUIRED_POINTS){
-						//add function to set to donator
+						IGPlayerDonatorFactory.add(igPlayer);
 						player.sendMessage(GlobalTags.DONATION + "Congratulations! You have achieved the rank of donator");
 					}
 					else player.sendMessage(GlobalTags.DONATION + "You have not achieved the required ammount of donator points. You have " + igStats.getDonatorPoints() + " points but you need " + REQUIRED_POINTS + " points");
