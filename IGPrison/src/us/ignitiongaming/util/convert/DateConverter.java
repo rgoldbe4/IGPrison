@@ -144,12 +144,12 @@ public class DateConverter {
 		//FRIENDLY -> 01-21-2017 at <time>
 		date = date.split("-")[1] + "/" + date.split("-")[2] + "/" + date.split("-")[0];
 		int hour = Integer.parseInt(time.split(":")[0]);
-		boolean isAfternoon = false;
-		if (hour == 0) hour = 12;
-		if (hour > 12) {
-			hour = hour - 12;
+		boolean isAfternoon = false;		
+		if (hour >= 12) {
+			if(hour > 12) hour = hour - 12;
 			isAfternoon = true;
 		}
+		if (hour == 0) hour = 12;
 		//UPDATE: 2/19 -> Removed seconds to make the date nicer.
 		time =  hour + ":" + time.split(":")[1]; // + ":" + time.split(":")[2];
 		return date + " at " + time + " " + (isAfternoon ? "PM" : "AM") + " EST";
