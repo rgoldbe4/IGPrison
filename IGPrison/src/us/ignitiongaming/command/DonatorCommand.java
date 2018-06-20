@@ -13,6 +13,8 @@ import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
 
 public class DonatorCommand implements CommandExecutor{
+	// change this to required points and the claim donator function should work.
+	private static final int REQUIRED_POINTS = Integer.MAX_VALUE;
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String lbl, String[] args) {
@@ -26,6 +28,13 @@ public class DonatorCommand implements CommandExecutor{
 				
 				// [/claimdonator]
 				if (lbl.equalsIgnoreCase("claimdonator")) {
+					IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
+					IGPlayerStats igStats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
+					if(igStats.getDonatorPoints() >= REQUIRED_POINTS){
+						//add function to set to donator
+						player.sendMessage(GlobalTags.DONATION + "Congratulations! You have achieved the rank of donator");
+					}
+					else player.sendMessage(GlobalTags.DONATION + "You have not achieved the required ammount of donator points. You have " + igStats.getDonatorPoints() + " points but you need " + REQUIRED_POINTS + " points");
 					player.sendMessage(GlobalTags.DONATION + GlobalMessages.UNDER_CONSTRUCTION);
 				}
 				
