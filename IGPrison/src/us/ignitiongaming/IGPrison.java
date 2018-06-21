@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import us.ignitiongaming.command.AdminCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
+import us.ignitiongaming.command.LockdownCommand;
 import us.ignitiongaming.command.RankupCommand;
 import us.ignitiongaming.command.SmeltCommand;
 import us.ignitiongaming.command.SolitaryCommand;
@@ -70,6 +71,9 @@ public class IGPrison extends JavaPlugin {
 		// -- Staff Chat Command --
 		this.getCommand("sc").setExecutor(new StaffChatCommand());
 		this.getCommand("staffchat").setExecutor(new StaffChatCommand());
+		
+		// -- Lockdown Command --
+		this.getCommand("lockdown").setExecutor(new LockdownCommand());
 	}
 	
 	public void onDisable() {
