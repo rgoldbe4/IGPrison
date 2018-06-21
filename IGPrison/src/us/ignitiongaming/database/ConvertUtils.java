@@ -84,6 +84,7 @@ public class ConvertUtils {
 			}
 			return results;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}

@@ -11,6 +11,7 @@ public class QueryUtils {
 			ResultSet results = statement.executeQuery(query);
 			return results;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}
@@ -20,6 +21,7 @@ public class QueryUtils {
 			Statement statement = Database.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			return statement.execute(query);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}

@@ -29,7 +29,7 @@ public class IGLockdown extends HasID {
 			setStarted(results.getString("started"));
 			setEnded(results.getString("ended"));
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	

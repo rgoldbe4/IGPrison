@@ -27,6 +27,7 @@ public class IGPlayerStatsFactory {
 			return stats;
 			
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}
@@ -39,7 +40,7 @@ public class IGPlayerStatsFactory {
 			query.addValues(igPlayer.getId(), currentDateTime, currentDateTime);
 			query.execute();
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

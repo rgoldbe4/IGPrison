@@ -31,6 +31,7 @@ public class IGRankFactory {
 			
 			return ranks;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return ranks;
 		}
 	}
@@ -56,6 +57,7 @@ public class IGRankFactory {
 			
 			return igRank;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}
@@ -76,6 +78,7 @@ public class IGRankFactory {
 			
 			return igRank;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}

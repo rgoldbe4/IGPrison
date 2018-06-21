@@ -17,6 +17,7 @@ public class IGPlayerDonatorFactory {
 			//Donator = 1, Non-Donator = 0
 			return DatabaseUtils.getNumRows(query.getResults()) == 1;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}
@@ -34,7 +35,7 @@ public class IGPlayerDonatorFactory {
 			stats.addDonatorPoints(ServerDefaults.DEFAULT_DONATOR_PERK_POINTS);
 			stats.save();
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	
@@ -44,7 +45,7 @@ public class IGPlayerDonatorFactory {
 			query.addWhere("playerID", igPlayer.getId());
 			query.execute();
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();	
 		}
 	}
 }

@@ -26,7 +26,7 @@ public class IGPlayer extends HasID {
 			setUUID(UUID.fromString(results.getString("uuid")));
 			setIP(results.getString("ip"));
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	
@@ -63,7 +63,7 @@ public class IGPlayer extends HasID {
 				query.execute();
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

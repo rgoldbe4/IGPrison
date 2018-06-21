@@ -34,7 +34,7 @@ public class PlaceSellSignEvent implements Listener {
 				}
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

@@ -49,7 +49,7 @@ public class DonatorCommand implements CommandExecutor{
 				
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		return false;
 	}

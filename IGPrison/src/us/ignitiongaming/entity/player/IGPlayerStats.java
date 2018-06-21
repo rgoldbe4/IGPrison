@@ -26,7 +26,7 @@ public class IGPlayerStats extends HasID {
 			setLastLogin(results.getString("lastlogin"));
 			setPlayerId(results.getInt("playerId"));
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	
