@@ -1,6 +1,7 @@
 package us.ignitiongaming.config;
 
 import net.milkbowl.vault.economy.Economy;
+import us.ignitiongaming.enums.IGCells;
 import us.ignitiongaming.enums.IGLocations;
 import us.ignitiongaming.enums.IGRanks;
 
@@ -15,6 +16,7 @@ public class ServerDefaults {
 	public static final String DEFAULT_MOTD = "§6[§8I§4G§6] §8Ignition Gaming Minecraft";
 	public static final String DEFAULT_WORLD_NAME = "world";
 	public static IGLocations DEFAULT_LOCATION = IGLocations.SPAWN;
+	public static IGCells DEFAULT_CELL = IGCells.D;
 	
 	public static Economy econ;
 	

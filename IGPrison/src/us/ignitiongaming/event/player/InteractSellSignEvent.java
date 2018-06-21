@@ -56,28 +56,13 @@ public class InteractSellSignEvent implements Listener {
 		catch (Exception ex)
 		{
 			
-		}				
+		}
 			
 	}
 	
 	private int removeOres(Player player, SignOres ore) {
 		int amount = 0;
-		Material material = Material.IRON_INGOT;
-		
-		switch (ore) {
-			case IRON:
-				material = Material.IRON_INGOT;
-				break;
-			case GOLD:
-				material = Material.GOLD_INGOT;
-				break;
-			case DIAMOND:
-				material = Material.DIAMOND;
-				break;
-			case EMERALD:
-				material = Material.EMERALD;
-				break;
-		}
+		Material material = ore.toMaterial();
 		
 		for (int i = 0; i < player.getInventory().getSize(); i++) {
 			if (player.getInventory().getItem(i) == null) { continue; }

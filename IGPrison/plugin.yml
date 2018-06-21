@@ -1,7 +1,7 @@
 name: IGPrison
-version: 0.0.1
+version: 0.1.0
 description: Ignition Gaming Prison
-author: BuffsOverNexus
+author: [BuffsOverNexus, LegendForHire]
 main: us.ignitiongaming.IGPrison
 depends: [Vault]
 
@@ -10,7 +10,6 @@ commands:
         description: Access the administrative commands of Ignition Gaming.
      ighelp:
         description: Spawn a book that describes the server.
-     
      rankup:
         description: Rankup to the next level if you're still within the prison!
      donate:
