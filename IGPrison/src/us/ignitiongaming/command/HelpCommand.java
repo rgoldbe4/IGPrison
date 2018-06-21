@@ -16,12 +16,12 @@ public class HelpCommand implements CommandExecutor{
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				// [/ighelp]
-				if (lbl.equalsIgnoreCase("ighelp")) {
+				if (lbl.equalsIgnoreCase("ighelp") || player.hasPermission("igprison.ighelp")) {
 					player.sendMessage(GlobalMessages.UNDER_CONSTRUCTION);
 				}
 				
 				// [/now] -> Display the time...
-				if (lbl.equalsIgnoreCase("now")) {
+				if (lbl.equalsIgnoreCase("now") || player.hasPermission("igprison.now")) {
 					player.sendMessage("§eCurrent Time: §f" + DateConverter.toFriendlyDate(DateConverter.getCurrentTimeString()));
 				}
 			}
