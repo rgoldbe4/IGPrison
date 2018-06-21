@@ -1,5 +1,6 @@
 package us.ignitiongaming.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,6 +23,15 @@ public class RankupCommand implements CommandExecutor{
 				// [/setrank]
 				if (lbl.equalsIgnoreCase("setrank")) {
 					player.sendMessage(GlobalMessages.UNDER_CONSTRUCTION);
+					if (args.length == 2) {
+						if (player.hasPermission("igprison.staff")) {
+							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + args[0] + " group add " + args[1]);
+							player.sendMessage(args[0] + " has been added to " + args[1]);
+							
+						} else {
+							player.sendMessage(GlobalMessages.NO_PERMISSIONS);
+						}
+					}
 				}
 				
 				
