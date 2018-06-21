@@ -34,3 +34,7 @@ commands:
         description: The current time based on the server.
      smelt:
         description: Smell all of the ore in your inventory.
+     sc:
+	description: Shortcut for staffchat
+     staffchat:
+	description: toggles staffchat or sends one message to staffchat.

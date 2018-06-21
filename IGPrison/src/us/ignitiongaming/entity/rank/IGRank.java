@@ -3,6 +3,7 @@ package us.ignitiongaming.entity.rank;
 import java.sql.ResultSet;
 
 import us.ignitiongaming.entity.HasID;
+import us.ignitiongaming.enums.IGRanks;
 
 public class IGRank extends HasID {
 
@@ -36,5 +37,11 @@ public class IGRank extends HasID {
 	
 	public boolean isValid() {
 		return (!hasId() || node == null || name == null || tag == null);
+	}
+	public boolean isStaff(){
+		if(name.equals(IGRanks.GUARD)) return true;
+		if(name.equals(IGRanks.WARDEN)) return true;
+		if(name.equals(IGRanks.STAFF)) return true;
+		return false;
 	}
 }
