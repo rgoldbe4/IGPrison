@@ -31,7 +31,7 @@ public class IGPlayerStats extends HasID {
 	}
 	
 	public boolean isValid() {
-		return (!hasId() || kills == -1 || deaths == -1 || donatorPoints == -1 || joined == null || lastLogin == null);
+		return (hasId() && kills > -1 && deaths > -1 && donatorPoints > -1 && joined != null && lastLogin != null);
 	}
 	
 	public void save() {
