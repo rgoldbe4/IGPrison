@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import us.ignitiongaming.config.PlayerTags;
+import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.rank.IGRank;
 import us.ignitiongaming.enums.IGRanks;
@@ -37,6 +37,11 @@ public class PlayerChatEvent implements Listener {
 			}
 			event.setCancelled(true);
 		}		
-		else event.setFormat((IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) && !igRank.isStaff()? PlayerTags.DONATOR:"") + igRank.getTag() + igRank.getNameColor() + igPlayer.getName() + " §r> " + event.getMessage());
+		else {
+			event.setFormat(
+				(IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) && !igRank.isStaff() ? GlobalTags.DONATION : "") + 
+					igRank.getTag() + igRank.getNameColor() + igPlayer.getName() + " §r> " + event.getMessage()
+			);
+		}
 	}
 }

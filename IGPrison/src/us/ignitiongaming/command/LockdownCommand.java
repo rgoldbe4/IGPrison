@@ -1,5 +1,102 @@
 package us.ignitiongaming.command;
 
-public class LockdownCommand {
+import java.util.List;
 
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import us.ignitiongaming.config.GlobalMessages;
+import us.ignitiongaming.config.GlobalTags;
+import us.ignitiongaming.entity.lockdown.IGLockdown;
+import us.ignitiongaming.entity.player.IGPlayer;
+import us.ignitiongaming.enums.IGCells;
+import us.ignitiongaming.factory.lockdown.IGLockdownFactory;
+import us.ignitiongaming.factory.player.IGPlayerFactory;
+import us.ignitiongaming.util.convert.DateConverter;
+
+public class LockdownCommand implements CommandExecutor {
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String lbl, String[] args) {
+		try {
+			if (sender instanceof Player) {
+				Player player = (Player) sender;
+				// [/lockdown]
+				if (lbl.equalsIgnoreCase("lockdown")) {
+					player.sendMessage(GlobalMessages.UNDER_CONSTRUCTION);
+					
+					if (args.length == 0) {
+						List<IGLockdown> currentLockdowns = IGLockdownFactory.getCurrentLockdowns();
+						//Display a message for each lockdown.
+						for (IGLockdown lockdown : currentLockdowns) {
+							player.sendMessage("[[");
+							player.sendMessage("Cell: " + lockdown.getCell().getLabel());
+							player.sendMessage("Started By: " + lockdown.getStartPlayer().getName());
+							player.sendMessage("Started At: " + lockdown.getStartedFriendly());
+							player.sendMessage("]]");
+						}
+					}
+					
+					if (args.length == 1) {
+						// [/lockdown help]
+						if (args[0].equalsIgnoreCase("help")) {
+							player.sendMessage(GlobalTags.LOCKDOWN + " Commands");
+							player.sendMessage("/lockdown help -> Displays command list.");
+							player.sendMessage("/lockdown start <cell> -> Starts a lockdown in <cell>.");
+							player.sendMessage("/lockdown stop <cell> -> Ends a lockdown in <cell>");
+							player.sendMessage("/lockdown -> Show all current lockdowns.");
+							player.sendMessage("Cells: A, B, C, D");
+						}
+						
+					}
+					
+					if (args.length == 2) {
+						if (args[0].equalsIgnoreCase("start")) {
+							IGCells cell = IGCells.getCell(args[1]);
+							//Make sure the cell is not under lockdown already.
+							if (!IGLockdownFactory.isCellInLockdown(cell)) {
+								//Add the lockdown.
+								IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
+								IGLockdownFactory.add(cell.toCell(), igPlayer);
+								//Deny PVP
+								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag cell" + cell.getLabel() + "center pvp -w world deny");
+							} else {
+								player.sendMessage(GlobalTags.LOCKDOWN + "§4Cell " + args[1].toUpperCase() + " is already under lockdown!");
+							}
+						}
+						
+						if (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("end")) {
+							IGCells cell = IGCells.getCell(args[1]);
+							//Make sure the cell is under lockdown already.
+							if (IGLockdownFactory.isCellInLockdown(cell)) {
+								IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
+								List<IGLockdown> currentLockdowns = IGLockdownFactory.getCurrentLockdowns();
+								//Go through all of the current lockdowns and find the cell... Then... Add an "end".
+								for (IGLockdown lockdown : currentLockdowns) {
+									if (lockdown.getCell().getLabel().equalsIgnoreCase(cell.getLabel())) {
+										//Allow PVP
+										Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag cell" + cell.getLabel() + "center pvp -w world allow");
+										lockdown.setEndId(igPlayer);
+										lockdown.setEnded(DateConverter.getCurrentTime());
+										lockdown.save();
+									}
+								}
+							} else {
+								player.sendMessage(GlobalTags.LOCKDOWN + "§4Cell " + args[1].toUpperCase() + " is not under lockdown.");
+							}
+						}
+					}
+				}
+				
+			}
+		} catch (Exception ex) {
+			
+		}
+		return false;
+	}
+	
+	
 }

@@ -80,10 +80,12 @@ public class IGLockdown extends HasID {
 	public Date getStartedDate() { return DateConverter.convertStringDateTimeToDate(started); }
 	public void setStarted(String started) { this.started = started; }
 	public void setStarted(Date started) { this.started = DateConverter.convertDateToString(started); }
+	public String getStartedFriendly() { return DateConverter.toFriendlyDate(started); }
 	
 	public String getEnded() { return ended; }
 	public Date getEndedDate() { return DateConverter.convertStringDateTimeToDate(ended); }
 	public void setEnded(String ended) { this.ended = ended; }
 	public void setEnded(Date ended) { this.ended = DateConverter.convertDateToString(ended); }
+	public String getEndedFriendly() { return DateConverter.toFriendlyDate(ended); }
 	
 }
