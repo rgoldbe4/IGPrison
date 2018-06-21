@@ -18,6 +18,7 @@ import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerRankFactory;
 import us.ignitiongaming.factory.rank.IGRankFactory;
 import us.ignitiongaming.singleton.IGSingleton;
+import us.ignitiongaming.util.convert.ChatConverter;
 
 public class PlayerChatEvent implements Listener {
 	
@@ -25,15 +26,18 @@ public class PlayerChatEvent implements Listener {
 	public static void onPlayerTalk(AsyncPlayerChatEvent event) {
 		ArrayList<UUID> staffchat = IGSingleton.getInstance().getStaffChatters();
 		
+		//Add color coding.
+		event.setMessage(ChatConverter.convertToColor(event.getMessage()));
+		
 		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(event.getPlayer());
 		IGRank igRank = IGPlayerRankFactory.getIGPlayerRank(igPlayer);
-		if(staffchat.contains(igPlayer.getUUID())){	
+		if( staffchat.contains(event.getPlayer().getUniqueId()) ){	
 			IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 			IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 			IGRank warden = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 			for (Player online : Bukkit.getOnlinePlayers()){
 				if( online.hasPermission(staff.getNode()) || online.hasPermission(guard.getNode()) || online.hasPermission(warden.getNode()) ) 
-					online.sendMessage("§b" + online.getName() + ": " + event.getMessage());
+					online.sendMessage("§b" + online.getName() + ": §f" + event.getMessage());
 			}
 			event.setCancelled(true);
 		}		

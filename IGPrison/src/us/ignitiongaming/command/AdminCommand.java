@@ -58,6 +58,7 @@ public class AdminCommand implements CommandExecutor{
 							player.sendMessage("IP: " + igPlayer.getIP());
 							
 						}
+						
 					}
 					
 				}

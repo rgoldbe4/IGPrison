@@ -57,7 +57,9 @@ public class SQLQuery {
 		}
 	}
 	public void addWhere(String column, Object condition, CombinationType type) {
-		whereColumns.add(column); whereValues.add(condition); whereTypes.add(type);
+		whereColumns.add(column); 
+		whereValues.add(condition);
+		whereTypes.add(type);
 	}
 	/**
 	 * This should work for only VALUES clause.
@@ -157,7 +159,7 @@ public class SQLQuery {
 			if (whereColumns.size() > 0) {
 				query += " WHERE ";
 				for (int i = 0; i < whereColumns.size(); i++) {
-					query += whereColumns.get(i) + "='" + whereValues.get(i) + "'";
+					query += whereColumns.get(i) + (whereValues.get(i) != null ? "='" + whereValues.get(i) + "'" : " IS NULL");
 					if (!ConvertUtils.isLastIndex(i, whereColumns.size())) {
 						query += (whereTypes.get(i) == CombinationType.AND ? " AND " : " OR ");
 					}
@@ -178,7 +180,7 @@ public class SQLQuery {
 			if (whereColumns.size() == 0 || whereColumns.size() != whereValues.size()) return;
 			query += " WHERE ";
 			for (int i = 0; i < whereColumns.size(); i++) {
-				query += whereColumns.get(i) + "='" + whereValues.get(i) + "'";
+				query += whereColumns.get(i) + (whereValues.get(i) != null ? "='" + whereValues.get(i) + "'" : " IS NULL");
 				if (!ConvertUtils.isLastIndex(i, whereColumns.size())) {
 					query += (whereTypes.get(i) == CombinationType.AND ? " AND " : " OR ");
 				}
@@ -214,7 +216,7 @@ public class SQLQuery {
 			if (whereColumns.size() == 0 || whereColumns.size() != whereValues.size()) return;
 			query += " WHERE ";
 			for (int i = 0; i < whereColumns.size(); i++) {
-				query += whereColumns.get(i) + "='" + whereValues.get(i) + "'";
+				query += whereColumns.get(i) + (whereValues.get(i) != null ? "='" + whereValues.get(i) + "'" : " IS NULL");
 				if (!ConvertUtils.isLastIndex(i, whereColumns.size())) {
 					query += (whereTypes.get(i) == CombinationType.AND ? " AND " : " OR ");
 				}

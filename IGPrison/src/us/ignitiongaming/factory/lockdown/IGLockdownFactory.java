@@ -22,6 +22,8 @@ public class IGLockdownFactory {
 			//Step 1: Grab all lockdowns where ended is null.
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGLockdown.TABLE_NAME);
 			query.addWhere("ended", null);
+			query.broadcastQuery();
+			query.logQuery();
 			ResultSet results = query.getResults();
 			
 			while (results.next()) {
@@ -59,7 +61,12 @@ public class IGLockdownFactory {
 	
 	public static boolean isCellInLockdown(IGCells igCells) {
 		try {
-			return igCells.toCell() != null;
+			List<IGLockdown> lockdowns = getCurrentLockdowns();
+			for (IGLockdown lockdown : lockdowns) {
+				if (lockdown.getCell().getLabel().equalsIgnoreCase(igCells.getLabel()))
+					return true;
+			}
+			return false;
 		} catch (Exception ex) {
 			return false;
 		}

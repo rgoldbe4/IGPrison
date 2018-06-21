@@ -8,7 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.entity.lockdown.IGLockdown;
 import us.ignitiongaming.entity.player.IGPlayer;
@@ -26,17 +25,18 @@ public class LockdownCommand implements CommandExecutor {
 				Player player = (Player) sender;
 				// [/lockdown]
 				if (lbl.equalsIgnoreCase("lockdown")) {
-					player.sendMessage(GlobalMessages.UNDER_CONSTRUCTION);
 					
 					if (args.length == 0) {
 						List<IGLockdown> currentLockdowns = IGLockdownFactory.getCurrentLockdowns();
+						
+						if (currentLockdowns.size() == 0) player.sendMessage(GlobalTags.LOCKDOWN + "§cNo current lockdowns.");
 						//Display a message for each lockdown.
 						for (IGLockdown lockdown : currentLockdowns) {
-							player.sendMessage("[[");
-							player.sendMessage("Cell: " + lockdown.getCell().getLabel());
-							player.sendMessage("Started By: " + lockdown.getStartPlayer().getName());
-							player.sendMessage("Started At: " + lockdown.getStartedFriendly());
-							player.sendMessage("]]");
+							player.sendMessage("§8[[");
+							player.sendMessage("§eCell: §f" + lockdown.getCell().getLabel());
+							player.sendMessage("§eStarted By: §f" + lockdown.getStartPlayer().getName());
+							player.sendMessage("§eStarted At: §f" + lockdown.getStartedFriendly());
+							player.sendMessage("§8]]");
 						}
 					}
 					
@@ -44,11 +44,11 @@ public class LockdownCommand implements CommandExecutor {
 						// [/lockdown help]
 						if (args[0].equalsIgnoreCase("help")) {
 							player.sendMessage(GlobalTags.LOCKDOWN + " Commands");
-							player.sendMessage("/lockdown help -> Displays command list.");
-							player.sendMessage("/lockdown start <cell> -> Starts a lockdown in <cell>.");
-							player.sendMessage("/lockdown stop <cell> -> Ends a lockdown in <cell>");
-							player.sendMessage("/lockdown -> Show all current lockdowns.");
-							player.sendMessage("Cells: A, B, C, D");
+							player.sendMessage("§7§o/lockdown help ->§r Displays command list.");
+							player.sendMessage("§7§o/lockdown start <cell> ->§r Starts a lockdown in <cell>.");
+							player.sendMessage("§7§o/lockdown stop <cell> ->§r Ends a lockdown in <cell>");
+							player.sendMessage("§7§o/lockdown ->§r Show all current lockdowns.");
+							player.sendMessage("§8§lCells:§r A, B, C, D");
 						}
 						
 					}

@@ -30,11 +30,12 @@ public class StaffChatCommand implements CommandExecutor{
 						IGRank warden = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 						for ( Player online : Bukkit.getOnlinePlayers() ){
 							if(online.hasPermission(staff.getNode()) || online.hasPermission(guard.getNode()) || online.hasPermission(warden.getNode())) 
-								online.sendMessage("§b" + player.getName() + ": " + ConvertUtils.getStringFromCommand(1, args));
+								online.sendMessage("§b" + player.getName() + ": §f" + ConvertUtils.getStringFromCommand(0, args));
 						}
 					}
 					else {
 						igs.toggleStaffChatter(playerID);
+						player.sendMessage("§b§lToggled Staff Chat");
 					}
 				}
 				
