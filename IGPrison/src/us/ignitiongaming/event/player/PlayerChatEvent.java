@@ -31,10 +31,8 @@ public class PlayerChatEvent implements Listener {
 			IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 			IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 			IGRank warden = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
-			for (Player player : Bukkit.getOnlinePlayers()){
-				if(player.hasPermission(staff.getNode()))player.sendMessage("§a[StaffChat] §r" + igPlayer.getName() + ": " + event.getMessage());
-				if(player.hasPermission(guard.getNode()))player.sendMessage("§a[StaffChat] §r" + igPlayer.getName() + ": " + event.getMessage());
-				if(player.hasPermission(warden.getNode()))player.sendMessage("§a[StaffChat] §r" + igPlayer.getName() + ": " + event.getMessage());	
+			for (Player online : Bukkit.getOnlinePlayers()){
+				if(online.hasPermission(staff.getNode()) || online.hasPermission(guard.getNode()) || online.hasPermission(warden.getNode()) )online.sendMessage("§a[StaffChat] §r" + player.getName() + ": " + args[0]);
 			}
 			event.setCancelled(true);
 		}		

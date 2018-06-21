@@ -23,16 +23,13 @@ public class StaffChatCommand implements CommandExecutor{
 			if (sender instanceof Player) {
 				IGSingleton igs = IGSingleton.getInstance();
 				Player player = (Player) sender;
-				IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
-				UUID playerID = igPlayer.getUUID();
+				UUID playerID = player.getUniqueId();
 				if(args.length == 1){
 					IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 					IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 					IGRank warden = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
-					for (Player player2 : Bukkit.getOnlinePlayers()){
-						if(player2.hasPermission(staff.getNode()))player2.sendMessage("§a[StaffChat] §r" + igPlayer.getName() + ": " + args[0]);
-						if(player2.hasPermission(guard.getNode()))player2.sendMessage("§a[StaffChat] §r" + igPlayer.getName() + ": " + args[0]);
-						if(player2.hasPermission(warden.getNode()))player2.sendMessage("§a[StaffChat] §r" + igPlayer.getName() + ": " + args[0]);	
+					for (Player online : Bukkit.getOnlinePlayers()){
+						if(online.hasPermission(staff.getNode()) || online.hasPermission(guard.getNode()) || online.hasPermission(warden.getNode()) )online.sendMessage("§a[StaffChat] §r" + player.getName() + ": " + args[0]);
 					}
 				}
 				else{
