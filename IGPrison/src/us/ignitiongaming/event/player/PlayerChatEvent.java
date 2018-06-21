@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import us.ignitiongaming.IGSingleton;
 import us.ignitiongaming.config.PlayerTags;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.rank.IGRank;
@@ -18,6 +17,7 @@ import us.ignitiongaming.factory.player.IGPlayerDonatorFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerRankFactory;
 import us.ignitiongaming.factory.rank.IGRankFactory;
+import us.ignitiongaming.singleton.IGSingleton;
 
 public class PlayerChatEvent implements Listener {
 	

@@ -1,10 +1,7 @@
-package us.ignitiongaming;
+package us.ignitiongaming.singleton;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.UUID;
-
-import org.bukkit.entity.Player;
 
 public class IGSingleton {
 	private ArrayList<UUID> staffchatters;

@@ -8,12 +8,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import us.ignitiongaming.IGSingleton;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.rank.IGRank;
 import us.ignitiongaming.enums.IGRanks;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.rank.IGRankFactory;
+import us.ignitiongaming.singleton.IGSingleton;
 
 public class StaffChatCommand implements CommandExecutor{
 

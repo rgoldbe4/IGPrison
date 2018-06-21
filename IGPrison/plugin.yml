@@ -35,6 +35,6 @@ commands:
      smelt:
         description: Smell all of the ore in your inventory.
      sc:
-	description: Shortcut for staffchat
+        description: Shortcut for staffchat
      staffchat:
-	description: toggles staffchat or sends one message to staffchat.
+        description: toggles staffchat or sends one message to staffchat.
