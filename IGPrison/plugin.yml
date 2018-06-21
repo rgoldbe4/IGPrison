@@ -8,35 +8,55 @@ depends: [Vault]
 commands:
      iga:
         description: Access the administrative commands of Ignition Gaming.
+        permission: igprison.iga
      ighelp:
         description: Spawn a book that describes the server.
+        permission: igprison.ighelp
      rankup:
         description: Rankup to the next level if you're still within the prison!
+        permission: igprison.rankup
      donate:
         description: View the link to donate to our server!
-     claimdonator:
-        description: Claim the donator rank if you haven't already.
+        permission: igprison.donate
      points:
         description: View your donation point count.
+        permission: igprison.donatorpoints
      donatorpoints:
         description: View your donation point count.
+        permission: igprison.donatorpoints
      solitary:
         description: Add or remove a player from solitary confinement.
+        permission: igprison.solitary
      solitarylist:
         description: View all players in solitary.
+        permission: igprison.solitarylist
      spawn:
         description: Go to spawn based on your rank.
+        permission: igprison.spawn
      setspawn:
         description: Set the spawn of a location.
+        permission: igprison.setspawn
      warp:
         description: Warp to a location.
+        permission: igprison.warp
      now:
         description: The current time based on the server.
+        permission: igprison.now
      smelt:
         description: Smell all of the ore in your inventory.
+        permission: igprison.smelt
      sc:
         description: Shortcut for staffchat.
+        permission: igprison.staffchat
      staffchat:
         description: Toggles staffchat or sends one message to staffchat.
+        permission: igprison.staffchat
      lockdown:
         description: Access the lockdown feature of prison.
+        permission: igprison.lockdown
+     setrank:
+        description: Set the rank of a user.
+        permission: igprison.setrank
+     igdev:
+        description: Development commands for IG.
+        permissions: igprison.igdev

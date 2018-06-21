@@ -7,6 +7,7 @@ import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerDonator;
 import us.ignitiongaming.entity.player.IGPlayerStats;
+import us.ignitiongaming.enums.IGSettings;
 
 public class IGPlayerDonatorFactory {
 
@@ -32,7 +33,9 @@ public class IGPlayerDonatorFactory {
 			
 			// -- Add donator points to IGPlayerStats --
 			IGPlayerStats stats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
-			stats.addDonatorPoints(ServerDefaults.DEFAULT_DONATOR_PERK_POINTS);
+			stats.addDonatorPoints(
+					Integer.parseInt(ServerDefaults.getSetting(IGSettings.DEFAULT_DONATOR_POINTS).getValue().toString())
+			);
 			stats.save();
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -38,6 +38,6 @@ public class IGPlayerRank extends HasID {
 	public int getRankId() { return rankId; }
 	
 	public boolean isValid() {
-		return (!hasId() || rankId == 0 || playerId == 0);
+		return !(!hasId() || rankId == 0 || playerId == 0);
 	}
 }
