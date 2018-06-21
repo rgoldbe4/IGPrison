@@ -45,7 +45,7 @@ public class LockdownCommand implements CommandExecutor {
 					if (args.length == 1) {
 						// [/lockdown help]
 						if (args[0].equalsIgnoreCase("help")) {
-							player.sendMessage(GlobalTags.LOCKDOWN + " Commands");
+							player.sendMessage(" -- " + GlobalTags.LOCKDOWN + " --");
 							player.sendMessage("§7§o/lockdown help ->§r Displays command list.");
 							player.sendMessage("§7§o/lockdown start <cell> ->§r Starts a lockdown in <cell>.");
 							player.sendMessage("§7§o/lockdown stop <cell> ->§r Ends a lockdown in <cell>");
