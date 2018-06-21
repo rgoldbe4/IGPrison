@@ -17,7 +17,6 @@ public class IGSingleton {
 		else staffchatters.add(playerID);
 	}
 	public ArrayList<UUID> getStaffChatters() {
-		// TODO Auto-generated method stub
 		return staffchatters;
 	}
 }
