@@ -32,7 +32,7 @@ public class AdminCommand implements CommandExecutor{
 				}
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		return false;
 	}

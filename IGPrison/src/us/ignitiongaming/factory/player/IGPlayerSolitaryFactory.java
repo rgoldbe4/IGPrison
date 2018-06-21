@@ -22,6 +22,7 @@ public class IGPlayerSolitaryFactory {
 			
 			return DatabaseUtils.getNumRows(results) == 1;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}
@@ -41,6 +42,7 @@ public class IGPlayerSolitaryFactory {
 			
 			return igPlayerSolitary;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}
@@ -58,7 +60,7 @@ public class IGPlayerSolitaryFactory {
 			}
 			
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		return players;
 	}
@@ -69,7 +71,7 @@ public class IGPlayerSolitaryFactory {
 			query.addWhere("playerID", igPlayer.getId());
 			query.execute();
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	
@@ -86,7 +88,7 @@ public class IGPlayerSolitaryFactory {
 			query.addValues(igPlayer.getId(), DateConverter.getCurrentTimeString(), DateConverter.convertDateToString(end));
 			query.execute();
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

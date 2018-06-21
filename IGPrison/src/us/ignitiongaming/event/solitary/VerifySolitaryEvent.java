@@ -29,7 +29,7 @@ public class VerifySolitaryEvent implements Listener {
 			}
 			
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

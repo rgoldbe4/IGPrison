@@ -27,6 +27,7 @@ public class IGCellFactory {
 			
 			return igCell;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}
@@ -45,6 +46,7 @@ public class IGCellFactory {
 			
 			return cells;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return cells;
 		}
 	}
@@ -64,6 +66,7 @@ public class IGCellFactory {
 			
 			return cell;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}

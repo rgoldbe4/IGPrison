@@ -39,6 +39,7 @@ public class IGPlayerFactory {
 			
 			return igPlayer;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}
@@ -59,6 +60,7 @@ public class IGPlayerFactory {
 			return igPlayer;
 			
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}
@@ -94,7 +96,7 @@ public class IGPlayerFactory {
 			
 			
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

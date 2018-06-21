@@ -28,7 +28,7 @@ public class ShockBatonAttackEvent implements Listener {
 				}
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

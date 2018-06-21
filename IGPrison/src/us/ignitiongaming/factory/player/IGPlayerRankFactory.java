@@ -31,6 +31,7 @@ public class IGPlayerRankFactory {
 			
 			return rank;			
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}
@@ -60,7 +61,7 @@ public class IGPlayerRankFactory {
 			query.addValues(igPlayer.getId(), igRank.getId());
 			query.execute();			
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

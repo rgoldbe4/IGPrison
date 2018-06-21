@@ -28,6 +28,7 @@ public class IGLocationFactory {
 			
 			return location;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}

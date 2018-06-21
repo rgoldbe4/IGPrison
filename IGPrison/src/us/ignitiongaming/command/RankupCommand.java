@@ -37,7 +37,7 @@ public class RankupCommand implements CommandExecutor{
 				
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		return false;
 	}

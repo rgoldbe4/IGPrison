@@ -105,7 +105,7 @@ public class SolitaryCommand implements CommandExecutor{
 				
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		return false;
 	}

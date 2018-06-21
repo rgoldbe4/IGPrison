@@ -26,12 +26,12 @@ public class IGPlayerStats extends HasID {
 			setLastLogin(results.getString("lastlogin"));
 			setPlayerId(results.getInt("playerId"));
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	
 	public boolean isValid() {
-		return (!hasId() || kills == -1 || deaths == -1 || donatorPoints == -1 || joined == null || lastLogin == null);
+		return (hasId() && kills > -1 && deaths > -1 && donatorPoints > -1 && joined != null && lastLogin != null);
 	}
 	
 	public void save() {

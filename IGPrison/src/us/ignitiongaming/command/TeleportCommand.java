@@ -48,7 +48,7 @@ public class TeleportCommand implements CommandExecutor {
 				
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		return false;
 	}

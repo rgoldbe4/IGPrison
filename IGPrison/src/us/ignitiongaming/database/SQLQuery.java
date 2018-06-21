@@ -111,6 +111,7 @@ public class SQLQuery {
 			if ( type == QueryType.SELECT || type == QueryType.INNER_JOIN || type == QueryType.JOIN ) return false;
 			return Database.GetStatement().execute(getQuery());
 	    } catch (Exception ex) {
+	    	ex.printStackTrace();
 			return false;
 		}
 	}
@@ -123,6 +124,7 @@ public class SQLQuery {
 		try {
 			return Database.GetStatement().executeQuery(getQuery());
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 	}

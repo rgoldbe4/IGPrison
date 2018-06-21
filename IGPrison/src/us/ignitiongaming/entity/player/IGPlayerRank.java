@@ -18,7 +18,7 @@ public class IGPlayerRank extends HasID {
 			setPlayerId(results.getInt("playerID"));
 			setRankId(results.getInt("rankID"));
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	

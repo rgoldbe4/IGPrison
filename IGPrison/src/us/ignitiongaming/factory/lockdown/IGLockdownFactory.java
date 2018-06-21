@@ -32,6 +32,7 @@ public class IGLockdownFactory {
 			
 			return lockdowns;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return lockdowns;
 		}
 	}
@@ -53,6 +54,7 @@ public class IGLockdownFactory {
 			return lockdowns;
 			
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return lockdowns;
 		}
 	}
@@ -66,6 +68,7 @@ public class IGLockdownFactory {
 			}
 			return false;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}
@@ -78,7 +81,7 @@ public class IGLockdownFactory {
 			query.addValues(cell.getId(), igPlayer.getId(), DateConverter.convertDateToString(started));
 			query.execute();
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

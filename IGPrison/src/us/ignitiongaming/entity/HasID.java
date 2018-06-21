@@ -32,6 +32,7 @@ public class HasID {
 		try {
 			id = result.getInt("ID");
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			id = 0;
 		}
 	}
