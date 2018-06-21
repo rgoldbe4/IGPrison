@@ -39,9 +39,9 @@ public class IGRank extends HasID {
 		return (!hasId() || node == null || name == null || tag == null);
 	}
 	public boolean isStaff(){
-		if(name.equals("Guard")) return true;
-		if(name.equals("Warden")) return true;
-		if(name.equals("Staff")) return true;
+		if(name.equals(IGRanks.GUARD)) return true;
+		if(name.equals(IGRanks.WARDEN)) return true;
+		if(name.equals(IGRanks.STAFF)) return true;
 		return false;
 	}
 }

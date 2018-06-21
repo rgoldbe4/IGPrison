@@ -11,6 +11,7 @@ import us.ignitiongaming.command.HelpCommand;
 import us.ignitiongaming.command.RankupCommand;
 import us.ignitiongaming.command.SmeltCommand;
 import us.ignitiongaming.command.SolitaryCommand;
+import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.event.player.InteractSellSignEvent;
@@ -65,6 +66,10 @@ public class IGPrison extends JavaPlugin {
 		
 		// -- Smelt Command --
 		this.getCommand("smelt").setExecutor(new SmeltCommand());
+		
+		// -- Staff Chat Command --
+		this.getCommand("sc").setExecutor(new StaffChatCommand());
+		this.getCommand("staffchat").setExecutor(new StaffChatCommand());
 	}
 	
 	public void onDisable() {
