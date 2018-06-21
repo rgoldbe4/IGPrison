@@ -35,6 +35,19 @@ public class IGPlayerRankFactory {
 		}
 	}
 	
+	public static IGPlayerRank getIGPlayerRankFromIGPlayer(IGPlayer igPlayer) {
+		try {
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerRank.TABLE_NAME);
+			query.addWhere("playerID", igPlayer.getId());
+			IGPlayerRank igPlayerRank = new IGPlayerRank();
+			igPlayerRank.assign(query.getResults());
+			return igPlayerRank;
+		} catch (Exception ex) {
+			
+		}
+		return null;
+	}
+	
 	/**
 	 * Add a new IGPlayerRank
 	 * @param igPlayer

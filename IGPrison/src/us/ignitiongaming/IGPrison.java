@@ -6,6 +6,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.ignitiongaming.command.AdminCommand;
+import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
 import us.ignitiongaming.command.LockdownCommand;
@@ -50,7 +51,6 @@ public class IGPrison extends JavaPlugin {
 		
 		// -- Donator Commands --
 		this.getCommand("donate").setExecutor(new DonatorCommand());
-		this.getCommand("claimdonator").setExecutor(new DonatorCommand());
 		this.getCommand("points").setExecutor(new DonatorCommand());
 		this.getCommand("donatorpoints").setExecutor(new DonatorCommand());
 		
@@ -59,6 +59,7 @@ public class IGPrison extends JavaPlugin {
 		
 		// -- Rankup Command --
 		this.getCommand("rankup").setExecutor(new RankupCommand());
+		this.getCommand("setrank").setExecutor(new RankupCommand());
 		
 		// -- Teleport Commands --
 		this.getCommand("spawn").setExecutor(new TeleportCommand());
@@ -78,6 +79,9 @@ public class IGPrison extends JavaPlugin {
 		
 		// -- Lockdown Command --
 		this.getCommand("lockdown").setExecutor(new LockdownCommand());
+		
+		// -- Dev Commands (YAY!) --
+		this.getCommand("igdev").setExecutor(new DevelopmentCommand());
 	}
 	
 	public void onDisable() {
