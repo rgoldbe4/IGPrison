@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
 
@@ -18,14 +19,18 @@ public class DevelopmentCommand implements CommandExecutor {
 				// [/igdev]
 				if (lbl.equalsIgnoreCase("igdev")) {
 					
-					if (args.length == 1) {
-						
-						// [/igdev defaults]
-						if (args[0].equalsIgnoreCase("defaults")) {
-							for (IGSetting setting : ServerDefaults.settings) {
-								player.sendMessage(setting.getLabel() + " | " + setting.getValue().toString());
+					if (player.hasPermission("igprison.staff")) {
+						if (args.length == 1) {
+							
+							// [/igdev defaults]
+							if (args[0].equalsIgnoreCase("defaults")) {
+								for (IGSetting setting : ServerDefaults.settings) {
+									player.sendMessage(setting.getLabel() + " | " + setting.getValue().toString());
+								}
 							}
 						}
+					} else {
+						player.sendMessage(GlobalMessages.NO_PERMISSIONS);
 					}
 					
 				}
