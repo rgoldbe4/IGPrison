@@ -239,7 +239,7 @@ public class SQLQuery {
 	
 	public void broadcastQuery() {
 		generateQuery();
-		Bukkit.broadcast(query, "igprison.staff");
+		Bukkit.broadcastMessage(query);
 	}
 
 	public enum CombinationType {

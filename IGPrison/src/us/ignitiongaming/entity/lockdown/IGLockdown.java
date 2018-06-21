@@ -53,11 +53,11 @@ public class IGLockdown extends HasID {
 					query.addSet("ended", ended);
 					query.addSet("endID", endId);
 				}
-				
+
 				query.execute();
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	

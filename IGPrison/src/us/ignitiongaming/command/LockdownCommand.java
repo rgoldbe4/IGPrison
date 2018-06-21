@@ -12,8 +12,10 @@ import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.entity.lockdown.IGLockdown;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.enums.IGCells;
+import us.ignitiongaming.enums.IGRanks;
 import us.ignitiongaming.factory.lockdown.IGLockdownFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
+import us.ignitiongaming.factory.rank.IGRankFactory;
 import us.ignitiongaming.util.convert.DateConverter;
 
 public class LockdownCommand implements CommandExecutor {
@@ -63,6 +65,7 @@ public class LockdownCommand implements CommandExecutor {
 								IGLockdownFactory.add(cell.toCell(), igPlayer);
 								//Deny PVP
 								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag cell" + cell.getLabel() + "center pvp -w world deny");
+								Bukkit.broadcastMessage(GlobalTags.LOCKDOWN + "§4Cell " + IGRankFactory.getIGRankByRank(IGRanks.valueOf(args[1].toUpperCase())).getTag() + "§cis under lockdown!");
 							} else {
 								player.sendMessage(GlobalTags.LOCKDOWN + "§4Cell " + args[1].toUpperCase() + " is already under lockdown!");
 							}
@@ -70,6 +73,7 @@ public class LockdownCommand implements CommandExecutor {
 						
 						if (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("end")) {
 							IGCells cell = IGCells.getCell(args[1]);
+							
 							//Make sure the cell is under lockdown already.
 							if (IGLockdownFactory.isCellInLockdown(cell)) {
 								IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
@@ -79,9 +83,10 @@ public class LockdownCommand implements CommandExecutor {
 									if (lockdown.getCell().getLabel().equalsIgnoreCase(cell.getLabel())) {
 										//Allow PVP
 										Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag cell" + cell.getLabel() + "center pvp -w world allow");
-										lockdown.setEndId(igPlayer);
+										lockdown.setEndId(igPlayer.getId());
 										lockdown.setEnded(DateConverter.getCurrentTime());
 										lockdown.save();
+										Bukkit.broadcastMessage(GlobalTags.LOCKDOWN + "§aCell " + IGRankFactory.getIGRankByRank(IGRanks.valueOf(args[1].toUpperCase())).getTag() + "§anow longer under lockdown!");
 									}
 								}
 							} else {

@@ -22,8 +22,6 @@ public class IGLockdownFactory {
 			//Step 1: Grab all lockdowns where ended is null.
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGLockdown.TABLE_NAME);
 			query.addWhere("ended", null);
-			query.broadcastQuery();
-			query.logQuery();
 			ResultSet results = query.getResults();
 			
 			while (results.next()) {

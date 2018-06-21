@@ -22,7 +22,7 @@ public class HasID {
 	}
 	
 	public boolean hasId() {
-		return id == 0;
+		return !(id == 0);
 	}
 	/**
 	 * Set the ID based on a singular ResultSet.
