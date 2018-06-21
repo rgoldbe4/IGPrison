@@ -12,7 +12,7 @@ import us.ignitiongaming.event.other.IGSettingFactory;
 
 public class ServerDefaults {
 
-	private static List<IGSetting> settings = IGSettingFactory.getSettings();
+	public static List<IGSetting> settings = IGSettingFactory.getSettings();
 	
 	public static IGSetting getSetting(IGSettings label) {
 		for (IGSetting setting : settings) {
@@ -20,6 +20,7 @@ public class ServerDefaults {
 		}
 		return settings.get(0);
 	}
+	
 	
 	public static IGRanks DEFAULT_RANK = IGRanks.D;
 	@Deprecated
