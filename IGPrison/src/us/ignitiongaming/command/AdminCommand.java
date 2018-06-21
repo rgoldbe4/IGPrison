@@ -15,6 +15,7 @@ import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerRankFactory;
 import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
 import us.ignitiongaming.factory.rank.IGRankFactory;
+import us.ignitiongaming.util.items.GuardShockBaton;
 
 public class AdminCommand implements CommandExecutor{
 
@@ -57,6 +58,10 @@ public class AdminCommand implements CommandExecutor{
 							player.sendMessage("Is Donator: " + isDonator);
 							player.sendMessage("IP: " + igPlayer.getIP());
 							
+						}
+						
+						if (args[0].equalsIgnoreCase("shock")) {
+							player.getInventory().setItemInMainHand(new GuardShockBaton().getBaton());
 						}
 						
 					}

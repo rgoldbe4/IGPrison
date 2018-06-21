@@ -52,6 +52,15 @@ public class DateConverter {
 		return "Invalid context";
 	}
 	
+	public static Date convertSingleArgumentContextToDate(String context) {
+		Date currentDate = getCurrentTime();
+		String[] contexts = context.split("|");
+		for (String con : contexts) {
+			currentDate = addTimeFromString(currentDate, con);
+		}
+		return currentDate;
+	}
+	
 	public static boolean isValidContext(String context) {
 		try {
 			if (context.contains("d") || context.contains("D")) {

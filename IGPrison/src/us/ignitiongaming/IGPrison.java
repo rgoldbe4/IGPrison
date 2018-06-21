@@ -16,6 +16,7 @@ import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.event.other.FancySignEvent;
+import us.ignitiongaming.event.other.ShockBatonAttackEvent;
 import us.ignitiongaming.event.player.InteractSellSignEvent;
 import us.ignitiongaming.event.player.PlaceSellSignEvent;
 import us.ignitiongaming.event.player.PlayerChatEvent;
@@ -40,6 +41,7 @@ public class IGPrison extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new InteractSellSignEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PlaceSellSignEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new FancySignEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new ShockBatonAttackEvent(), this);
 		
 		/* Commands */
 		// -- Help Command --
