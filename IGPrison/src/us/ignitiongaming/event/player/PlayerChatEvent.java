@@ -37,6 +37,11 @@ public class PlayerChatEvent implements Listener {
 			}
 			event.setCancelled(true);
 		}		
-		else event.setFormat((IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) && !igRank.isStaff()? PlayerTags.DONATOR:"") + igRank.getTag() + igRank.getNameColor() + igPlayer.getName() + " §r> " + event.getMessage());
+		else {
+			event.setFormat(
+				(IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) && !igRank.isStaff() ? PlayerTags.DONATOR : "") + 
+					igRank.getTag() + igRank.getNameColor() + igPlayer.getName() + " §r> " + event.getMessage()
+			);
+		}
 	}
 }
