@@ -36,7 +36,7 @@ public class LockdownCommand implements CommandExecutor {
 							player.sendMessage("§eCell: §f" + lockdown.getCell().getLabel());
 							player.sendMessage("§eStarted By: §f" + lockdown.getStartPlayer().getName());
 							player.sendMessage("§eStarted At: §f" + lockdown.getStartedFriendly());
-							player.sendMessage("§8]]");
+							player.sendMessage("§8]]"); 
 						}
 					}
 					
