@@ -55,7 +55,7 @@ public class InteractSellSignEvent implements Listener {
 		}
 		catch (Exception ex)
 		{
-			
+			ex.printStackTrace();
 		}
 			
 	}

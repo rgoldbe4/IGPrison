@@ -17,7 +17,7 @@ public class IGCell extends HasID {
 			setId(results);
 			setLabel(results.getString("label"));			
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	

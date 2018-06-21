@@ -26,7 +26,7 @@ public class HelpCommand implements CommandExecutor{
 				}
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		return false;
 	}

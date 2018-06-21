@@ -15,7 +15,7 @@ public class FancySignEvent implements Listener {
 				event.setLine(i, ChatConverter.convertToColor(event.getLine(i)));
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

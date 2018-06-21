@@ -15,7 +15,7 @@ public class IGPlayerDonator extends HasID {
 			setId(results.getInt("ID"));
 			setPlayerId(results.getInt("playerID"));
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	

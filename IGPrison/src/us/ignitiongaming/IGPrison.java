@@ -15,6 +15,7 @@ import us.ignitiongaming.command.SmeltCommand;
 import us.ignitiongaming.command.SolitaryCommand;
 import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.TeleportCommand;
+import us.ignitiongaming.command.LockdownCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.event.other.FancySignEvent;
 import us.ignitiongaming.event.other.ShockBatonAttackEvent;

@@ -26,7 +26,7 @@ public class IGLocation extends HasID {
 			setY(results.getInt("y"));
 			setZ(results.getInt("z"));
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	

@@ -20,7 +20,7 @@ public class IGPlayerSolitary extends HasID {
 			setStart(results.getString("start"));
 			setEnd(results.getString("end"));
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	

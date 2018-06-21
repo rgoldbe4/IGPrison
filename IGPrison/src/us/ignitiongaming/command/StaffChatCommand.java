@@ -41,7 +41,7 @@ public class StaffChatCommand implements CommandExecutor{
 				
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		return false;
 	}

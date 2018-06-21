@@ -19,7 +19,7 @@ public class IGRank extends HasID {
 			setTag(results.getString("tag"));
 			setNameColor(results.getString("namecolor"));
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	

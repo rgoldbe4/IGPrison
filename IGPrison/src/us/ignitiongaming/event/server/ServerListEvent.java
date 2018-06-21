@@ -16,7 +16,7 @@ public class ServerListEvent implements Listener {
 			//event.setMotd(ServerDefaults.DEFAULT_MOTD);
 		}
 		catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }

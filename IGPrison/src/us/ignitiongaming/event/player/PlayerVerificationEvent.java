@@ -33,7 +33,7 @@ public class PlayerVerificationEvent implements Listener {
 				IGPlayerFactory.add(player);
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class PlayerVerificationEvent implements Listener {
 				}
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	
@@ -67,7 +67,7 @@ public class PlayerVerificationEvent implements Listener {
 			}
 			
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	
@@ -82,7 +82,7 @@ public class PlayerVerificationEvent implements Listener {
 				igStats.save();
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 	
@@ -99,7 +99,7 @@ public class PlayerVerificationEvent implements Listener {
 				}
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 	}
 }
