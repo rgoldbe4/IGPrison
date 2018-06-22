@@ -23,8 +23,8 @@ public class IGSKickBanCommand implements CommandExecutor {
 		try{
 		if (sender instanceof Player) {
 			Player kicker = (Player) sender;
-			Player kicked = Bukkit.getPlayer(args[0]);
 			if(lbl.contains("ban") && args.length == 3){
+				Player kicked = Bukkit.getPlayer(args[0]);
 				int days = 0;
 				int hours = 0;
 				int minutes = 0;
@@ -57,9 +57,10 @@ public class IGSKickBanCommand implements CommandExecutor {
 				}
 			}
 			if(lbl.contains("kick") && args.length == 2){
+				Player kicked = Bukkit.getPlayer(args[0]);
 				String message = kicker.getName() + " kicked" + args[0] + " for " + args[1];
 				Bukkit.getPlayer(args[0]).kickPlayer("kicked for " + args[1]);
-				IGPlayerKickedFactory.add(IGPlayerFactory.getIGPlayerByPlayer(kicked), args[2], IGPlayerFactory.getIGPlayerByPlayer(kicker));
+				IGPlayerKickedFactory.add(IGPlayerFactory.getIGPlayerByPlayer(kicked), args[1], IGPlayerFactory.getIGPlayerByPlayer(kicker));
 				if (lbl.contains("s")){
 					IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 					IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
