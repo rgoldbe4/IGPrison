@@ -31,11 +31,11 @@ public class IGPlayerBannedFactory {
 		}
 	}
 	
-	public static void add(IGPlayer igPlayer, Date start, Date end, String reason) {
+	public static void add(IGPlayer igPlayer, Date start, Date end, String reason, IGPlayer staff) {
 		try {
 			SQLQuery query = new SQLQuery(QueryType.INSERT, IGPlayerBanned.TABLE_NAME);
-			query.addGrabColumns("playerID", "banStart", "banEnd", "Reason");
-			query.addValues(igPlayer.getId(), start, end, reason);
+			query.addGrabColumns("playerID", "staffID", "banStart", "banEnd", "Reason");
+			query.addValues(igPlayer.getId(), staff, start, end, reason);
 			query.execute();			
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.entity.rank.IGRank;
 import us.ignitiongaming.enums.IGRanks;
+import us.ignitiongaming.factory.player.IGPlayerBannedFactory;
+import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.rank.IGRankFactory;
 
 public class IGSKickBanCommand implements CommandExecutor {
@@ -20,7 +22,8 @@ public class IGSKickBanCommand implements CommandExecutor {
 		// TODO Auto-generated method stub
 		try{
 		if (sender instanceof Player) {
-			Player player = (Player) sender;
+			Player kicker = (Player) sender;
+			Player kicked = Bukkit.getPlayer(args[0]);
 			if(lbl.contains("ban") && args.length == 3){
 				int days = 0;
 				int hours = 0;
@@ -33,8 +36,11 @@ public class IGSKickBanCommand implements CommandExecutor {
 					if(s.endsWith("m"))minutes = Integer.parseInt(s.substring(0, s.length()-2));
 					if(s.endsWith("s"))seconds = Integer.parseInt(s.substring(0, s.length()-2));
 				}
-				long end = start + 
-				String message = player.getName() + " banned " + args[0] + " for " + days + " days, " +  hours + " hours, " + minutes + " minutes, and" + seconds + " seconds for " + args[2];
+				long end = start + ((((days*24)+hours)*60+minutes)*60+seconds)*1000;
+				Date startDate = new Date(start);
+				Date endDate = new Date(end);
+				IGPlayerBannedFactory.add(IGPlayerFactory.getIGPlayerByPlayer(kicked), startDate, endDate, args[2], IGPlayerFactory.getIGPlayerByPlayer(kicker));
+				String message = kicker.getName() + " banned " + args[0] + " for " + days + " days, " +  hours + " hours, " + minutes + " minutes, and" + seconds + " seconds for " + args[2];
 				if (lbl.contains("s")){
 					IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 					IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
@@ -51,7 +57,7 @@ public class IGSKickBanCommand implements CommandExecutor {
 				}
 			}
 			if(lbl.contains("kick") && args.length == 2){
-				String message = player.getName() + " kicked" + args[0] + " for " + args[1];
+				String message = kicker.getName() + " kicked" + args[0] + " for " + args[1];
 				Bukkit.getPlayer(args[0]).kickPlayer("kicked for " + args[1]);
 				if (lbl.contains("s")){
 					IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
