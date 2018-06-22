@@ -36,7 +36,7 @@ public class DevelopmentCommand implements CommandExecutor {
 				}
 			}
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		return false;
 	}
