@@ -66,3 +66,15 @@ commands:
      bring:
         description: Bring player(s) to you!
         permission: igprison.bring
+     igkick:
+        description: kicks a player
+        permission: igprison.kick
+     igskick:
+        description: kicks a player silently
+        permission: igprison.skick
+     igban:
+        description: bans a player
+        permission: igprison.ban
+     igsban:
+        description: bans a player silently
+        permission: igprison.ban
