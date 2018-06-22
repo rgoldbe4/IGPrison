@@ -42,4 +42,21 @@ public class IGPlayerBannedFactory {
 			ex.printStackTrace();
 		}
 	}
+
+	public static String getBanDate(IGPlayer igPlayer) {
+		try {
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerBanned.TABLE_NAME);
+			query.addWhere("playerID", igPlayer.getId());
+			ResultSet bans = query.getResults();
+			Date latestDate = DateUtils.parseDate(bans.getString(2));
+			while(bans.next()){
+				latestDate = (DateUtils.parseDate(bans.getString(2)).after(latestDate)) ? DateUtils.parseDate(bans.getString(2)) : latestDate;
+			}	
+			return latestDate.toString();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+	}
 }
