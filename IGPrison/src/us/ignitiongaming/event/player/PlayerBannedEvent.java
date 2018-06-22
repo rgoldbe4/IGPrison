@@ -1,7 +1,5 @@
 package us.ignitiongaming.event.player;
 
-import java.util.Date;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,9 +15,8 @@ public class PlayerBannedEvent implements Listener {
 		Player player = event.getPlayer();
 		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 		if(igPlayer != null){
-			Date banDate = IGPlayerBannedFactory.isBanned(igPlayer);
-			if(banDate != null){
-				player.kickPlayer("You have been banned until " + banDate.toString());
+			if(IGPlayerBannedFactory.isBanned(igPlayer)){
+				player.kickPlayer("You have been banned until " + IGPlayerBannedFactory.getBanDate(igPlayer));
 			}
 		}
 	}

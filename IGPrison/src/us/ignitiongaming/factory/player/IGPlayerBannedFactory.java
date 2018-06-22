@@ -59,4 +59,5 @@ public class IGPlayerBannedFactory {
 				return null;
 			}
 	}
+
 }
