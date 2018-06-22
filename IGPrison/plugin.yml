@@ -59,4 +59,10 @@ commands:
         permission: igprison.setrank
      igdev:
         description: Development commands for IG.
-        permissions: igprison.igdev
+        permission: igprison.igdev
+     goto:
+        description: Go to a player!
+        permission: igprison.goto
+     bring:
+        description: Bring player(s) to you!
+        permission: igprison.bring
