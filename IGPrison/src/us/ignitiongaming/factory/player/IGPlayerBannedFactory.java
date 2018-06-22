@@ -35,7 +35,7 @@ public class IGPlayerBannedFactory {
 		try {
 			SQLQuery query = new SQLQuery(QueryType.INSERT, IGPlayerBanned.TABLE_NAME);
 			query.addGrabColumns("playerID", "staffID", "banStart", "banEnd", "Reason");
-			query.addValues(igPlayer.getId(), staff, start, end, reason);
+			query.addValues(igPlayer.getId(), staff.getId(), start, end, reason);
 			query.execute();			
 		} catch (Exception ex) {
 			ex.printStackTrace();
