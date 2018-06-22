@@ -77,4 +77,4 @@ commands:
         permission: igprison.ban
      igsban:
         description: bans a player silently
-        permission: igprison.ban
+        permission: igprison.sban
