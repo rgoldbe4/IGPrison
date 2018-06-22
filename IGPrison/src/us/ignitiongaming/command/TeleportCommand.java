@@ -1,11 +1,13 @@
 package us.ignitiongaming.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.entity.other.IGLocation;
 import us.ignitiongaming.enums.IGLocations;
 import us.ignitiongaming.factory.other.IGLocationFactory;
@@ -41,6 +43,38 @@ public class TeleportCommand implements CommandExecutor {
 					IGLocation igLoc = IGLocationFactory.getLocationByIGLocations(IGLocations.SPAWN);
 					igLoc.fromLocation(plLoc);
 					igLoc.save();
+				}
+				
+				// [/goto <player>]
+				if (lbl.equalsIgnoreCase("goto")) {
+					
+					if (args.length == 1) {
+						Player target = Bukkit.getPlayer(args[0]);
+						if (target != null) {
+							player.teleport(target);
+							target.sendMessage(player.getName() + " has teleported to you.");
+							player.sendMessage("You have teleported to " + target.getName());
+						} else {
+							player.sendMessage("The player you request was offline.");
+						}
+					} else {
+						player.sendMessage(GlobalMessages.INVALID_COMMAND);
+					}
+				}
+				
+				if (lbl.equalsIgnoreCase("bring")) {
+					
+					if (args.length > 0) {
+						for (String arg : args) {
+							Player target = Bukkit.getPlayer(arg);
+							if (target != null) {
+								target.teleport(player);
+								target.sendMessage(player.getName() + " has teleported you to them!");
+							} else {
+								player.sendMessage("The player, "  + arg + ", is offline.");
+							}
+						}
+					}
 				}
 				
 			
