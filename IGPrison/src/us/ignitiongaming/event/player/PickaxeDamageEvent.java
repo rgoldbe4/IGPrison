@@ -19,7 +19,6 @@ public class PickaxeDamageEvent implements Listener {
 		event.getCause();
 		if(damager instanceof Player && damaged instanceof Player){
 			Player damagingPlayer = (Player) damager;
-			Player damagedPlayer = (Player) damaged;
 			if(event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK)|| event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
 				ItemStack held = damagingPlayer.getItemInHand();
 				if(held != null)

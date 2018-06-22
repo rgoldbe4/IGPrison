@@ -6,6 +6,7 @@ description: Ignition Gaming Prison
 
 author: [BuffsOverNexus, LegendForHire]
 
+
 main: us.ignitiongaming.IGPrison
 
 depends: [Vault]
@@ -155,5 +156,5 @@ commands:
         permission: igprison.sban
 
      clearchat:
-        description:clears chat for all players
+        description: clears chat for all players
         permission: igprison.clearchat
