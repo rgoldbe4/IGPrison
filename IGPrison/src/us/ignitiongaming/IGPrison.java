@@ -9,6 +9,7 @@ import us.ignitiongaming.command.AdminCommand;
 import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
+import us.ignitiongaming.command.IGSKickBanCommand;
 import us.ignitiongaming.command.LockdownCommand;
 import us.ignitiongaming.command.RankupCommand;
 import us.ignitiongaming.command.SmeltCommand;
@@ -84,6 +85,12 @@ public class IGPrison extends JavaPlugin {
 		
 		// -- Dev Commands (YAY!) --
 		this.getCommand("igdev").setExecutor(new DevelopmentCommand());
+		
+		// -- Kick Ban Command --
+		this.getCommand("igskick").setExecutor(new IGSKickBanCommand());
+		this.getCommand("igkick").setExecutor(new IGSKickBanCommand());
+		this.getCommand("igsban").setExecutor(new IGSKickBanCommand());
+		this.getCommand("igban").setExecutor(new IGSKickBanCommand());
 	}
 	
 	public void onDisable() {
