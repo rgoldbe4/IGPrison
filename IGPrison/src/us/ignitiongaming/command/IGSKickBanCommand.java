@@ -34,10 +34,6 @@ public class IGSKickBanCommand implements CommandExecutor {
 				//Convert
 				endDate = DateConverter.convertSingleArgumentContextToDate(args[1]);
 				
-				Bukkit.broadcastMessage("Start: " + DateConverter.toFriendlyDate(startDate));
-				Bukkit.broadcastMessage("End: " + DateConverter.toFriendlyDate(endDate));
-				Bukkit.broadcastMessage("Differs By: " + DateConverter.compareDatesFriendly(startDate, endDate));
-				
 				IGPlayerBannedFactory.add(IGPlayerFactory.getIGPlayerByPlayer(kicked), startDate, endDate, reason, IGPlayerFactory.getIGPlayerByPlayer(kicker));
 				if (lbl.contains("s")){
 					IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
