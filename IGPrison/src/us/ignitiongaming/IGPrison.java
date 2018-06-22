@@ -9,6 +9,7 @@ import us.ignitiongaming.command.AdminCommand;
 import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
+import us.ignitiongaming.command.IGSKickBanCommand;
 import us.ignitiongaming.command.LockdownCommand;
 import us.ignitiongaming.command.RankupCommand;
 import us.ignitiongaming.command.SmeltCommand;
@@ -17,11 +18,13 @@ import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.event.other.FancySignEvent;
-import us.ignitiongaming.event.other.ShockBatonAttackEvent;
+import us.ignitiongaming.event.player.GuardDeathEvent;
 import us.ignitiongaming.event.player.InteractSellSignEvent;
 import us.ignitiongaming.event.player.PlaceSellSignEvent;
+import us.ignitiongaming.event.player.PlayerBannedEvent;
 import us.ignitiongaming.event.player.PlayerChatEvent;
 import us.ignitiongaming.event.player.PlayerRecordEvent;
+import us.ignitiongaming.event.player.PlayerSpawnEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
 import us.ignitiongaming.event.server.ServerListEvent;
 import us.ignitiongaming.event.solitary.VerifySolitaryEvent;
@@ -42,7 +45,9 @@ public class IGPrison extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new InteractSellSignEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PlaceSellSignEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new FancySignEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new ShockBatonAttackEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerSpawnEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new GuardDeathEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerBannedEvent(), this);
 		
 		/* Commands */
 		// -- Help Command --
@@ -65,6 +70,8 @@ public class IGPrison extends JavaPlugin {
 		this.getCommand("spawn").setExecutor(new TeleportCommand());
 		this.getCommand("warp").setExecutor(new TeleportCommand());
 		this.getCommand("setspawn").setExecutor(new TeleportCommand());
+		this.getCommand("goto").setExecutor(new TeleportCommand());
+		this.getCommand("bring").setExecutor(new TeleportCommand());
 		
 		// -- Solitary Commands --
 		this.getCommand("solitary").setExecutor(new SolitaryCommand());
@@ -82,6 +89,12 @@ public class IGPrison extends JavaPlugin {
 		
 		// -- Dev Commands (YAY!) --
 		this.getCommand("igdev").setExecutor(new DevelopmentCommand());
+		
+		// -- Kick Ban Command --
+		this.getCommand("igskick").setExecutor(new IGSKickBanCommand());
+		this.getCommand("igkick").setExecutor(new IGSKickBanCommand());
+		this.getCommand("igsban").setExecutor(new IGSKickBanCommand());
+		this.getCommand("igban").setExecutor(new IGSKickBanCommand());
 	}
 	
 	public void onDisable() {
