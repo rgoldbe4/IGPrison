@@ -25,7 +25,7 @@ public class IGSKickBanCommand implements CommandExecutor {
 		try{
 		if (sender instanceof Player) {
 			Player kicker = (Player) sender;
-			if(lbl.contains("ban") && args.length == 3){
+			if(lbl.contains("ban") && args.length >= 3){
 				Player kicked = Bukkit.getPlayer(args[0]);
 				String reason = ConvertUtils.getStringFromCommand(2, args);
 				Date startDate = DateConverter.getCurrentTime();
@@ -50,7 +50,7 @@ public class IGSKickBanCommand implements CommandExecutor {
 					}
 				}
 			}
-			if(lbl.contains("kick") && args.length == 2){
+			if(lbl.contains("kick") && args.length >= 2){
 				Player kicked = Bukkit.getPlayer(args[0]);
 				String message = kicker.getName() + " kicked" + args[0] + " for " + args[1];
 				Bukkit.getPlayer(args[0]).kickPlayer("kicked for " + args[1]);
