@@ -25,14 +25,19 @@ public class PlayerSpawnEvent implements Listener {
 			
 			if (player.hasPermission(free.getNode())) {
 				player.teleport(IGLocationFactory.getLocationByIGLocations(IGLocations.SPAWN).toLocation());
+				player.sendMessage("FREE");
 			} else if (player.hasPermission(cellA.getNode())) {
 				player.teleport(IGLocationFactory.getLocationByIGLocations(IGLocations.A).toLocation());
+				player.sendMessage("A");
 			} else if (player.hasPermission(cellB.getNode())) {
 				player.teleport(IGLocationFactory.getLocationByIGLocations(IGLocations.B).toLocation());
+				player.sendMessage("B");
 			} else if (player.hasPermission(cellC.getNode())) {
 				player.teleport(IGLocationFactory.getLocationByIGLocations(IGLocations.C).toLocation());
+				player.sendMessage("C");
 			} else {
 				player.teleport(IGLocationFactory.getLocationByIGLocations(IGLocations.D).toLocation());
+				player.sendMessage("D");
 			}
 			
 			player.sendMessage("§dYou have been put in your designated spawn area.");
