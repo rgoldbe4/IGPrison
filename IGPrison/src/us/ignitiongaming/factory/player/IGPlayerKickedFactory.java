@@ -10,7 +10,7 @@ public class IGPlayerKickedFactory {
 		try {
 			SQLQuery query = new SQLQuery(QueryType.INSERT, IGPlayerKicked.TABLE_NAME);
 			query.addGrabColumns("playerID", "staffID", "Reason");
-			query.addValues(igPlayer.getId(), staff, reason);
+			query.addValues(igPlayer.getId(), staff.getId(), reason);
 			query.execute();			
 		} catch (Exception ex) {
 			ex.printStackTrace();
