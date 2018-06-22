@@ -37,7 +37,7 @@
   	</dependency>
   	<dependency>
   		<groupId>net.milkbowl.vault</groupId>
-  		<artifactId>vaultapi</artifactId>
+  		<artifactId>VaultApi</artifactId>
   		<version>1.6</version>
   		<scope>provided</scope>
   	</dependency>
