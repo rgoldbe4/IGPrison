@@ -8,7 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.entity.rank.IGRank;
 import us.ignitiongaming.enums.IGRanks;
 import us.ignitiongaming.factory.player.IGPlayerBannedFactory;
