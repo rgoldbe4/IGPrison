@@ -8,11 +8,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.entity.rank.IGRank;
 import us.ignitiongaming.enums.IGRanks;
 import us.ignitiongaming.factory.player.IGPlayerBannedFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
+import us.ignitiongaming.factory.player.IGPlayerKickedFactory;
 import us.ignitiongaming.factory.rank.IGRankFactory;
 
 public class IGSKickBanCommand implements CommandExecutor {
@@ -59,6 +59,7 @@ public class IGSKickBanCommand implements CommandExecutor {
 			if(lbl.contains("kick") && args.length == 2){
 				String message = kicker.getName() + " kicked" + args[0] + " for " + args[1];
 				Bukkit.getPlayer(args[0]).kickPlayer("kicked for " + args[1]);
+				IGPlayerKickedFactory.add(IGPlayerFactory.getIGPlayerByPlayer(kicked), args[2], IGPlayerFactory.getIGPlayerByPlayer(kicker));
 				if (lbl.contains("s")){
 					IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 					IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
