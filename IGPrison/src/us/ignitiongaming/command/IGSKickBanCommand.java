@@ -1,5 +1,7 @@
 package us.ignitiongaming.command;
 
+import java.util.Date;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,12 +26,14 @@ public class IGSKickBanCommand implements CommandExecutor {
 				int hours = 0;
 				int minutes = 0;
 				int seconds = 0;
+				long start  = System.currentTimeMillis();
 				for(String s : args[1].split("|")){
 					if(s.endsWith("d"))days =  Integer.parseInt(s.substring(0, s.length()-2));
 					if(s.endsWith("h"))hours = Integer.parseInt(s.substring(0, s.length()-2));
 					if(s.endsWith("m"))minutes = Integer.parseInt(s.substring(0, s.length()-2));
 					if(s.endsWith("s"))seconds = Integer.parseInt(s.substring(0, s.length()-2));
 				}
+				long end = start + 
 				String message = player.getName() + " banned " + args[0] + " for " + days + " days, " +  hours + " hours, " + minutes + " minutes, and" + seconds + " seconds for " + args[2];
 				if (lbl.contains("s")){
 					IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
@@ -48,6 +52,7 @@ public class IGSKickBanCommand implements CommandExecutor {
 			}
 			if(lbl.contains("kick") && args.length == 2){
 				String message = player.getName() + " kicked" + args[0] + " for " + args[1];
+				Bukkit.getPlayer(args[0]).kickPlayer("kicked for " + args[1]);
 				if (lbl.contains("s")){
 					IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 					IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
