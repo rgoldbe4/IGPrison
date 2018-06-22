@@ -22,6 +22,7 @@ import us.ignitiongaming.event.player.InteractSellSignEvent;
 import us.ignitiongaming.event.player.PlaceSellSignEvent;
 import us.ignitiongaming.event.player.PlayerChatEvent;
 import us.ignitiongaming.event.player.PlayerRecordEvent;
+import us.ignitiongaming.event.player.PlayerSpawnEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
 import us.ignitiongaming.event.server.ServerListEvent;
 import us.ignitiongaming.event.solitary.VerifySolitaryEvent;
@@ -43,6 +44,7 @@ public class IGPrison extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new PlaceSellSignEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new FancySignEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new ShockBatonAttackEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerSpawnEvent(), this);
 		
 		/* Commands */
 		// -- Help Command --
