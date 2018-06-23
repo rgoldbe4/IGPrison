@@ -20,9 +20,11 @@ public class IGPlayerBannedFactory {
 		query.addWhere("playerID", igPlayer.getId());
 		ResultSet bans = query.getResults();
 		if(DatabaseUtils.getNumRows(bans) == 0) return false;
-		Date latestDate = DateUtils.parseDate(bans.getString(2));
+		Date latestDate = new Date(0);
 		while(bans.next()){
-			latestDate = (DateUtils.parseDate(bans.getString(2)).after(latestDate)) ? DateUtils.parseDate(bans.getString(2)) : latestDate;
+			String banDate = bans.getString("banEnd");
+			latestDate = (DateConverter.convertStringDateTimeToDate(banDate).after(latestDate))
+					? DateConverter.convertStringDateTimeToDate(banDate) : latestDate;
 		}	
 		return new Date().after(latestDate) ? false : true;
 		}
@@ -48,9 +50,11 @@ public class IGPlayerBannedFactory {
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerBanned.TABLE_NAME);
 			query.addWhere("playerID", igPlayer.getId());
 			ResultSet bans = query.getResults();
-			Date latestDate = DateUtils.parseDate(bans.getString(2));
+			Date latestDate = new Date(0);
 			while(bans.next()){
-				latestDate = (DateUtils.parseDate(bans.getString(2)).after(latestDate)) ? DateUtils.parseDate(bans.getString(2)) : latestDate;
+				String banDate = bans.getString("banEnd");
+				latestDate = (DateConverter.convertStringDateTimeToDate(banDate).after(latestDate))
+						? DateConverter.convertStringDateTimeToDate(banDate) : latestDate;
 			}	
 			return latestDate.toString();
 			}
