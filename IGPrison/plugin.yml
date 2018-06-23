@@ -3,7 +3,7 @@ version: 0.2.0
 description: Ignition Gaming Prison
 author: [BuffsOverNexus, LegendForHire]
 main: us.ignitiongaming.IGPrison
-depends: [Vault]
+depend: [Vault]
 
 commands:
      iga:
@@ -59,4 +59,31 @@ commands:
         permission: igprison.setrank
      igdev:
         description: Development commands for IG.
-        permissions: igprison.igdev
+        permission: igprison.igdev
+     goto:
+        description: Go to a player!
+        permission: igprison.goto
+     bring:
+        description: Bring player(s) to you!
+        permission: igprison.bring
+     igkick:
+        description: kicks a player
+        permission: igprison.kick
+     igskick:
+        description: kicks a player silently
+        permission: igprison.skick
+     igban:
+        description: bans a player
+        permission: igprison.ban
+     igsban:
+        description: bans a player silently
+        permission: igprison.sban
+     clearchat:
+        description: clears chat for all players
+        permission: igprison.clearchat
+     nickname:
+        description: sets your nickname
+        permission: igprison.nickname
+     whois:
+        description: gets a player with a nickname's real name
+        permission: igprison.whois

@@ -1,6 +1,7 @@
 package us.ignitiongaming.factory.other;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import us.ignitiongaming.database.DatabaseUtils;
 import us.ignitiongaming.database.QueryType;
@@ -31,5 +32,19 @@ public class IGLocationFactory {
 			ex.printStackTrace();
 			return null;
 		}
+	}
+	public static ArrayList<String> getAllLocations(){
+		try {
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGLocation.TABLE_NAME);
+			ResultSet results = query.getResults();	
+			ArrayList<String> warps = new ArrayList<String>();
+			while(results.next())warps.add(results.getString(2));
+			return warps;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return new ArrayList<String>();
+		}
+		
 	}
 }

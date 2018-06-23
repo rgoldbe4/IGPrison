@@ -54,7 +54,7 @@ public class DateConverter {
 	
 	public static Date convertSingleArgumentContextToDate(String context) {
 		Date currentDate = getCurrentTime();
-		String[] contexts = context.split("|");
+		String[] contexts = context.split("\\|");
 		for (String con : contexts) {
 			currentDate = addTimeFromString(currentDate, con);
 		}
