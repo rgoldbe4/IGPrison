@@ -45,7 +45,7 @@ public class IGPlayer extends HasID {
 	 * @return
 	 */
 	public boolean isValid() {
-		return (uuid == null || !hasId() || name == null || ip == null);
+		return (uuid != null && hasId() && name != null && ip != null);
 	}
 	
 	/**
