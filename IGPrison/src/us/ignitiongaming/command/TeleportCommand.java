@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import us.ignitiongaming.config.GlobalMessages;
+import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.entity.other.IGLocation;
 import us.ignitiongaming.enums.IGLocations;
 import us.ignitiongaming.factory.other.IGLocationFactory;
@@ -35,6 +36,7 @@ public class TeleportCommand implements CommandExecutor {
 						IGLocations loc = IGLocations.getLocationByLabel(args[0]);
 						player.teleport(IGLocationFactory.getLocationByIGLocations(loc).toLocation());
 					}
+					if (args.length == 0) player.sendMessage("Available warps: " + ConvertUtils.getStringFromCommand(0, IGLocationFactory.getAllLocations().toArray(new String[0])));
 				}
 				
 				// [/setspawn]

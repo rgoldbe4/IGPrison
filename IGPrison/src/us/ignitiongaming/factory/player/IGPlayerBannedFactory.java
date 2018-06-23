@@ -3,31 +3,32 @@ package us.ignitiongaming.factory.player;
 import java.sql.ResultSet;
 import java.util.Date;
 
-import org.apache.commons.lang3.time.DateUtils;
-
 import us.ignitiongaming.database.DatabaseUtils;
 import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerBanned;
+import us.ignitiongaming.util.convert.DateConverter;
 
 public class IGPlayerBannedFactory {
 	
-	public static Date isBanned(IGPlayer igPlayer){
+	public static boolean isBanned(IGPlayer igPlayer){
 		try {
 		SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerBanned.TABLE_NAME);
 		query.addWhere("playerID", igPlayer.getId());
 		ResultSet bans = query.getResults();
-		if(DatabaseUtils.getNumRows(bans) == 0)return null;
-		Date latestDate = DateUtils.parseDate(bans.getString(2));
+		if(DatabaseUtils.getNumRows(bans) == 0) return false;
+		Date latestDate = new Date(0);
 		while(bans.next()){
-			latestDate = (DateUtils.parseDate(bans.getString(2)).after(latestDate)) ? DateUtils.parseDate(bans.getString(2)) : latestDate;
+			String banDate = bans.getString("banEnd");
+			latestDate = (DateConverter.convertStringDateTimeToDate(banDate).after(latestDate))
+					? DateConverter.convertStringDateTimeToDate(banDate) : latestDate;
 		}	
-		return new Date().after(latestDate) ? null : latestDate;
+		return new Date().after(latestDate) ? false : true;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		}
 	}
 	
@@ -35,10 +36,30 @@ public class IGPlayerBannedFactory {
 		try {
 			SQLQuery query = new SQLQuery(QueryType.INSERT, IGPlayerBanned.TABLE_NAME);
 			query.addGrabColumns("playerID", "staffID", "banStart", "banEnd", "Reason");
-			query.addValues(igPlayer.getId(), staff, start, end, reason);
+			query.addValues(igPlayer.getId(), staff.getId(), DateConverter.convertDateToString(start), DateConverter.convertDateToString(end), reason);
 			query.execute();			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
+
+	public static String getBanDate(IGPlayer igPlayer) {
+		try {
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerBanned.TABLE_NAME);
+			query.addWhere("playerID", igPlayer.getId());
+			ResultSet bans = query.getResults();
+			Date latestDate = new Date(0);
+			while(bans.next()){
+				String banDate = bans.getString("banEnd");
+				latestDate = (DateConverter.convertStringDateTimeToDate(banDate).after(latestDate))
+						? DateConverter.convertStringDateTimeToDate(banDate) : latestDate;
+			}	
+			return latestDate.toString();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+	}
+
 }

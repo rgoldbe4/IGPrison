@@ -6,11 +6,13 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.ignitiongaming.command.AdminCommand;
+import us.ignitiongaming.command.ClearChatCommand;
 import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
 import us.ignitiongaming.command.IGSKickBanCommand;
 import us.ignitiongaming.command.LockdownCommand;
+import us.ignitiongaming.command.NicknameCommand;
 import us.ignitiongaming.command.RankupCommand;
 import us.ignitiongaming.command.SmeltCommand;
 import us.ignitiongaming.command.SolitaryCommand;
@@ -20,12 +22,13 @@ import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.event.other.FancySignEvent;
 import us.ignitiongaming.event.player.GuardDeathEvent;
 import us.ignitiongaming.event.player.InteractSellSignEvent;
+import us.ignitiongaming.event.player.PickaxeDamageEvent;
 import us.ignitiongaming.event.player.PlaceSellSignEvent;
-import us.ignitiongaming.event.player.PlayerBannedEvent;
 import us.ignitiongaming.event.player.PlayerChatEvent;
 import us.ignitiongaming.event.player.PlayerRecordEvent;
 import us.ignitiongaming.event.player.PlayerSpawnEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
+import us.ignitiongaming.event.server.NotifyPlayerConnectionEvent;
 import us.ignitiongaming.event.server.ServerListEvent;
 import us.ignitiongaming.event.solitary.VerifySolitaryEvent;
 
@@ -47,7 +50,8 @@ public class IGPrison extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new FancySignEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerSpawnEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new GuardDeathEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new PlayerBannedEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new PickaxeDamageEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new NotifyPlayerConnectionEvent(), this);
 		
 		/* Commands */
 		// -- Help Command --
@@ -95,6 +99,14 @@ public class IGPrison extends JavaPlugin {
 		this.getCommand("igkick").setExecutor(new IGSKickBanCommand());
 		this.getCommand("igsban").setExecutor(new IGSKickBanCommand());
 		this.getCommand("igban").setExecutor(new IGSKickBanCommand());
+		
+		// -- Clear Chat Command --
+		this.getCommand("clearchat").setExecutor(new ClearChatCommand());
+		
+		// -- Nickname commands --
+		this.getCommand("whois").setExecutor(new NicknameCommand());
+		this.getCommand("nickname").setExecutor(new NicknameCommand());
+		
 	}
 	
 	public void onDisable() {
