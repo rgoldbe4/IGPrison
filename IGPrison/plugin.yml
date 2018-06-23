@@ -9,7 +9,7 @@ author: [BuffsOverNexus, LegendForHire]
 
 main: us.ignitiongaming.IGPrison
 
-depends: [Vault]
+depend: [Vault]
 
 
 commands:
