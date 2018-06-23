@@ -6,10 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import us.ignitiongaming.config.GlobalMessages;
-import us.ignitiongaming.config.ServerDefaults;
-import us.ignitiongaming.entity.other.IGSetting;
-
 public class ClearChatCommand implements CommandExecutor {
 	
 	@Override

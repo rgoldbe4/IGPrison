@@ -1,7 +1,6 @@
 package us.ignitiongaming.factory.other;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import us.ignitiongaming.database.DatabaseUtils;
