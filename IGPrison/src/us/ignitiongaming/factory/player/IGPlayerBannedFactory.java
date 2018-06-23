@@ -3,14 +3,12 @@ package us.ignitiongaming.factory.player;
 import java.sql.ResultSet;
 import java.util.Date;
 
-import org.apache.commons.lang3.time.DateUtils;
-
-import us.ignitiongaming.util.convert.DateConverter;
 import us.ignitiongaming.database.DatabaseUtils;
 import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerBanned;
+import us.ignitiongaming.util.convert.DateConverter;
 
 public class IGPlayerBannedFactory {
 	
