@@ -158,3 +158,9 @@ commands:
      clearchat:
         description: clears chat for all players
         permission: igprison.clearchat
+     nickname:
+        description: sets your nickname
+        permission: igprison.nickname
+     whois:
+        description: gets a player with a nickname's real name
+        permission: igprison.whois

@@ -12,6 +12,7 @@ import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
 import us.ignitiongaming.command.IGSKickBanCommand;
 import us.ignitiongaming.command.LockdownCommand;
+import us.ignitiongaming.command.NicknameCommand;
 import us.ignitiongaming.command.RankupCommand;
 import us.ignitiongaming.command.SmeltCommand;
 import us.ignitiongaming.command.SolitaryCommand;
@@ -99,6 +100,11 @@ public class IGPrison extends JavaPlugin {
 		
 		// -- Clear Chat Command --
 		this.getCommand("clearchat").setExecutor(new ClearChatCommand());
+		
+		// -- Nickname commands --
+		this.getCommand("whois").setExecutor(new NicknameCommand());
+		this.getCommand("nickname").setExecutor(new NicknameCommand());
+		
 	}
 	
 	public void onDisable() {
