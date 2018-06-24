@@ -25,6 +25,9 @@ public class VerifySolitaryEvent implements Listener {
 				if (igPlayerSolitary.hasServed()) {
 					IGPlayerSolitaryFactory.remove(igPlayer);
 					player.sendMessage(GlobalTags.SOLITARY + "§eYou have served your time in solitary.");
+				} else {
+					//When player attempts to talk while in solitary...
+					
 				}
 			}
 			
