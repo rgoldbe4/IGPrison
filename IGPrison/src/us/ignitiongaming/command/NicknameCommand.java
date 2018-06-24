@@ -16,7 +16,7 @@ public class NicknameCommand  implements CommandExecutor {
 		if(sender instanceof Player) {
 			Player player = (Player) sender;
 			String nickname = "";
-			if(args.length == 1) nickname = args[0];
+			if(args.length == 1) nickname = args[0].replaceAll("&", "§");
 			IGPlayer igPlayer; 
 			if(lbl.equals("whois")) {
 				igPlayer = IGPlayerFactory.getIGPlayerForNickname(nickname);
