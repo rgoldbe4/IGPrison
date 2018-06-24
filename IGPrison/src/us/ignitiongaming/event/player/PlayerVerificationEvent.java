@@ -1,5 +1,6 @@
 package us.ignitiongaming.event.player;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,6 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerStats;
+import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.player.IGPlayerBannedFactory;
 import us.ignitiongaming.factory.player.IGPlayerDonatorFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
@@ -110,6 +112,10 @@ public class PlayerVerificationEvent implements Listener {
 		if(igPlayer != null){
 			if(IGPlayerBannedFactory.isBanned(igPlayer)){
 				player.kickPlayer("You have been banned until " + IGPlayerBannedFactory.getBanDate(igPlayer));
+				for(Player online : Bukkit.getOnlinePlayers())
+					if( online.hasPermission(IGRankNodes.STAFF.getNode()) || online.hasPermission(IGRankNodes.GUARD.getNode()) || online.hasPermission(IGRankNodes.WARDEN.getNode()))
+							online.sendMessage("§4" + igPlayer.getName() + (igPlayer.getNickname().equals("") ? "" : " AKA " + igPlayer.getNickname())
+									+ " tried to join but they are banned until " + IGPlayerBannedFactory.getBanDate(igPlayer));
 			}
 		}
 	}
