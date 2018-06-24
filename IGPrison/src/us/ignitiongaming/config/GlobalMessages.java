@@ -11,6 +11,5 @@ public class GlobalMessages {
 	public static final String THANK_YOU_DONATE = GlobalTags.DONATION + "§7Thank you for donating!";
 	
 	public static final String GUARD_DEATH = "§4§l****§r§c A GUARD HAS BEEN SLAIN §4§l****§r";
-	
 	public static final String INSUFFICIENT_FUNDS_RANKUP = "§4You do not have enough to rankup.";
 }
