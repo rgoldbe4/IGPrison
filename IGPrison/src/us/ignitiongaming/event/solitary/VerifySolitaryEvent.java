@@ -11,6 +11,7 @@ import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerSolitary;
 import us.ignitiongaming.enums.IGLocations;
+import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.other.IGLocationFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerSolitaryFactory;
@@ -29,6 +30,9 @@ public class VerifySolitaryEvent implements Listener {
 				if (igPlayerSolitary.hasServed()) {
 					IGPlayerSolitaryFactory.remove(igPlayer);
 					player.sendMessage(GlobalTags.SOLITARY + "§eYou have served your time in solitary.");
+					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " remove " + IGRankNodes.SOLITARY.getNode());
+					player.teleport(IGLocationFactory.getSpawnByPlayerRank(player).toLocation());
+					
 				}
 			}
 			
@@ -52,6 +56,7 @@ public class VerifySolitaryEvent implements Listener {
 						player.teleport(IGLocationFactory.getLocationByIGLocations(IGLocations.SOLITARY).toLocation());
 					} else {
 						//Teleport them to spawn.
+						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " remove " + IGRankNodes.SOLITARY.getNode());
 						player.teleport(IGLocationFactory.getSpawnByPlayerRank(player).toLocation());
 						Bukkit.broadcastMessage(GlobalTags.SOLITARY + "§a" + player.getName() + " §fwas removed from solitary.");
 					}

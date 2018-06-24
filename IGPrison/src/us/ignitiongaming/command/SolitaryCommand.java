@@ -31,7 +31,7 @@ public class SolitaryCommand implements CommandExecutor{
 				// [/solitary <add/remove> <name> <context...>]
 				if (lbl.equalsIgnoreCase("solitary")) {
 					
-					if (args.length < 3) {
+					if (args.length < 2) {
 						player.sendMessage(GlobalMessages.INVALID_COMMAND);
 					} else {
 						String addOrRemove = args[0];
