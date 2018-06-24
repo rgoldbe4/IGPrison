@@ -25,7 +25,7 @@ public class TeleportCommand implements CommandExecutor {
 				if (lbl.equalsIgnoreCase("spawn")) {
 					//-- TO DO --
 					//Teleport based on rank, rather than the default spawn.
-					Location location = IGLocationFactory.getLocationByIGLocations(IGLocations.SPAWN).toLocation();
+					Location location = IGLocationFactory.getSpawnByPlayerRank(player).toLocation();
 					location.setYaw(FacingDirection.EAST);
 					player.teleport(location);
 				}

@@ -4,13 +4,10 @@ import java.sql.ResultSet;
 
 import org.bukkit.entity.Player;
 
-import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.database.DatabaseUtils;
 import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.entity.player.IGPlayer;
-import us.ignitiongaming.entity.rank.IGRank;
-import us.ignitiongaming.factory.rank.IGRankFactory;
 
 public class IGPlayerFactory {
 
@@ -103,10 +100,6 @@ public class IGPlayerFactory {
 			
 			// -- Add IGPlayerStats --
 			IGPlayerStatsFactory.add(igPlayer);
-			
-			// -- Add IGPlayerRank --
-			IGRank igRank = IGRankFactory.getIGRankByRank(ServerDefaults.DEFAULT_RANK); //Default rank.
-			IGPlayerRankFactory.add(igPlayer, igRank);
 			
 			
 		} catch (Exception ex) {

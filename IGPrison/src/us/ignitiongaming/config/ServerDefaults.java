@@ -6,7 +6,7 @@ import net.milkbowl.vault.economy.Economy;
 import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.enums.IGCells;
 import us.ignitiongaming.enums.IGLocations;
-import us.ignitiongaming.enums.IGRanks;
+import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.enums.IGSettings;
 import us.ignitiongaming.event.other.IGSettingFactory;
 
@@ -22,7 +22,7 @@ public class ServerDefaults {
 	}
 	
 	
-	public static IGRanks DEFAULT_RANK = IGRanks.D;
+	public static IGRankNodes DEFAULT_RANK = IGRankNodes.D;
 	@Deprecated
 	public static int DEFAULT_DONATOR_PERK_POINTS = 10;
 	@Deprecated

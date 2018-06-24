@@ -27,4 +27,5 @@ public class IGSettingFactory {
 		}
 		return settings;
 	}
+	
 }

@@ -26,35 +26,31 @@ public class PlayerChatEvent implements Listener {
 	public static void onPlayerTalk(AsyncPlayerChatEvent event) {
 		ArrayList<UUID> staffchat = IGSingleton.getInstance().getStaffChatters();
 		event.setMessage(ChatConverter.convertToColor(event.getMessage()));
-		
+		Player player = event.getPlayer();
 		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(event.getPlayer());
-		IGRank igRank = IGPlayerRankFactory.getIGPlayerRank(igPlayer);
 		String nickname = igPlayer.getNickname();
 		System.out.println(nickname);
 		String name = nickname.equals("") ? igPlayer.getName() : "~" + nickname;
-		if(staffchat.contains(igPlayer.getUUID())){	
-			IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
-			IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
-			IGRank warden = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
+		IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
+		if ( staffchat.contains(igPlayer.getUUID()) ){
 			for (Player online : Bukkit.getOnlinePlayers()){
-				if( online.hasPermission(staff.getNode()) || online.hasPermission(guard.getNode()) || online.hasPermission(warden.getNode()) ) 
+				if( online.hasPermission(IGRankNodes.STAFF.getNode()) || online.hasPermission(IGRankNodes.GUARD.getNode()) || online.hasPermission(IGRankNodes.WARDEN.getNode()) ) 
 					online.sendMessage("§b§l" + name + "§r§b: " + event.getMessage());
 			}
 			event.setCancelled(true);
 		}		
 		else {
-			String donator = IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) && !igRank.isStaff() ? GlobalTags.DONATION : "";
-			System.out.println(donator);
-			String rank = "";
-			if(igRank != null)rank = igRank.getTag();
-			System.out.println(rank);
-			String nameColor = "";
-			if(igRank != null)nameColor = igRank.getNameColor();
-			System.out.println(nameColor);
-			event.setFormat(
-				 donator + 
-					rank + nameColor + name + " §r> " + event.getMessage()
-			);
+			
+			String format = "";
+			
+			if ( IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) 
+						&& !playerRank.isStaff() 
+						&& playerRank != IGRankNodes.SOLITARY )
+				format += GlobalTags.DONATION;
+			
+			format += playerRank.getTag() + playerRank.getNameColor() + name + " §r> " + event.getMessage();
+			
+			event.setFormat(format);
 		}
 	}
 }
