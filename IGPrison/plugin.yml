@@ -24,9 +24,9 @@ commands:
      donatorpoints:
         description: View your donation point count.
         permission: igprison.donatorpoints
-     solitarycmd:
+     solitary:
         description: Add or remove a player from solitary confinement.
-        permission: igprison.solitary
+        permission: igprison.solitarycmd
      solitarylist:
         description: View all players in solitary.
         permission: igprison.solitarylist
