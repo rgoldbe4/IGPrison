@@ -11,12 +11,9 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.entity.player.IGPlayer;
-import us.ignitiongaming.entity.rank.IGRank;
-import us.ignitiongaming.enums.IGRanks;
+import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.player.IGPlayerDonatorFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
-import us.ignitiongaming.factory.player.IGPlayerRankFactory;
-import us.ignitiongaming.factory.rank.IGRankFactory;
 import us.ignitiongaming.singleton.IGSingleton;
 import us.ignitiongaming.util.convert.ChatConverter;
 
