@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 
 public enum IGRankNodes {
 	//node, tag, nameColor, isStaff (default: false)
-	SOLITARY ("igprison.solitary", "§7[§8lD§r§7] §r", "§8"),
+	SOLITARY ("igprison.solitary", "§7[§8§lSolitary§r§7] §r", "§8"),
 	D ("igprison.d", "§8[§5D§8] §r", "§5"),
 	C ("igprison.c", "§8[§2C§8] §r", "§2"),
 	B ("igprison.b", "§8[§eB§8] §r", "§e"),
