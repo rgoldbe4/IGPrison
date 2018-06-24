@@ -23,9 +23,9 @@ import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.event.other.FancySignEvent;
 import us.ignitiongaming.event.player.GuardDeathEvent;
 import us.ignitiongaming.event.player.InteractSellSignEvent;
-import us.ignitiongaming.event.player.PickaxeDamageEvent;
 import us.ignitiongaming.event.player.PlaceSellSignEvent;
 import us.ignitiongaming.event.player.PlayerChatEvent;
+import us.ignitiongaming.event.player.PlayerDamageEvent;
 import us.ignitiongaming.event.player.PlayerRecordEvent;
 import us.ignitiongaming.event.player.PlayerSpawnEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
@@ -51,7 +51,7 @@ public class IGPrison extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new FancySignEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerSpawnEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new GuardDeathEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new PickaxeDamageEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerDamageEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new NotifyPlayerConnectionEvent(), this);
 		
 		/* Commands */
