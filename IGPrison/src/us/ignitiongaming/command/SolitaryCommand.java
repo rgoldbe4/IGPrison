@@ -60,7 +60,7 @@ public class SolitaryCommand implements CommandExecutor{
 									Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " add " + IGRankNodes.SOLITARY.getNode());
 									pl.sendMessage(GlobalTags.SOLITARY + "§cYou were sent to solitary!");
 									pl.sendMessage("§cYou will be let out: §f" + DateConverter.toFriendlyDate(end));
-									player.sendMessage(GlobalTags.SOLITARY + "§a" + args[1] + " §fwas put in solitary until §a" + DateConverter.toFriendlyDate(end) + "§f.");
+									Bukkit.broadcastMessage(GlobalTags.SOLITARY + "§a" + args[1] + " §fwas put in solitary until §a" + DateConverter.toFriendlyDate(end) + "§f.");
 									
 								} else {
 									//Player is already in solitary. Cannot add them.
@@ -72,7 +72,7 @@ public class SolitaryCommand implements CommandExecutor{
 								if (isPlayerInSolitary) {
 									IGPlayerSolitaryFactory.remove(igPl);
 									pl.sendMessage(GlobalTags.SOLITARY + "§aYou were removed from solitary!");
-									player.sendMessage(GlobalTags.SOLITARY + "§a" + args[1] + " §fwas removed from solitary.");
+									Bukkit.broadcastMessage(GlobalTags.SOLITARY + "§a" + args[1] + " §fwas removed from solitary.");
 									Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " remove " + IGRankNodes.SOLITARY.getNode());
 									//Teleport them back to the spawn area they deserve to be in
 									player.teleport(IGLocationFactory.getSpawnByPlayerRank(pl).toLocation());

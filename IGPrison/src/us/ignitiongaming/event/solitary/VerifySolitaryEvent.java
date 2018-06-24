@@ -1,5 +1,6 @@
 package us.ignitiongaming.event.solitary;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -51,7 +52,8 @@ public class VerifySolitaryEvent implements Listener {
 						player.teleport(IGLocationFactory.getLocationByIGLocations(IGLocations.SOLITARY).toLocation());
 					} else {
 						//Teleport them to spawn.
-						
+						player.teleport(IGLocationFactory.getSpawnByPlayerRank(player).toLocation());
+						Bukkit.broadcastMessage(GlobalTags.SOLITARY + "§a" + player.getName() + " §fwas removed from solitary.");
 					}
 					
 				}
