@@ -31,6 +31,7 @@ public class RankupCommand implements CommandExecutor {
 							Bukkit.broadcastMessage(GlobalTags.RANKUP + player.getName() + " has ranked up to " + IGRankNodes.C.getTag());
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostD));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set c");
+							ServerDefaults.econ.withdrawPlayer(player, rankupCostD);
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a$" + (rankupCostD - playerBalance) + "§c to rankup.");
 						}
@@ -41,6 +42,7 @@ public class RankupCommand implements CommandExecutor {
 							Bukkit.broadcastMessage(GlobalTags.RANKUP + player.getName() + " has ranked up to " + IGRankNodes.B.getTag());
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostC));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set b");
+							ServerDefaults.econ.withdrawPlayer(player, rankupCostC);
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a$" + (rankupCostC - playerBalance) + "§c to rankup.");
 						}
@@ -51,6 +53,7 @@ public class RankupCommand implements CommandExecutor {
 							Bukkit.broadcastMessage(GlobalTags.RANKUP + player.getName() + " has ranked up to " + IGRankNodes.A.getTag());
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostB));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set a");
+							ServerDefaults.econ.withdrawPlayer(player, rankupCostB);
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a$" + (rankupCostB - playerBalance) + "§c to rankup.");
 						}
@@ -61,6 +64,7 @@ public class RankupCommand implements CommandExecutor {
 							Bukkit.broadcastMessage(GlobalTags.RANKUP + player.getName() + " has ranked up to " + IGRankNodes.FREE.getTag());
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostA));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set free");
+							ServerDefaults.econ.withdrawPlayer(player, rankupCostA);
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a$" + (rankupCostA - playerBalance) + "§c to rankup.");
 						}
