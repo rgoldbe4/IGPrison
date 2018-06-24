@@ -31,9 +31,11 @@ public class NicknameCommand  implements CommandExecutor {
 				if(args.length == 2) {
 					String who = args[1];
 					igPlayer = IGPlayerFactory.getIGPlayerByPlayer(Bukkit.getPlayer(who));
+					player.sendMessage(player.getName() + "'s nickname is now " + nickname);
 				}
 				else {
 					igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
+					player.sendMessage("Your nickname is now " + nickname);
 				}
 				igPlayer.setNickname(nickname);	
 				igPlayer.save();
