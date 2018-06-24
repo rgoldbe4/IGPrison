@@ -12,13 +12,10 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerNickname;
-import us.ignitiongaming.entity.rank.IGRank;
-import us.ignitiongaming.enums.IGRanks;
+import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.player.IGPlayerDonatorFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerNicknameFactory;
-import us.ignitiongaming.factory.player.IGPlayerRankFactory;
-import us.ignitiongaming.factory.rank.IGRankFactory;
 import us.ignitiongaming.singleton.IGSingleton;
 import us.ignitiongaming.util.convert.ChatConverter;
 
@@ -29,28 +26,36 @@ public class PlayerChatEvent implements Listener {
 		ArrayList<UUID> staffchat = IGSingleton.getInstance().getStaffChatters();
 		event.setMessage(ChatConverter.convertToColor(event.getMessage()));
 		
+		Player player = event.getPlayer();
 		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(event.getPlayer());
-		IGRank igRank = IGPlayerRankFactory.getIGPlayerRank(igPlayer);
 		String name = igPlayer.getName();
+		
+		IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
+		
 		IGPlayerNickname nickname = IGPlayerNicknameFactory.getIGPlayerNicknameForIGPlayer(igPlayer);
 		if(nickname != null) {
 			name = nickname.getNickname();
 		}
-		if(staffchat.contains(igPlayer.getUUID())){	
-			IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
-			IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
-			IGRank warden = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
+		
+		if ( staffchat.contains(igPlayer.getUUID()) ){
 			for (Player online : Bukkit.getOnlinePlayers()){
-				if( online.hasPermission(staff.getNode()) || online.hasPermission(guard.getNode()) || online.hasPermission(warden.getNode()) ) 
+				if( online.hasPermission(IGRankNodes.STAFF.getNode()) || online.hasPermission(IGRankNodes.GUARD.getNode()) || online.hasPermission(IGRankNodes.WARDEN.getNode()) ) 
 					online.sendMessage("§b§l" + name + "§r§b: " + event.getMessage());
 			}
 			event.setCancelled(true);
 		}		
 		else {
-			event.setFormat(
-				(IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) && !igRank.isStaff() ? GlobalTags.DONATION : "") + 
-					igRank.getTag() + igRank.getNameColor() + name + " §r> " + event.getMessage()
-			);
+			
+			String format = "";
+			
+			if ( IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) 
+						&& !playerRank.isStaff() 
+						&& playerRank != IGRankNodes.SOLITARY )
+				format += GlobalTags.DONATION;
+			
+			format += playerRank.getTag() + playerRank.getNameColor() + name + " §r> " + event.getMessage();
+			
+			event.setFormat(format);
 		}
 	}
 }

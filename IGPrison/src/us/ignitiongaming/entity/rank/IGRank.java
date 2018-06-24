@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import us.ignitiongaming.entity.HasID;
 import us.ignitiongaming.enums.IGRanks;
 
+@Deprecated
 public class IGRank extends HasID {
 
 	public static final String TABLE_NAME = "rank";

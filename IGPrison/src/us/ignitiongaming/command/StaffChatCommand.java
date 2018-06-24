@@ -9,9 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import us.ignitiongaming.database.ConvertUtils;
-import us.ignitiongaming.entity.rank.IGRank;
-import us.ignitiongaming.enums.IGRanks;
-import us.ignitiongaming.factory.rank.IGRankFactory;
+import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.singleton.IGSingleton;
 
 public class StaffChatCommand implements CommandExecutor{
@@ -25,11 +23,9 @@ public class StaffChatCommand implements CommandExecutor{
 				UUID playerID = player.getUniqueId();
 				if (lbl.equalsIgnoreCase("sc") || lbl.equalsIgnoreCase("staffchat")) {
 					if (args.length != 0){
-						IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
-						IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
-						IGRank warden = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 						for ( Player online : Bukkit.getOnlinePlayers() ){
-							if(online.hasPermission(staff.getNode()) || online.hasPermission(guard.getNode()) || online.hasPermission(warden.getNode())) 
+							boolean hasStaff = IGRankNodes.getPlayerRank(player).isStaff();
+							if (hasStaff) 
 								online.sendMessage("§b§l" + player.getName() + "§r§b: " + ConvertUtils.getStringFromCommand(0, args));
 						}
 					}

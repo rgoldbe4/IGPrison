@@ -9,8 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import us.ignitiongaming.enums.IGGuardBatons;
-import us.ignitiongaming.enums.IGRanks;
-import us.ignitiongaming.factory.rank.IGRankFactory;
+import us.ignitiongaming.enums.IGRankNodes;
 
 public class GuardShockBaton {
 	
@@ -27,7 +26,7 @@ public class GuardShockBaton {
 		itemMeta.setDisplayName(IGGuardBatons.SHOCK_BATON.getTag());
 		List<String> lore = new ArrayList<>();
 		
-		lore.add(IGRankFactory.getIGRankByRank(IGRanks.GUARD).getTag());
+		lore.add(IGRankNodes.GUARD.getTag());
 		lore.add("§6§lShock Baton");
 		itemMeta.setLore(lore);
 		
