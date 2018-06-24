@@ -49,5 +49,9 @@ public enum IGRankNodes {
 		return IGRankNodes.D;
 	}
 	
+	public static boolean isPlayerInSolitary(Player player) {
+		return (player.hasPermission(IGRankNodes.SOLITARY.getNode()));
+	}
+	
 	
 }
