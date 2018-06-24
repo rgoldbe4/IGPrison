@@ -3,11 +3,14 @@ package us.ignitiongaming.factory.other;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.bukkit.entity.Player;
+
 import us.ignitiongaming.database.DatabaseUtils;
 import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.entity.other.IGLocation;
 import us.ignitiongaming.enums.IGLocations;
+import us.ignitiongaming.enums.IGRankNodes;
 
 public class IGLocationFactory {
 
@@ -46,5 +49,19 @@ public class IGLocationFactory {
 			return new ArrayList<String>();
 		}
 		
+	}
+	
+	public static IGLocation getSpawnByPlayerRank(Player player) {
+		try {
+			if (IGRankNodes.isPlayerInSolitary(player)) return getLocationByIGLocations(IGLocations.SOLITARY);
+			
+			IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
+			IGLocations spawnLocation = IGLocations.getLocationByLabel(playerRank.name());
+			
+			return getLocationByIGLocations(spawnLocation);
+			
+		} catch (Exception ex) {
+			return null;
+		}
 	}
 }

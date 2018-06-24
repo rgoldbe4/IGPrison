@@ -14,6 +14,7 @@ public class IGPlayer extends HasID {
 	public static final String TABLE_NAME = "player";
 	private String name, ip;
 	private UUID uuid;
+	private String nickname;
 	
 	/**
 	 * Assign all columns using a one-to-one ResultSet.
@@ -25,6 +26,7 @@ public class IGPlayer extends HasID {
 			setName(results.getString("name"));
 			setUUID(UUID.fromString(results.getString("uuid")));
 			setIP(results.getString("ip"));
+			setNickname(results.getString("nickname"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -45,7 +47,7 @@ public class IGPlayer extends HasID {
 	 * @return
 	 */
 	public boolean isValid() {
-		return (uuid != null && hasId() && name != null && ip != null);
+		return (uuid != null && hasId() && name != null && ip != null && nickname != null);
 	}
 	
 	/**
@@ -59,6 +61,7 @@ public class IGPlayer extends HasID {
 				query.addSet("uuid", uuid);
 				query.addSet("name", name);
 				query.addSet("ip", ip);
+				query.addSet("nickname", nickname);
 				query.addWhere("ID", getId());
 				query.execute();
 			}
@@ -66,4 +69,7 @@ public class IGPlayer extends HasID {
 			ex.printStackTrace();
 		}
 	}
+
+	public String getNickname() { return nickname; }
+	public void setNickname(String nickname) { this.nickname = nickname; }
 }

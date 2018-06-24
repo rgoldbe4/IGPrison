@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import us.ignitiongaming.command.AdminCommand;
 import us.ignitiongaming.command.ClearChatCommand;
+import us.ignitiongaming.command.ClockInOutCommand;
 import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
@@ -106,6 +107,10 @@ public class IGPrison extends JavaPlugin {
 		// -- Nickname commands --
 		this.getCommand("whois").setExecutor(new NicknameCommand());
 		this.getCommand("nickname").setExecutor(new NicknameCommand());
+		
+		// -- Clockin/out commands --
+		this.getCommand("clockin").setExecutor(new ClockInOutCommand());
+		this.getCommand("clockout").setExecutor(new ClockInOutCommand());
 		
 	}
 	

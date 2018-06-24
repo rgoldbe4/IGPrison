@@ -15,6 +15,7 @@ import us.ignitiongaming.entity.other.IGLocation;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerSolitary;
 import us.ignitiongaming.enums.IGLocations;
+import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.other.IGLocationFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerSolitaryFactory;
@@ -30,7 +31,7 @@ public class SolitaryCommand implements CommandExecutor{
 				// [/solitary <add/remove> <name> <context...>]
 				if (lbl.equalsIgnoreCase("solitary")) {
 					
-					if (args.length < 3) {
+					if (args.length < 2) {
 						player.sendMessage(GlobalMessages.INVALID_COMMAND);
 					} else {
 						String addOrRemove = args[0];
@@ -55,9 +56,11 @@ public class SolitaryCommand implements CommandExecutor{
 									//Step 4: Teleport them to solitary.
 									IGLocation igLocation = IGLocationFactory.getLocationByIGLocations(IGLocations.SOLITARY);
 									pl.teleport(igLocation.toLocation());
+									//Enhancement: Add the addition group of solitary.
+									Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " add " + IGRankNodes.SOLITARY.getNode());
 									pl.sendMessage(GlobalTags.SOLITARY + "§cYou were sent to solitary!");
 									pl.sendMessage("§cYou will be let out: §f" + DateConverter.toFriendlyDate(end));
-									player.sendMessage(GlobalTags.SOLITARY + "§a" + args[1] + " §fwas put in solitary until §a" + DateConverter.toFriendlyDate(end) + "§f.");
+									Bukkit.broadcastMessage(GlobalTags.SOLITARY + "§a" + args[1] + " §fwas put in solitary until §a" + DateConverter.toFriendlyDate(end) + "§f.");
 									
 								} else {
 									//Player is already in solitary. Cannot add them.
@@ -69,7 +72,10 @@ public class SolitaryCommand implements CommandExecutor{
 								if (isPlayerInSolitary) {
 									IGPlayerSolitaryFactory.remove(igPl);
 									pl.sendMessage(GlobalTags.SOLITARY + "§aYou were removed from solitary!");
-									player.sendMessage(GlobalTags.SOLITARY + "§a" + args[1] + " §fwas removed from solitary.");
+									Bukkit.broadcastMessage(GlobalTags.SOLITARY + "§a" + args[1] + " §fwas removed from solitary.");
+									Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " remove " + IGRankNodes.SOLITARY.getNode());
+									//Teleport them back to the spawn area they deserve to be in
+									player.teleport(IGLocationFactory.getSpawnByPlayerRank(pl).toLocation());
 								} else {
 									player.sendMessage(GlobalTags.SOLITARY + "§4Player is not in solitary. Failed to remove them.");
 								}
