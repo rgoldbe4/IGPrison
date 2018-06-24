@@ -26,7 +26,6 @@ public class PlayerChatEvent implements Listener {
 		Player player = event.getPlayer();
 		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(event.getPlayer());
 		String nickname = igPlayer.getNickname();
-		System.out.println(nickname);
 		String name = nickname.equals("") ? igPlayer.getName() : "~" + nickname;
 		IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
 		if ( staffchat.contains(igPlayer.getUUID()) ){
