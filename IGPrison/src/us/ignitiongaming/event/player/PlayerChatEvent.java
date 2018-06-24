@@ -11,12 +11,10 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.entity.player.IGPlayer;
-import us.ignitiongaming.entity.player.IGPlayerNickname;
 import us.ignitiongaming.entity.rank.IGRank;
 import us.ignitiongaming.enums.IGRanks;
 import us.ignitiongaming.factory.player.IGPlayerDonatorFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
-import us.ignitiongaming.factory.player.IGPlayerNicknameFactory;
 import us.ignitiongaming.factory.player.IGPlayerRankFactory;
 import us.ignitiongaming.factory.rank.IGRankFactory;
 import us.ignitiongaming.singleton.IGSingleton;
@@ -31,11 +29,9 @@ public class PlayerChatEvent implements Listener {
 		
 		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(event.getPlayer());
 		IGRank igRank = IGPlayerRankFactory.getIGPlayerRank(igPlayer);
-		String name = igPlayer.getName();
-		IGPlayerNickname nickname = IGPlayerNicknameFactory.getIGPlayerNicknameForIGPlayer(igPlayer);
-		if(nickname != null) {
-			name = "~" + nickname.getNickname();
-		}
+		String nickname = igPlayer.getNickname();
+		System.out.println(nickname);
+		String name = nickname.equals("") ? igPlayer.getName() : "~" + nickname;
 		if(staffchat.contains(igPlayer.getUUID())){	
 			IGRank staff = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
 			IGRank guard = IGRankFactory.getIGRankByRank(IGRanks.STAFF);
@@ -47,9 +43,17 @@ public class PlayerChatEvent implements Listener {
 			event.setCancelled(true);
 		}		
 		else {
+			String donator = IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) && !igRank.isStaff() ? GlobalTags.DONATION : "";
+			System.out.println(donator);
+			String rank = "";
+			if(igRank != null)rank = igRank.getTag();
+			System.out.println(rank);
+			String nameColor = "";
+			if(igRank != null)nameColor = igRank.getNameColor();
+			System.out.println(nameColor);
 			event.setFormat(
-				(IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer) && !igRank.isStaff() ? GlobalTags.DONATION : "") + 
-					igRank.getTag() + igRank.getNameColor() + name + " §r> " + event.getMessage()
+				 donator + 
+					rank + nameColor + name + " §r> " + event.getMessage()
 			);
 		}
 	}

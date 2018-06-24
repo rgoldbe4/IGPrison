@@ -64,7 +64,21 @@ public class IGPlayerFactory {
 			return null;
 		}
 	}
-	
+	public static IGPlayer getIGPlayerForNickname(String nickname) {
+		SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayer.TABLE_NAME);
+		query.addWhere("nickname", nickname);
+		ResultSet results = query.getResults();
+		IGPlayer igPlayer = null;
+		try {	
+			if(results.next()) {
+				igPlayer = new IGPlayer();
+				igPlayer.assign(results);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();			
+		}
+		return igPlayer;
+	}
 	/**
 	 * Add an IGPlayer (and child tables) to the database!
 	 * @param player
@@ -80,8 +94,8 @@ public class IGPlayerFactory {
 			
 			// -- Add IGPlayer --
 			SQLQuery query = new SQLQuery(QueryType.INSERT, IGPlayer.TABLE_NAME);
-			query.addGrabColumns("name", "uuid", "ip");
-			query.addValues(player.getName(), player.getUniqueId(), player.getAddress().getAddress().getHostAddress());
+			query.addGrabColumns("name", "uuid", "ip", "nickname");
+			query.addValues(player.getName(), player.getUniqueId(), player.getAddress().getAddress().getHostAddress(), "");
 			query.execute();
 			
 			//Grab the IGPlayer for usage.
