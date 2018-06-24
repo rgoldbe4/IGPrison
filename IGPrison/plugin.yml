@@ -26,7 +26,7 @@ commands:
         permission: igprison.donatorpoints
      solitary:
         description: Add or remove a player from solitary confinement.
-        permission: igprison.solitary
+        permission: igprison.solitarycmd
      solitarylist:
         description: View all players in solitary.
         permission: igprison.solitarylist
@@ -87,3 +87,10 @@ commands:
      whois:
         description: gets a player with a nickname's real name
         permission: igprison.whois
+     clockin:
+        description: clocks a guard in for work
+        permission: igprison.clockin
+     clockout:
+        description: clocks a guard out for work
+        permission: igprison.clockout
+
