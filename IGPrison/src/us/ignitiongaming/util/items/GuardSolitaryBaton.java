@@ -12,20 +12,20 @@ import us.ignitiongaming.enums.IGGuardBatons;
 import us.ignitiongaming.enums.IGRankNodes;
 
 public class GuardSolitaryBaton {
-	
+	public static final String LORE = "§6§lSolitary Baton";
 	private ItemStack item = new ItemStack(Material.BONE);
 	private ItemMeta itemMeta = item.getItemMeta();
 	public GuardSolitaryBaton() {
 		setupItemMeta();
-	
+		
 	}
 	
 	private void setupItemMeta() {
-		itemMeta.setDisplayName(IGGuardBatons.SHOCK_BATON.getTag());
+		itemMeta.setDisplayName(IGGuardBatons.SOLITARY_STICK.getTag());
 		List<String> lore = new ArrayList<>();
 		
 		lore.add(IGRankNodes.GUARD.getTag());
-		lore.add("§6§lShock Baton");
+		lore.add(LORE);
 		itemMeta.setLore(lore);
 		
 		item.setItemMeta(itemMeta);
