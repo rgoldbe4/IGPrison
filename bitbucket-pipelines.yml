@@ -11,4 +11,11 @@ pipelines:
         caches:
           - maven
         script: # Modify the commands below to build your repository.
-          - mvn -B verify # -B batch mode makes Maven less verbose
+          - mvn build
+    - step:
+        name: Deploy to test
+        deployment: testing   # can be test, staging or production
+        # trigger: manual  # uncomment to make manual deployment
+        script:
+        - mvn deploy
+        - echo "Deploying to test environment"
