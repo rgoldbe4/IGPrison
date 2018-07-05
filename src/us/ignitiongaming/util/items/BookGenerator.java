@@ -4,7 +4,7 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class BookGenerator {
-	public static void createBook(ItemMeta itemMeta, String content) {
+	public static void createBook(ItemMeta itemMeta, String content, String title) {
 		if(itemMeta instanceof BookMeta) {
 			BookMeta bookMeta = (BookMeta) itemMeta;
 			String[] pages = content.split("`");
@@ -13,7 +13,7 @@ public class BookGenerator {
 			}
 			bookMeta.setAuthor("IgnitionGaming.us");
 			bookMeta.setGeneration(BookMeta.Generation.TATTERED);
-			bookMeta.setTitle("Da Rules");
+			bookMeta.setTitle(title);
 		}
 	}
 }
