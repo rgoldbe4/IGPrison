@@ -24,7 +24,7 @@ public class DonatorCommand implements CommandExecutor{
 				Player player = (Player) sender;
 				// [/donate]
 				if (lbl.equalsIgnoreCase("donate")) {
-					player.sendMessage(GlobalTags.DONATION + "§8URL: §7§o§nhttp://www.ignitiongaming.us/donate§r");
+					player.sendMessage(GlobalTags.DONATION + "§8URL: §7§o§nhttp://www.ignitiongaming.us/mc/donate§r");
 				}
 				
 				// [/claimdonator]
