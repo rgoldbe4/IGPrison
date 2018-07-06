@@ -93,4 +93,7 @@ commands:
      clockout:
         description: clocks a guard out for work
         permission: igprison.clockout
+     link:
+        description: Link your Ignition Gaming account to your Minecraft account.
+        permission: igprison.link
 

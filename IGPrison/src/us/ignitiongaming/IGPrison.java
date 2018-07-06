@@ -12,6 +12,7 @@ import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.HelpCommand;
 import us.ignitiongaming.command.IGSKickBanCommand;
+import us.ignitiongaming.command.LinkCommand;
 import us.ignitiongaming.command.LockdownCommand;
 import us.ignitiongaming.command.NicknameCommand;
 import us.ignitiongaming.command.RankupCommand;
@@ -23,7 +24,6 @@ import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.event.other.FancySignEvent;
 import us.ignitiongaming.event.player.GuardDeathEvent;
 import us.ignitiongaming.event.player.InteractSellSignEvent;
-import us.ignitiongaming.event.player.PickaxeDamageEvent;
 import us.ignitiongaming.event.player.PlaceSellSignEvent;
 import us.ignitiongaming.event.player.PlayerChatEvent;
 import us.ignitiongaming.event.player.PlayerRecordEvent;
@@ -51,7 +51,6 @@ public class IGPrison extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new FancySignEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerSpawnEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new GuardDeathEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new PickaxeDamageEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new NotifyPlayerConnectionEvent(), this);
 		
 		/* Commands */
@@ -111,6 +110,9 @@ public class IGPrison extends JavaPlugin {
 		// -- Clockin/out commands --
 		this.getCommand("clockin").setExecutor(new ClockInOutCommand());
 		this.getCommand("clockout").setExecutor(new ClockInOutCommand());
+		
+		// -- Link command --
+		this.getCommand("link").setExecutor(new LinkCommand());
 		
 	}
 	
