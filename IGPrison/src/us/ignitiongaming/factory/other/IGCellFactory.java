@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import us.ignitiongaming.database.DatabaseUtils;
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.other.IGCell;
 import us.ignitiongaming.enums.IGCells;
 

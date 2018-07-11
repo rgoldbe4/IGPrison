@@ -247,4 +247,17 @@ public class SQLQuery {
 	public enum CombinationType {
 		AND, OR;
 	}
+	
+	public enum OrderBy {
+		DESC, ASC
+	}
+	
+	public enum QueryType {
+		SELECT, INSERT, DELETE, UPDATE, INNER_JOIN, JOIN;
+	}
+	
+	public void addOrderBy(String column, OrderBy orderBy) {
+		generateQuery();
+		query += " ORDER BY " + column + " " + orderBy.toString().toUpperCase();
+	}
 }

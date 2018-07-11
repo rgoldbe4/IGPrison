@@ -2,8 +2,8 @@ package us.ignitiongaming.entity.user;
 
 import java.sql.ResultSet;
 
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.HasID;
 import us.ignitiongaming.util.convert.BooleanConverter;
 

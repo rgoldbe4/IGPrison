@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.database.SQLQuery.CombinationType;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.lockdown.IGLockdown;
 import us.ignitiongaming.entity.other.IGCell;
 import us.ignitiongaming.entity.player.IGPlayer;

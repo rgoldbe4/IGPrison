@@ -3,8 +3,8 @@ package us.ignitiongaming.entity.lockdown;
 import java.sql.ResultSet;
 import java.util.Date;
 
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.HasID;
 import us.ignitiongaming.entity.other.IGCell;
 import us.ignitiongaming.entity.player.IGPlayer;
