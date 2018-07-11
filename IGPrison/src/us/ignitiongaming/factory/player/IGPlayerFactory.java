@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import org.bukkit.entity.Player;
 
 import us.ignitiongaming.database.DatabaseUtils;
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.player.IGPlayer;
 
 public class IGPlayerFactory {

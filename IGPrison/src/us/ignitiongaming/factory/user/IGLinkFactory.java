@@ -2,9 +2,9 @@ package us.ignitiongaming.factory.user;
 
 import java.sql.ResultSet;
 
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.database.SQLQuery.CombinationType;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.user.IGLink;
 

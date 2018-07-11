@@ -2,8 +2,8 @@ package us.ignitiongaming.factory.player;
 
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.database.DatabaseUtils;
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerDonator;
 import us.ignitiongaming.entity.player.IGPlayerStats;

@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.HasID;
 import us.ignitiongaming.enums.IGLocations;
 
