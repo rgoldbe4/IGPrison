@@ -176,7 +176,7 @@ public class GangCommand implements CommandExecutor{
 												//Step 6: Send the player a request and give them a message to accept/decline.
 											} else {
 												//Step 6b: Check if the IGPlayer exists...
-												IGPlayer igTarget = IGPlayerFactory.
+												
 											}
 										}
 									}
