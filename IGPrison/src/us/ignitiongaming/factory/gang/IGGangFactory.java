@@ -64,4 +64,16 @@ public class IGGangFactory {
 			return null;
 		}
 	}
+	
+	public static void add(String name) {
+		try {
+			SQLQuery query = new SQLQuery(QueryType.INSERT, IGGang.TABLE_NAME);
+			query.addGrabColumn("name");
+			query.addValue(name);
+			query.execute();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }

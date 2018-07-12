@@ -47,4 +47,10 @@ public class IGPlayerGang extends HasID {
 		query.execute();
 	}
 	
+	public void delete() {
+		SQLQuery query = new SQLQuery(QueryType.DELETE, TABLE_NAME);
+		query.addID(getId());
+		query.execute();
+	}
+	
 }

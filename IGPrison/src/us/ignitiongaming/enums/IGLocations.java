@@ -12,7 +12,7 @@ public enum IGLocations {
 	public String getLabel() { return label; }
 	
 	public static IGLocations getLocationByLabel(String label) {
-		IGLocations loc = ServerDefaults.DEFAULT_LOCATION;
+		IGLocations loc = IGLocations.valueOf(ServerDefaults.getSetting(IGSettings.DEFAULT_LOCATION).getValue().toString());
 		for (IGLocations location : IGLocations.values()) {
 			if (location.getLabel().equalsIgnoreCase(label)) loc = location;
 		}		
