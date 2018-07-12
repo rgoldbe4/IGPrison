@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.HasID;
+import us.ignitiongaming.util.convert.BooleanConverter;
 
 public class IGGang extends HasID {
 
@@ -13,6 +14,7 @@ public class IGGang extends HasID {
 	private String name;
 	private int points = -1;
 	private double money = -1;
+	private boolean closed;
 	
 	public void setName(String name) { this.name = name; }
 	public String getName() { return name; }
@@ -27,12 +29,20 @@ public class IGGang extends HasID {
 	public void removeMoney(double money) { this.money -= money; }
 	public double getMoney() { return money; }
 	
+	public void setClosed(boolean closed) { this.closed = closed; }
+	public void close() { this.closed = true; }
+	public void open() { this.closed = false; }
+	public boolean getClosed() { return closed; }
+	public boolean isClosed() { return closed == true; }
+	
+	
 	public void assign(ResultSet results) {
 		try {
 			setId(results);
 			setPoints(results.getInt("points"));
 			setName(results.getString("name"));
 			setMoney(results.getDouble("money"));
+			setClosed(BooleanConverter.getBooleanFromInteger(results.getInt("closed")));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -47,6 +57,13 @@ public class IGGang extends HasID {
 		query.addSet("name", name);
 		query.addSet("points", points);
 		query.addSet("money", money);
+		query.addSet("closed", BooleanConverter.getIntegerFromBoolean(closed));
+		query.addID(getId());
+		query.execute();
+	}
+	
+	public void delete() {
+		SQLQuery query = new SQLQuery(QueryType.DELETE, TABLE_NAME);
 		query.addID(getId());
 		query.execute();
 	}

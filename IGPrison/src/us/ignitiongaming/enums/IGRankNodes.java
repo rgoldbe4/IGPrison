@@ -2,6 +2,8 @@ package us.ignitiongaming.enums;
 
 import org.bukkit.entity.Player;
 
+import us.ignitiongaming.config.ServerDefaults;
+
 public enum IGRankNodes {
 	//node, tag, nameColor, isStaff (default: false)
 	SOLITARY ("igprison.solitary", "§7[§8§lSolitary§r§7] §r", "§8"),
@@ -45,8 +47,8 @@ public enum IGRankNodes {
 		for (IGRankNodes rank : IGRankNodes.values()) {
 			if (player.hasPermission(rank.getNode())) return rank;
 		}
-		//Player doesn't have any permissions? Give them solitary...
-		return IGRankNodes.D;
+		//Player doesn't have any permissions? Give them the default...
+		return IGRankNodes.valueOf(ServerDefaults.getSetting(IGSettings.DEFAULT_RANK).getValue().toString());
 	}
 	
 	public static boolean isPlayerInSolitary(Player player) {

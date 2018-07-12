@@ -1,5 +1,7 @@
 package us.ignitiongaming;
 
+import java.util.logging.Level;
+
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -10,6 +12,7 @@ import us.ignitiongaming.command.ClearChatCommand;
 import us.ignitiongaming.command.ClockInOutCommand;
 import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
+import us.ignitiongaming.command.GangCommand;
 import us.ignitiongaming.command.HelpCommand;
 import us.ignitiongaming.command.IGSKickBanCommand;
 import us.ignitiongaming.command.LinkCommand;
@@ -21,7 +24,9 @@ import us.ignitiongaming.command.SolitaryCommand;
 import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.config.ServerDefaults;
+import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.event.other.FancySignEvent;
+import us.ignitiongaming.event.other.IGSettingFactory;
 import us.ignitiongaming.event.player.GuardDeathEvent;
 import us.ignitiongaming.event.player.InteractSellSignEvent;
 import us.ignitiongaming.event.player.PlaceSellSignEvent;
@@ -39,6 +44,14 @@ public class IGPrison extends JavaPlugin {
 		
 		//You know? Vault is kinda stupid for making me use a global variable...
 		setupEconomy();
+		this.getLogger().log(Level.INFO, "Economy linked to plugin.");
+		
+		//Setup settings..
+		ServerDefaults.settings = IGSettingFactory.getSettings();
+		this.getLogger().log(Level.INFO, "Settings applied to plugin. Applied: ");
+		for (IGSetting setting : ServerDefaults.settings) {
+			this.getLogger().log(Level.INFO, setting.getId() + ": " + setting.getLabel().toUpperCase() + " = " + setting.getValue().toString());
+		}
 		
 		/* Events */
 		this.getServer().getPluginManager().registerEvents(new PlayerVerificationEvent(), this);
@@ -113,6 +126,9 @@ public class IGPrison extends JavaPlugin {
 		
 		// -- Link command --
 		this.getCommand("link").setExecutor(new LinkCommand());
+		
+		// -- Gang command --
+		this.getCommand("gang").setExecutor(new GangCommand());
 		
 	}
 	

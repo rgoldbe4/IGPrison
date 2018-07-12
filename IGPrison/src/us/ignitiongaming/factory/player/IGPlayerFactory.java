@@ -76,6 +76,7 @@ public class IGPlayerFactory {
 		}
 		return igPlayer;
 	}
+	
 	/**
 	 * Add an IGPlayer (and child tables) to the database!
 	 * @param player

@@ -96,4 +96,6 @@ commands:
      link:
         description: Link your Ignition Gaming account to your Minecraft account.
         permission: igprison.link
+     gang:
+        description: Ignition Gaming's gang system.
 
