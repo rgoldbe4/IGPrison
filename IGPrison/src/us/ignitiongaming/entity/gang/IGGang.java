@@ -12,7 +12,7 @@ public class IGGang extends HasID {
 	public static final String TABLE_NAME = "gang";
 	
 	private String name;
-	private int points = -1;
+	private int points = -1, founderId = -1;
 	private double money = -1;
 	private boolean closed;
 	
@@ -35,6 +35,9 @@ public class IGGang extends HasID {
 	public boolean getClosed() { return closed; }
 	public boolean isClosed() { return closed == true; }
 	
+	public void setFounderId(int founderId) { this.founderId = founderId; }
+	public int getFounderId() { return founderId; }
+	
 	
 	public void assign(ResultSet results) {
 		try {
@@ -43,6 +46,7 @@ public class IGGang extends HasID {
 			setName(results.getString("name"));
 			setMoney(results.getDouble("money"));
 			setClosed(BooleanConverter.getBooleanFromInteger(results.getInt("closed")));
+			setFounderId(results.getInt("founderID"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -58,6 +62,7 @@ public class IGGang extends HasID {
 		query.addSet("points", points);
 		query.addSet("money", money);
 		query.addSet("closed", BooleanConverter.getIntegerFromBoolean(closed));
+		query.addSet("founderID", founderId);
 		query.addID(getId());
 		query.execute();
 	}

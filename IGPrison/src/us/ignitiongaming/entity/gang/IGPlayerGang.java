@@ -22,6 +22,24 @@ public class IGPlayerGang extends HasID {
 	public void setGangRank(IGGangRank igGangRank) { this.gangRankID = igGangRank.getId(); }
 	public IGGangRank getGangRank() { return IGGangRank.getRankByID(gangRankID); }
 	
+	public void promote() {
+		//Make sure the player is not a leader. Otherwise they can be promoted
+		if (getGangRank() != IGGangRank.LEADER) {
+			gangRankID++;
+			IGGangRank igGangRank = IGGangRank.getRankByID(gangRankID);
+			setGangRank(igGangRank);
+		}
+	}
+	
+	public void demote() {
+		//Make sure the player is not a member. Otherwise they can be demoted.
+		if (getGangRank() != IGGangRank.MEMBER) {
+			gangRankID--;
+			IGGangRank igGangRank = IGGangRank.getRankByID(gangRankID);
+			setGangRank(igGangRank);
+		}
+	}
+	
 	public void assign(ResultSet results) {
 		try {
 			setId(results);

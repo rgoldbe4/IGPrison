@@ -1,9 +1,9 @@
 package us.ignitiongaming.enums;
 
 public enum IGGangRank {
-	MEMBER (1, "Member"),
-	OFFICER (2, "Officer"),
-	LEADER (3, "Leader");
+	MEMBER (1, "§7§lMember§r"),
+	OFFICER (2, "§a§lOfficer§r"),
+	LEADER (3, "§b§lLeader§r");
 	
 	private int ID;
 	private String label;

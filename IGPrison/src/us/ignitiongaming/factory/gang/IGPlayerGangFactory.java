@@ -41,17 +41,15 @@ public class IGPlayerGangFactory {
 				igPlayerGang.assign(results);
 				igPlayers.add(igPlayerGang);
 			}
-			
-			return igPlayers;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return igPlayers;
 		}
+		return igPlayers;
 	}
 	
 	public static IGPlayerGang getPlayerGangFromPlayer(IGPlayer igPlayer) {
+		IGPlayerGang igPlayerGang = new IGPlayerGang();
 		try {
-			IGPlayerGang igPlayerGang = new IGPlayerGang();
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerGang.TABLE_NAME);
 			query.addWhere("playerID", igPlayer.getId());
 			ResultSet results = query.getResults();
@@ -59,14 +57,35 @@ public class IGPlayerGangFactory {
 			while (results.next()) {
 				igPlayerGang.assign(results);
 			}
-			
-			return igPlayerGang;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return null;
 		}
+
+		return igPlayerGang;
 	}
 	
+	public static List<IGPlayerGang> getLeadersInGang(IGGang igGang) {
+		List<IGPlayerGang> leaders = new ArrayList<>();
+		try {
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerGang.TABLE_NAME);
+			query.addWhere("gangID", igGang.getId());
+			query.addWhere("gangRankID", IGGangRank.LEADER.getId());
+			ResultSet results = query.getResults();
+			
+			while (results.next()) {
+				IGPlayerGang leader = new IGPlayerGang();
+				leader.assign(results);
+				leaders.add(leader);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return leaders;
+	}
+	
+	public static void add(IGPlayer igPlayer, IGGang igGang) {
+		add(igPlayer, igGang, IGGangRank.MEMBER);
+	}
 	public static void add(IGPlayer igPlayer, IGGang igGang, IGGangRank igGangRank) {
 		SQLQuery query = new SQLQuery(QueryType.INSERT, IGPlayerGang.TABLE_NAME);
 		query.addGrabColumns("playerID", "gangID", "gangRankID");

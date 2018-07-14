@@ -22,6 +22,8 @@ public class SQLQuery {
 	private List<Object> valueItems = new ArrayList<>();
 	private List<String> setColumns = new ArrayList<>();
 	private List<Object> setValues = new ArrayList<>();
+	private List<String> orderByColumns = new ArrayList<>();
+	private List<OrderBy> orderByTypes = new ArrayList<>();
 	private String rightTable = "";
 	private String joinColumn = "";
 	//Used privately only.
@@ -223,7 +225,15 @@ public class SQLQuery {
 					query += (whereTypes.get(i) == CombinationType.AND ? " AND " : " OR ");
 				}
 			}
-		}		
+		}
+		
+		//Now do an order by
+		if (orderByColumns.size() > 0 && orderByColumns.size() == orderByTypes.size()) {
+			query += " ORDER BY ";
+			for (int i = 0; i < orderByColumns.size(); i++) {
+				query += orderByColumns.get(i) + " " + orderByTypes.get(i).toString() + " ";
+			}
+		}
 	}
 	
 	/**
@@ -257,7 +267,9 @@ public class SQLQuery {
 	}
 	
 	public void addOrderBy(String column, OrderBy orderBy) {
-		generateQuery();
-		query += " ORDER BY " + column + " " + orderBy.toString().toUpperCase();
+		if (orderByColumns.size() == 0) {
+			orderByColumns.add(column);
+			orderByTypes.add(orderBy);
+		}
 	}
 }

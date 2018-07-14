@@ -25,6 +25,7 @@ import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
+import us.ignitiongaming.event.gang.PendingRequestEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
 import us.ignitiongaming.event.other.IGSettingFactory;
 import us.ignitiongaming.event.player.GuardDeathEvent;
@@ -65,6 +66,7 @@ public class IGPrison extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new PlayerSpawnEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new GuardDeathEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new NotifyPlayerConnectionEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new PendingRequestEvent(), this);
 		
 		/* Commands */
 		// -- Help Command --

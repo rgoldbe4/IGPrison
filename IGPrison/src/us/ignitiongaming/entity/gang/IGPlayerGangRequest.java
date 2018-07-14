@@ -1,5 +1,9 @@
 package us.ignitiongaming.entity.gang;
 
+import java.sql.ResultSet;
+
+import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.HasID;
 import us.ignitiongaming.enums.IGPlayerGangRequestAnswer;
 
@@ -19,5 +23,37 @@ public class IGPlayerGangRequest extends HasID {
 	public IGPlayerGangRequestAnswer getAnswer() { return answer; }
 	public void setAnswer(IGPlayerGangRequestAnswer answer) { this.answer = answer; }
 	public void setAnswer(int answer) { this.answer = IGPlayerGangRequestAnswer.getAnswerById(answer); }
+	public void accept() { this.answer = IGPlayerGangRequestAnswer.ACCEPTED; }
+	public void decline() { this.answer = IGPlayerGangRequestAnswer.DECLINED; }
+	public void pending() { this.answer = IGPlayerGangRequestAnswer.UNANSWERED; }
 	
+	public void assign(ResultSet results) {
+		try {
+			setId(results);
+			setPlayerID(results.getInt("playerID"));
+			setGangID(results.getInt("gangID"));
+			setAnswer(results.getInt("answer"));
+		} catch (Exception ex) {
+			
+		}
+	}
+	
+	public boolean isValid() {
+		return !(!hasId() || playerID == -1 || gangID == -1 || answer == null);
+	}
+	
+	public void save() {
+		SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
+		query.addSet("playerID", playerID);
+		query.addSet("gangID", gangID);
+		query.addSet("answer", answer.getId());
+		query.addID(getId());
+		query.execute();
+	}
+	
+	public void delete() {
+		SQLQuery query = new SQLQuery(QueryType.DELETE, TABLE_NAME);
+		query.addID(getId());
+		query.execute();
+	}
 }

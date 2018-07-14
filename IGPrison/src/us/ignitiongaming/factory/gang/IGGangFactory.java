@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.OrderBy;
 import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.gang.IGGang;
+import us.ignitiongaming.entity.player.IGPlayer;
 
 public class IGGangFactory {
 
@@ -14,6 +16,7 @@ public class IGGangFactory {
 		List<IGGang> gangs = new ArrayList<>();
 		try {
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGGang.TABLE_NAME);
+			query.addOrderBy("money", OrderBy.DESC);
 			ResultSet results = query.getResults();
 			
 			while (results.next()) {
@@ -22,16 +25,15 @@ public class IGGangFactory {
 				gangs.add(gang);
 			}
 			
-			return gangs;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return gangs;
 		}
+		return gangs;
 	}
 	
 	public static IGGang getGangById(int id) {
+		IGGang gang = new IGGang();
 		try {
-			IGGang gang = new IGGang();
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGGang.TABLE_NAME);
 			query.addID(id);
 			ResultSet results = query.getResults();
@@ -40,16 +42,15 @@ public class IGGangFactory {
 				gang.assign(results);
 			}
 			
-			return gang;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return null;
 		}
+		return gang;
 	}
 	
 	public static IGGang getGangByName(String name) {
+		IGGang gang = new IGGang();
 		try {
-			IGGang gang = new IGGang();
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGGang.TABLE_NAME);
 			query.addWhere("name", name);
 			ResultSet results = query.getResults();
@@ -57,19 +58,17 @@ public class IGGangFactory {
 			while (results.next()) {
 				gang.assign(results);
 			}
-			
-			return gang;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return null;
 		}
+		return gang;
 	}
 	
-	public static void add(String name) {
+	public static void add(String name, IGPlayer founder) {
 		try {
 			SQLQuery query = new SQLQuery(QueryType.INSERT, IGGang.TABLE_NAME);
-			query.addGrabColumn("name");
-			query.addValue(name);
+			query.addGrabColumns("name", "founderID");
+			query.addValues(name, founder.getId());
 			query.execute();
 			
 		} catch (Exception ex) {
