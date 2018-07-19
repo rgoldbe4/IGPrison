@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.database.ConvertUtils;
@@ -59,34 +60,38 @@ public class GangCommand implements CommandExecutor{
 						}
 						
 						// [/gang disband]
-						if (args[0].equalsIgnoreCase("disband")) {
+						else if (args[0].equalsIgnoreCase("disband")) {
 							disbandGang(player, igPlayer, isPlayerInGang);
 						}
 						
 						// [/gang requests]
-						if (args[0].equalsIgnoreCase("requests")) {
+						else if (args[0].equalsIgnoreCase("requests")) {
 							showRequests(player, igPlayer, isPlayerInGang);
 						}
 						
 						// [/gang list] [/gang ranking]
-						if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("ranking")) {
+						else if (args[0].equalsIgnoreCase("list") || args[0].equalsIgnoreCase("ranking")) {
 							showAllGangs(player);
 						}
 						
 						// [/gang ranks]
-						if (args[0].equalsIgnoreCase("ranks")) {
+						else if (args[0].equalsIgnoreCase("ranks")) {
 							showAllRanks(player);
 						}
 						
 						// [/gang chat]
-						if (args[0].equalsIgnoreCase("chat")) {
+						else if (args[0].equalsIgnoreCase("chat")) {
 							toggleChat(player);
 							//The actual talking event is handled in Player Events -> PlayerChatEvent
 						}
 						
-						// [/gang buydrugs]
-						if (args[0].equalsIgnoreCase("buydrugs")) {
+						// [/gang canbuydrugs]
+						else if (args[0].equalsIgnoreCase("canbuydrugs")) {
 							toggleCanMembersBuyDrugs(player, igPlayer, isPlayerInGang);
+						}
+						
+						else {
+							player.sendMessage(GlobalMessages.INVALID_COMMAND);
 						}
 						
 						
@@ -101,42 +106,42 @@ public class GangCommand implements CommandExecutor{
 						}
 						
 						// [/gang add <player>]
-						if (args[0].equalsIgnoreCase("add")) {
+						else if (args[0].equalsIgnoreCase("add")) {
 							addPlayerToGang(player, igPlayer, isPlayerInGang, args[1]);
 						}
 						
 						// [/gang promote <player>]
-						if (args[0].equalsIgnoreCase("promote")) {
+						else if (args[0].equalsIgnoreCase("promote")) {
 							promotePlayer(player, igPlayer, isPlayerInGang, args[1]);
 						}
 						
 						// [/gang demote <player>]
-						if (args[0].equalsIgnoreCase("demote")) {
+						else if (args[0].equalsIgnoreCase("demote")) {
 							demotePlayer(player, igPlayer, isPlayerInGang, args[1]);
 						}
 						
 						// [/gang info <name>]
-						if (args[0].equalsIgnoreCase("info")) {
+						else if (args[0].equalsIgnoreCase("info")) {
 							showGangInformation(player, igPlayer, ConvertUtils.getStringFromCommand(1, args));
 						}
 						
 						// [/gang accept <name>]
-						if (args[0].equalsIgnoreCase("accept")) {
+						else if (args[0].equalsIgnoreCase("accept")) {
 							acceptGang(player, igPlayer, isPlayerInGang, ConvertUtils.getStringFromCommand(1, args));
 						}
 						
 						// [/gang decline <name>]
-						if (args[0].equalsIgnoreCase("decline")) {
+						else if (args[0].equalsIgnoreCase("decline")) {
 							declineGang(player, igPlayer, isPlayerInGang, ConvertUtils.getStringFromCommand(1, args));
 						}
 						
 						// [/gang addfunds <amount>
-						if (args[0].equalsIgnoreCase("addfunds")) {
+						else if (args[0].equalsIgnoreCase("addfunds")) {
 							addFunds(player, igPlayer, isPlayerInGang, args[1]);
 						}
 						
 						// [/gang help <page>]
-						if (args[0].equalsIgnoreCase("help")) {
+						else if (args[0].equalsIgnoreCase("help")) {
 							if (args[1].equalsIgnoreCase("1")) {
 								showHelpCommand(player);
 							} else {
@@ -145,8 +150,12 @@ public class GangCommand implements CommandExecutor{
 						}
 						
 						// [/gang drugs <type>]
-						if (args[0].equalsIgnoreCase("drugs")) {
+						else if (args[0].equalsIgnoreCase("drugs")) {
 							buyDrug(player, igPlayer, isPlayerInGang, args[1]);
+						}
+						
+						else {
+							player.sendMessage(GlobalMessages.INVALID_COMMAND);
 						}
 					}
 					
@@ -213,7 +222,7 @@ public class GangCommand implements CommandExecutor{
 		player.sendMessage(" §8§o/gang §lrequests §r§7§oView all requests from your gang (entire history). Must be a Leader.");
 		player.sendMessage(" §8§o/gang §lchat §r§7§oToggle gang chat. You will receive chat messages regardless.");
 		player.sendMessage(" §8§o/gang §ldrugs §r§8§o<type> §r§7§oBuy drugs from the server using your money or the gang's money (if allowed).");
-		player.sendMessage(" §8§o/gang §lbuydrugs §r§7§oToggle whether or not gang members can buy drugs using the gang's money.");
+		player.sendMessage(" §8§o/gang §lcanbuydrugs §r§7§oToggle whether or not gang members can buy drugs using the gang's money.");
 	}
 	
 	private void addPlayerToGang(Player player, IGPlayer igPlayer, boolean isPlayerInGang, String name) {
