@@ -8,23 +8,22 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import us.ignitiongaming.enums.IGGuardBatons;
-import us.ignitiongaming.enums.IGRankNodes;
 
-public class GuardSolitaryBaton {
-	public static final String LORE = "§6§lSolitary Baton";
-	private ItemStack item = new ItemStack(Material.BONE);
+public class SpawnBook {
+	private ItemStack item = new ItemStack(Material.WRITTEN_BOOK);
 	private ItemMeta itemMeta = item.getItemMeta();
-	public GuardSolitaryBaton() {
+	public SpawnBook() {
+		BookGenerator.createBook(itemMeta,"", "Da Rules");
 		setupItemMeta();
 		
+	
 	}
 	
 	private void setupItemMeta() {
-		itemMeta.setDisplayName(IGGuardBatons.SOLITARY_STICK.getTag());
+		itemMeta.setDisplayName(IGGuardBatons.SHOCK_BATON.getTag());
 		List<String> lore = new ArrayList<>();
 		
-		lore.add(IGRankNodes.GUARD.getTag());
-		lore.add(LORE);
+		lore.add("§6§lSpawn Book");
 		itemMeta.setLore(lore);
 		
 		item.setItemMeta(itemMeta);
@@ -33,6 +32,5 @@ public class GuardSolitaryBaton {
 	public ItemStack getBaton() {
 		return item;
 	}
-	
 	
 }

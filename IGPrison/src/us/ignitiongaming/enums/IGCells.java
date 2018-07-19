@@ -15,7 +15,7 @@ public enum IGCells {
 	public String getLabel() { return label; }
 	
 	public static IGCells getCell(String label) {
-		IGCells cell = ServerDefaults.DEFAULT_CELL;
+		IGCells cell = IGCells.valueOf(ServerDefaults.getSetting(IGSettings.DEFAULT_CELL).getValue().toString());
 		for (IGCells c : IGCells.values()) {
 			if (c.getLabel().equalsIgnoreCase(label)) cell = c;
 		}

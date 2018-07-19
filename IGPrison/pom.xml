@@ -3,9 +3,6 @@
   <groupId>us.ignitiongaming</groupId>
   <artifactId>igprison</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  <name>IGPrison</name>
-  <url>http://www.ignitiongaming.us</url>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>

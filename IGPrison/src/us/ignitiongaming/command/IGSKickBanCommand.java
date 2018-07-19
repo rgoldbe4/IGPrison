@@ -29,9 +29,10 @@ public class IGSKickBanCommand implements CommandExecutor {
 				Date startDate = DateConverter.getCurrentTime();
 				Date endDate = DateConverter.getCurrentTime();
 				
-				//Convert
-				endDate = DateConverter.convertSingleArgumentContextToDate(args[1]);
+				//Convert				
 				
+				if(Integer.parseInt(args[1]) == 0)endDate = new Date(Long.MAX_VALUE);
+				else endDate = DateConverter.convertSingleArgumentContextToDate(args[1]);		
 				IGPlayerBannedFactory.add(IGPlayerFactory.getIGPlayerByPlayer(kicked), startDate, endDate, reason, IGPlayerFactory.getIGPlayerByPlayer(kicker));
 				kicked.kickPlayer(" banned for " + DateConverter.compareDatesFriendly(startDate, endDate) + " for " + reason);
 				if (lbl.contains("s")){

@@ -12,13 +12,13 @@ import us.ignitiongaming.enums.IGGuardBatons;
 import us.ignitiongaming.enums.IGRankNodes;
 
 public class GuardShockBaton {
-	public static final String LORE ="§6§lShock Baton"; 
+	
 	private ItemStack item = new ItemStack(Material.BLAZE_ROD);
 	private ItemMeta itemMeta = item.getItemMeta();
 	public GuardShockBaton() {
 		setupItemMeta();
-		item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
-		item.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
+		item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
+		item.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 10);
 	
 	}
 	
@@ -27,7 +27,7 @@ public class GuardShockBaton {
 		List<String> lore = new ArrayList<>();
 		
 		lore.add(IGRankNodes.GUARD.getTag());
-		lore.add(LORE);
+		lore.add("§6§lShock Baton");
 		itemMeta.setLore(lore);
 		
 		item.setItemMeta(itemMeta);
