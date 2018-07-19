@@ -1,4 +1,4 @@
-package us.ignitiongaming.event.other;
+package us.ignitiongaming.factory.other;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;

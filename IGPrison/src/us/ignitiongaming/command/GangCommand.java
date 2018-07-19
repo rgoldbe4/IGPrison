@@ -15,6 +15,7 @@ import us.ignitiongaming.entity.gang.IGGang;
 import us.ignitiongaming.entity.gang.IGPlayerGang;
 import us.ignitiongaming.entity.gang.IGPlayerGangRequest;
 import us.ignitiongaming.entity.player.IGPlayer;
+import us.ignitiongaming.enums.IGDrugType;
 import us.ignitiongaming.enums.IGGangRank;
 import us.ignitiongaming.enums.IGPlayerGangRequestAnswer;
 import us.ignitiongaming.enums.IGSettings;
@@ -22,6 +23,7 @@ import us.ignitiongaming.factory.gang.IGGangFactory;
 import us.ignitiongaming.factory.gang.IGPlayerGangFactory;
 import us.ignitiongaming.factory.gang.IGPlayerGangRequestFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
+import us.ignitiongaming.singleton.IGList;
 import us.ignitiongaming.util.calculator.GangCalculator;
 import us.ignitiongaming.util.convert.ChatConverter;
 import us.ignitiongaming.util.convert.CurrencyConverter;
@@ -76,6 +78,17 @@ public class GangCommand implements CommandExecutor{
 							showAllRanks(player);
 						}
 						
+						// [/gang chat]
+						if (args[0].equalsIgnoreCase("chat")) {
+							toggleChat(player);
+							//The actual talking event is handled in Player Events -> PlayerChatEvent
+						}
+						
+						// [/gang buydrugs]
+						if (args[0].equalsIgnoreCase("buydrugs")) {
+							toggleCanMembersBuyDrugs(player, igPlayer, isPlayerInGang);
+						}
+						
 						
 					}
 					
@@ -124,11 +137,16 @@ public class GangCommand implements CommandExecutor{
 						
 						// [/gang help <page>]
 						if (args[0].equalsIgnoreCase("help")) {
-							if (args[1] == "1") {
+							if (args[1].equalsIgnoreCase("1")) {
 								showHelpCommand(player);
 							} else {
 								showSecondPageHelpCommand(player);
 							}
+						}
+						
+						// [/gang drugs <type>]
+						if (args[0].equalsIgnoreCase("drugs")) {
+							buyDrug(player, igPlayer, isPlayerInGang, args[1]);
 						}
 					}
 					
@@ -158,6 +176,7 @@ public class GangCommand implements CommandExecutor{
 		player.sendMessage("=== { §9§l" + gang.getName().toUpperCase() + "§f } ===");
 		player.sendMessage("  §2§l" + CurrencyConverter.convertToCurrency(gang.getMoney()));
 		player.sendMessage(GlobalTags.DEFIANCE + "§5Points§f: §8§l" + gang.getPoints());
+		player.sendMessage("Can members buy drugs using gang money? §e" + gang.canMembersBuyDrugs()); 
 		player.sendMessage("-----------------------");
 		
 		//Go through each gang and find out their name and rank... Sort by ranks (Leader > Officer > Member) in query.
@@ -174,9 +193,9 @@ public class GangCommand implements CommandExecutor{
 		player.sendMessage(" -- " + GlobalTags.GANG + " [1/2] --");
 		player.sendMessage(" §8§o/gang §lcreate §r§8§o<name> §r§7§oCreates a new gang. This action costs money.");
 		player.sendMessage(" §8§o/gang §ldisband §r§7§oDisband your gang. You must be the only leader of the gang.");
-		player.sendMessage(" §8§o/gang §laccept §r§8§o<gang>§r§7§oAccept the invitation to join a gang.");
-		player.sendMessage(" §8§o/gang §ldecline §r§8§o<gang>§r§7§oDecline the invitation to join the gang.");
-		player.sendMessage(" §8§o/gang §laddfunds §r§8§o<amount>§r§7§oAdd money to the gang through your bank account.");
+		player.sendMessage(" §8§o/gang §laccept §r§8§o<gang> §r§7§oAccept the invitation to join a gang.");
+		player.sendMessage(" §8§o/gang §ldecline §r§8§o<gang> §r§7§oDecline the invitation to join the gang.");
+		player.sendMessage(" §8§o/gang §laddfunds §r§8§o<amount> §r§7§oAdd money to the gang through your bank account.");
 		player.sendMessage(" §8§o/gang §linfo §r§8§o<gang> §r§7§oDisplays public information of a <gang>.");
 		player.sendMessage(" §8§o/gang §llist §r§7§oDisplays all gangs and their leaders.");
 		player.sendMessage(" §8§o/gang §lranks §r§7§oDisplays all of the ranks and their functionality.");
@@ -192,6 +211,9 @@ public class GangCommand implements CommandExecutor{
 		player.sendMessage(" §8§o/gang §ladd §r§8§o<player> §r§7§oAdd <player> to the gang. This costs based on how many members are in your gang.");
 		player.sendMessage(" §8§o/gang §lremove §r§8§o<player> §r§7§oRemoves <player> from the gang. This action is free.");
 		player.sendMessage(" §8§o/gang §lrequests §r§7§oView all requests from your gang (entire history). Must be a Leader.");
+		player.sendMessage(" §8§o/gang §lchat §r§7§oToggle gang chat. You will receive chat messages regardless.");
+		player.sendMessage(" §8§o/gang §ldrugs §r§8§o<type> §r§7§oBuy drugs from the server using your money or the gang's money (if allowed).");
+		player.sendMessage(" §8§o/gang §lbuydrugs §r§7§oToggle whether or not gang members can buy drugs using the gang's money.");
 	}
 	
 	private void addPlayerToGang(Player player, IGPlayer igPlayer, boolean isPlayerInGang, String name) {
@@ -599,7 +621,7 @@ public class GangCommand implements CommandExecutor{
 		}
 	}
 	
-	public void showAllRanks(Player player) {
+	private void showAllRanks(Player player) {
 		ChatConverter.clearPlayerChat(player);
 		
 		player.sendMessage("----- Gang Ranks ------");
@@ -608,7 +630,7 @@ public class GangCommand implements CommandExecutor{
 		player.sendMessage(IGGangRank.LEADER.getLabel() + " -> The highest rank of the gang. Can add/remove gang members, can promote/demote gang members.");
 	}
 
-	public void addFunds(Player player, IGPlayer igPlayer, boolean isPlayerInGang, String amount) {
+	private void addFunds(Player player, IGPlayer igPlayer, boolean isPlayerInGang, String amount) {
 		
 		//Step 1: Determine if the player is in the gang.
 		if (isPlayerInGang) {
@@ -635,6 +657,87 @@ public class GangCommand implements CommandExecutor{
 				}
 			} catch (Exception ex) {
 				player.sendMessage(GlobalTags.GANG + "§4Unable to add funds. Please enter in a valid amount.");
+			}
+		} else {
+			player.sendMessage(GlobalTags.GANG + "§4You must be in a gang.");
+		}
+	}
+
+	private void toggleChat(Player player) {
+		if (!IGList.gangChat.contains(player)) {
+			IGList.gangChat.add(player);
+			player.sendMessage(GlobalTags.GANG + "§fToggled gang chat: §2§lON");
+		} else {
+			IGList.gangChat.remove(player);
+			player.sendMessage(GlobalTags.GANG + "§fToggled gang chat: §4§lOFF");
+		}
+	}
+
+	private void buyDrug(Player player, IGPlayer igPlayer, boolean isPlayerInGang, String drugLabel) {
+		if (!IGDrugType.isDrugType(drugLabel)) {
+			String drugTypes = "";
+			for (IGDrugType drug : IGDrugType.values()) {
+				drugTypes += " " + drug.getLabel().toLowerCase();
+			}
+			player.sendMessage(GlobalTags.DRUGS + "§4Drug types:§f" + drugTypes);
+			return;
+		}
+		
+		IGDrugType drugType = IGDrugType.getDrugByLabel(drugLabel);
+		
+		//Step 1: Determine if the player is in a gang.
+		if (isPlayerInGang) {
+			IGPlayerGang igPlayerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
+			IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangID());
+			double playerBalance = ServerDefaults.econ.getBalance(player);
+			
+			//Step 2: Determine if the gang member can afford the drugs.
+			double costOfDrugs = Double.parseDouble(ServerDefaults.getSetting(IGSettings.DEFAULT_DRUG_COST).getValue().toString());
+			if (playerBalance >= costOfDrugs) {
+				ServerDefaults.econ.withdrawPlayer(player, costOfDrugs);
+				player.getInventory().addItem(drugType.toDrug());
+				
+			} 
+			//Step 2: Determine if the gang will let the player buy drugs using the gang money pot.
+			else if (igGang.canMembersBuyDrugs()){
+				
+				//Step 3: Determine if the gang can actually afford the drugs.
+				if (igGang.getMoney() >= costOfDrugs) {
+					//Buy the drugs and send them to the player.
+					igGang.setMoney(igGang.getMoney() - costOfDrugs);
+					igGang.save();
+					
+					player.getInventory().addItem(drugType.toDrug());
+				}
+			} 
+			//All failed, so let the player know they can't afford the drugs.
+			else {
+				if (!igGang.canMembersBuyDrugs()) 
+					player.sendMessage(GlobalTags.DRUGS + "§4You or your gang could not afford to buy drugs.");
+				else
+					player.sendMessage(GlobalTags.DRUGS + "§4You cannot afford to buy more drugs.");
+			}
+		}
+	}
+
+	private void toggleCanMembersBuyDrugs(Player player, IGPlayer igPlayer, boolean isPlayerInGang) {
+		
+		//Step 1: Determine if the player is in a gang.
+		if (isPlayerInGang) {
+			
+			//Step 2: Determine if the player is the right rank (Leader only).
+			IGPlayerGang igPlayerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
+			if (igPlayerGang.getGangRank() == IGGangRank.LEADER) {
+				//Step 3: Toggle the current setting.
+				IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangID());
+				igGang.toggleAllowedMembersToBuyDrugs();
+				igGang.save();
+				if (igGang.canMembersBuyDrugs())
+					player.sendMessage(GlobalTags.GANG + "§aMembers may buy drugs with the gang's money.");
+				else
+					player.sendMessage(GlobalTags.GANG + "§cMembers may not buy drugs with the gang's money.");
+			} else {
+				player.sendMessage(GlobalTags.GANG + "§4You must be a leader to run this command.");
 			}
 		} else {
 			player.sendMessage(GlobalTags.GANG + "§4You must be in a gang.");

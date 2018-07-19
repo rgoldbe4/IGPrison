@@ -14,7 +14,8 @@ public class IGGang extends HasID {
 	private String name;
 	private int points = -1, founderId = -1;
 	private double money = -1;
-	private boolean closed;
+	private boolean closed = false;
+	private boolean allowBuyDrugs = false;
 	
 	public void setName(String name) { this.name = name; }
 	public String getName() { return name; }
@@ -38,6 +39,12 @@ public class IGGang extends HasID {
 	public void setFounderId(int founderId) { this.founderId = founderId; }
 	public int getFounderId() { return founderId; }
 	
+	public void setAllowToBuyDrugs(boolean allowBuyDrugs) { this.allowBuyDrugs = allowBuyDrugs; }
+	public void allowMembersToBuyDrugs() { this.allowBuyDrugs = true; }
+	public void disallowMembersToBuyDrugs() { this.allowBuyDrugs = false; }
+	public boolean canMembersBuyDrugs() { return allowBuyDrugs; }
+	public void toggleAllowedMembersToBuyDrugs() { allowBuyDrugs = !allowBuyDrugs; }
+	
 	
 	public void assign(ResultSet results) {
 		try {
@@ -47,6 +54,7 @@ public class IGGang extends HasID {
 			setMoney(results.getDouble("money"));
 			setClosed(BooleanConverter.getBooleanFromInteger(results.getInt("closed")));
 			setFounderId(results.getInt("founderID"));
+			setAllowToBuyDrugs(BooleanConverter.getBooleanFromInteger(results.getInt("memberBuyDrugs")));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -63,6 +71,7 @@ public class IGGang extends HasID {
 		query.addSet("money", money);
 		query.addSet("closed", BooleanConverter.getIntegerFromBoolean(closed));
 		query.addSet("founderID", founderId);
+		query.addSet("memberBuyDrugs", BooleanConverter.getIntegerFromBoolean(allowBuyDrugs));
 		query.addID(getId());
 		query.execute();
 	}

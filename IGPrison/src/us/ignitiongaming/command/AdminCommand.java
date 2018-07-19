@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
-import us.ignitiongaming.event.other.IGSettingFactory;
+import us.ignitiongaming.factory.other.IGSettingFactory;
 
 public class AdminCommand implements CommandExecutor{
 

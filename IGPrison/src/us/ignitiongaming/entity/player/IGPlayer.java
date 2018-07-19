@@ -72,4 +72,8 @@ public class IGPlayer extends HasID {
 
 	public String getNickname() { return nickname; }
 	public void setNickname(String nickname) { this.nickname = nickname; }
+	public boolean hasNickname() { 
+		if (nickname == null) return false;
+		return nickname.length() > 0;
+	}
 }

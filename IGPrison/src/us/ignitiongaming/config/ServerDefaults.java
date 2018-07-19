@@ -8,7 +8,7 @@ import us.ignitiongaming.enums.IGCells;
 import us.ignitiongaming.enums.IGLocations;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.enums.IGSettings;
-import us.ignitiongaming.event.other.IGSettingFactory;
+import us.ignitiongaming.factory.other.IGSettingFactory;
 
 public class ServerDefaults {
 

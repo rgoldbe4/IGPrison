@@ -27,7 +27,6 @@ import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.event.gang.PendingRequestEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
-import us.ignitiongaming.event.other.IGSettingFactory;
 import us.ignitiongaming.event.player.GuardDeathEvent;
 import us.ignitiongaming.event.player.InteractSellSignEvent;
 import us.ignitiongaming.event.player.PlaceSellSignEvent;
@@ -38,6 +37,7 @@ import us.ignitiongaming.event.player.PlayerVerificationEvent;
 import us.ignitiongaming.event.server.NotifyPlayerConnectionEvent;
 import us.ignitiongaming.event.server.ServerListEvent;
 import us.ignitiongaming.event.solitary.VerifySolitaryEvent;
+import us.ignitiongaming.factory.other.IGSettingFactory;
 
 
 public class IGPrison extends JavaPlugin {	
