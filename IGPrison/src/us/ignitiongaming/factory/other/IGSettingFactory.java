@@ -1,11 +1,11 @@
-package us.ignitiongaming.event.other;
+package us.ignitiongaming.factory.other;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.other.IGSetting;
 
 public class IGSettingFactory {

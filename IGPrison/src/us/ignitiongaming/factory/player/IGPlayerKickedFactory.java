@@ -1,7 +1,7 @@
 package us.ignitiongaming.factory.player;
 
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerKicked;
 

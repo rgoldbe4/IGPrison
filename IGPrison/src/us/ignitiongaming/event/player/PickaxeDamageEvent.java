@@ -24,8 +24,10 @@ public class PickaxeDamageEvent implements Listener {
 						if (   held.getType() == Material.DIAMOND_PICKAXE
 						    || held.getType() == Material.IRON_PICKAXE 
 						    || held.getType() == Material.WOOD_PICKAXE
-						    || held.getType() == Material.GOLD_PICKAXE )
+						    || held.getType() == Material.GOLD_PICKAXE ) {
+							damagingPlayer.sendMessage("You cannot attack with a pickaxe!");
 							event.setCancelled(true);
+						}
 				}
 				
 			}

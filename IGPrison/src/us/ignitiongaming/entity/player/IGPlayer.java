@@ -3,8 +3,8 @@ package us.ignitiongaming.entity.player;
 import java.sql.ResultSet;
 import java.util.UUID;
 
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.HasID;
 
 public class IGPlayer extends HasID {
@@ -72,4 +72,8 @@ public class IGPlayer extends HasID {
 
 	public String getNickname() { return nickname; }
 	public void setNickname(String nickname) { this.nickname = nickname; }
+	public boolean hasNickname() { 
+		if (nickname == null) return false;
+		return nickname.length() > 0;
+	}
 }

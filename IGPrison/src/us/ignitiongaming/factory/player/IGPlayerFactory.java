@@ -4,9 +4,8 @@ import java.sql.ResultSet;
 
 import org.bukkit.entity.Player;
 
-import us.ignitiongaming.database.DatabaseUtils;
-import us.ignitiongaming.database.QueryType;
 import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.player.IGPlayer;
 
 public class IGPlayerFactory {
@@ -18,64 +17,74 @@ public class IGPlayerFactory {
 	 * @return IGPlayer Object or null
 	 */
 	public static IGPlayer getIGPlayerByPlayer(Player player) {
+		IGPlayer igPlayer = new IGPlayer();
 		try {
-			IGPlayer igPlayer = new IGPlayer();
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayer.TABLE_NAME);
 			query.addWhere("uuid", player.getUniqueId());
 			ResultSet results = query.getResults();
 			
-			//Bad -> If we found more than one IGPlayer (HOW!?!) or no IGPlayer (can be expected).
-			if (DatabaseUtils.getNumRows(results) != 1) {
-				return null;
-			}
-			
-			//Setup object. Since this is a one-to-one relationship, we don't need to manually assign things.
 			while (results.next()) {
 				igPlayer.assign(results);
 			}
-			
-			return igPlayer;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return null;
 		}
+		return igPlayer;
 	}
 	
 	public static IGPlayer getIGPlayerById(int id) {
+		IGPlayer igPlayer = new IGPlayer();
 		try {
-			IGPlayer igPlayer = new IGPlayer();
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayer.TABLE_NAME);
 			query.addID(id);
 			ResultSet results = query.getResults();
 			
-			if (DatabaseUtils.getNumRows(results) == 0) return null;
-			
 			while (results.next()) {
 				igPlayer.assign(results);
 			}
 			
-			return igPlayer;
-			
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return null;
 		}
+		return igPlayer;
 	}
+	
 	public static IGPlayer getIGPlayerForNickname(String nickname) {
-		SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayer.TABLE_NAME);
-		query.addWhere("nickname", nickname);
-		ResultSet results = query.getResults();
-		IGPlayer igPlayer = null;
-		try {	
+		IGPlayer igPlayer = new IGPlayer();
+		try {
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayer.TABLE_NAME);
+			query.addWhere("nickname", nickname);
+			ResultSet results = query.getResults();
+			
 			if(results.next()) {
-				igPlayer = new IGPlayer();
 				igPlayer.assign(results);
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();			
 		}
 		return igPlayer;
 	}
+	
+	public static IGPlayer getIGPlayerFromName(String name) {
+		IGPlayer igPlayer = new IGPlayer();
+		try {
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayer.TABLE_NAME);
+			query.addWhere("name", name);
+			ResultSet results = query.getResults();
+			
+			while (results.next()) {
+				igPlayer.assign(results);
+			}
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		return igPlayer;
+	}
+	
 	/**
 	 * Add an IGPlayer (and child tables) to the database!
 	 * @param player
