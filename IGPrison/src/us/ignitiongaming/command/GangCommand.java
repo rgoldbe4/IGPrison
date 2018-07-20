@@ -110,6 +110,11 @@ public class GangCommand implements CommandExecutor{
 							addPlayerToGang(player, igPlayer, isPlayerInGang, args[1]);
 						}
 						
+						// [/gang remove <player>]
+						else if (args[0].equalsIgnoreCase("remove")) {
+							
+						}
+						
 						// [/gang promote <player>]
 						else if (args[0].equalsIgnoreCase("promote")) {
 							promotePlayer(player, igPlayer, isPlayerInGang, args[1]);
@@ -266,6 +271,7 @@ public class GangCommand implements CommandExecutor{
 									
 									//Remove the money from the gang.
 									gang.removeMoney(costForNewMember);
+									gang.save(); //Issue #51 -> Save after changing a value.
 									
 									//Step 9b: Let the player know.
 									player.sendMessage(GlobalTags.GANG + "§eYour request has been sent to " + igTarget.getName() + ".");
