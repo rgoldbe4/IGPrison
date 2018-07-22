@@ -1,5 +1,7 @@
 package us.ignitiongaming.command;
 
+import java.util.logging.Level;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -34,6 +36,7 @@ public class TeleportCommand implements CommandExecutor {
 				if (lbl.equalsIgnoreCase("warp")) {
 					if (args.length == 1) {
 						IGLocations loc = IGLocations.getLocationByLabel(args[0]);
+						Bukkit.getLogger().log(Level.INFO, IGLocationFactory.getLocationByIGLocations(loc).toLocation().toString());
 						player.teleport(IGLocationFactory.getLocationByIGLocations(loc).toLocation());
 					}
 					if (args.length == 0) player.sendMessage("Available warps: " + ConvertUtils.getStringFromCommand(0, IGLocationFactory.getAllLocations().toArray(new String[0])));
