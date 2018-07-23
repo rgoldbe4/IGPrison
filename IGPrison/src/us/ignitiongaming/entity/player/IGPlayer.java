@@ -53,7 +53,7 @@ public class IGPlayer extends HasID {
 	 * @return
 	 */
 	public String getDisplayName() {
-		if (hasNickname()) return nickname;
+		if (hasNickname()) return "~" + nickname;
 		return name;
 	}
 	

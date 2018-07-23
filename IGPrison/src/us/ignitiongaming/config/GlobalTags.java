@@ -11,4 +11,6 @@ public class GlobalTags {
 	public static final String GANG = "§9[§3GANGS§r§9] §r";
 	public static final String DRUGS = "§9§l[§r§eDrugs§9§l] §r";
 	
+	public static final String LOGO = "§6[§8I§4G§6] §r";
+	
 }
