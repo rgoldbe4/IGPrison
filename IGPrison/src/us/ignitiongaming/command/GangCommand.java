@@ -110,6 +110,11 @@ public class GangCommand implements CommandExecutor{
 							addPlayerToGang(player, igPlayer, isPlayerInGang, args[1]);
 						}
 						
+						// [/gang remove <player>]
+						else if (args[0].equalsIgnoreCase("remove")) {
+							removePlayerFromGang(player, igPlayer, isPlayerInGang, args[1]);
+						}
+						
 						// [/gang promote <player>]
 						else if (args[0].equalsIgnoreCase("promote")) {
 							promotePlayer(player, igPlayer, isPlayerInGang, args[1]);
@@ -266,6 +271,7 @@ public class GangCommand implements CommandExecutor{
 									
 									//Remove the money from the gang.
 									gang.removeMoney(costForNewMember);
+									gang.save(); //Issue #51 -> Save after changing a value.
 									
 									//Step 9b: Let the player know.
 									player.sendMessage(GlobalTags.GANG + "§eYour request has been sent to " + igTarget.getName() + ".");
@@ -750,6 +756,41 @@ public class GangCommand implements CommandExecutor{
 			}
 		} else {
 			player.sendMessage(GlobalTags.GANG + "§4You must be in a gang.");
+		}
+	}
+
+	private void removePlayerFromGang(Player player, IGPlayer igPlayer, boolean isPlayerInGang, String name) {
+		
+		//Step 1: Determine if the player is in a gang.
+		if (isPlayerInGang) {
+			
+			//Step 2: Determine if player has permission to remove (Officer and Leader)
+			IGPlayerGang igPlayerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
+			
+			if (igPlayerGang.getGangRank() == IGGangRank.LEADER || igPlayerGang.getGangRank() == IGGangRank.OFFICER) {
+				
+				//Step 3: Determine if the name is a valid IGPlayer
+				IGPlayer igTarget = IGPlayerFactory.getIGPlayerFromName(name);
+				
+				if (igTarget.isValid()) {
+					
+					//Step 4: Remove the player from the gang.
+					IGPlayerGang igTargetGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igTarget);
+					igTargetGang.delete();
+					
+					player.sendMessage(GlobalTags.GANG + "§cYou have removed §l" + name + " §r§cfrom the gang.");
+					Player target = Bukkit.getPlayer(name);
+					if (target != null) target.sendMessage(GlobalTags.GANG + "§cYou were removed from the gang by §l" + player.getName() + "§r§c.");
+					
+					
+				} else {
+					player.sendMessage(GlobalTags.GANG + "§4The player you entered is not valid.");
+				}
+			} else {
+				player.sendMessage(GlobalTags.GANG + "§4You are not an officer or leader of the gang.");
+			}
+		} else {
+			player.sendMessage(GlobalTags.GANG + "§4You don't belong to a gang.");
 		}
 	}
 }

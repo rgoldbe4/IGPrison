@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import us.ignitiongaming.config.ServerDefaults;
+import us.ignitiongaming.enums.IGEnvironments;
+
 public class Database {
 	
 	public static Connection connection = null;
@@ -18,7 +21,7 @@ public class Database {
 	 * Access specifically the Development database.
 	 * @return
 	 */
-	public static void ConnectToServer() {
+	public static void ConnectToMain() {
 		try {
 			if (connection != null) {
 				if (!connection.isClosed()) connection.close();
@@ -30,12 +33,27 @@ public class Database {
 		}
 	}
 	
+	public static void ConnectToTesting() {
+		try {
+			if (connection != null) {
+				if (!connection.isClosed()) connection.close();
+			}
+			connection = DriverManager.getConnection("jdbc:mysql://ignitiongaming.us:3306/igminecraft_testing?verifyServerCertificate=false&maxReconnects=10&useSSL=true&retainStatementAfterResultSetClose=true",
+					"igminecraft", "7xXTvmgXyrUGvsh6");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 	public static Statement GetStatement() {
 		try {
 			if (connection == null) {
-				ConnectToServer();
+				if (ServerDefaults.ENVIRONMENT == IGEnvironments.MAIN)
+					ConnectToMain();
+				else
+					ConnectToTesting();
 			}
 			Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			

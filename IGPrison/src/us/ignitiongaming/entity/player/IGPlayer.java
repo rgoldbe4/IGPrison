@@ -41,6 +41,22 @@ public class IGPlayer extends HasID {
 	public void setIP(String ip) { this.ip = ip; }
 	public String getIP() { return ip; }
 	
+	public String getNickname() { return nickname; }
+	public void setNickname(String nickname) { this.nickname = nickname; }
+	public boolean hasNickname() { 
+		if (nickname == null) return false;
+		return nickname.length() > 0;
+	}
+	
+	/**
+	 * Get's the display name of the player (Nickname > Name)
+	 * @return
+	 */
+	public String getDisplayName() {
+		if (hasNickname()) return nickname;
+		return name;
+	}
+	
 	/**
 	 * 
 	 * Determine if the entities is valid.
@@ -68,12 +84,5 @@ public class IGPlayer extends HasID {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-	}
-
-	public String getNickname() { return nickname; }
-	public void setNickname(String nickname) { this.nickname = nickname; }
-	public boolean hasNickname() { 
-		if (nickname == null) return false;
-		return nickname.length() > 0;
 	}
 }
