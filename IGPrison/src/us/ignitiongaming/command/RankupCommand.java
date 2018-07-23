@@ -27,7 +27,7 @@ public class RankupCommand implements CommandExecutor {
 					switch (playerRank) {
 					case D:
 						double rankupCostD = Double.parseDouble(IGSettings.RANKUP_D.toSetting().getValue().toString());
-						if ( playerBalance >= rankupCostD) {
+						if ( playerBalance >= rankupCostD ) {
 							Bukkit.broadcastMessage(GlobalTags.RANKUP + player.getName() + " has ranked up to " + IGRankNodes.C.getTag());
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostD));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set c");
@@ -38,7 +38,7 @@ public class RankupCommand implements CommandExecutor {
 						break;
 					case C:
 						double rankupCostC = Double.parseDouble(IGSettings.RANKUP_C.toSetting().getValue().toString());
-						if ( playerBalance >= rankupCostC) {
+						if ( playerBalance >= rankupCostC ) {
 							Bukkit.broadcastMessage(GlobalTags.RANKUP + player.getName() + " has ranked up to " + IGRankNodes.B.getTag());
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostC));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set b");
@@ -49,7 +49,7 @@ public class RankupCommand implements CommandExecutor {
 						break;
 					case B:
 						double rankupCostB = Double.parseDouble(IGSettings.RANKUP_B.toSetting().getValue().toString());
-						if ( playerBalance >= rankupCostB) {
+						if ( playerBalance >= rankupCostB ) {
 							Bukkit.broadcastMessage(GlobalTags.RANKUP + player.getName() + " has ranked up to " + IGRankNodes.A.getTag());
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostB));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set a");
@@ -60,7 +60,7 @@ public class RankupCommand implements CommandExecutor {
 						break;
 					case A:
 						double rankupCostA = Double.parseDouble(IGSettings.RANKUP_A.toSetting().getValue().toString());
-						if ( playerBalance >= rankupCostA) {
+						if ( playerBalance >= rankupCostA ) {
 							Bukkit.broadcastMessage(GlobalTags.RANKUP + player.getName() + " has ranked up to " + IGRankNodes.FREE.getTag());
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostA));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set free");

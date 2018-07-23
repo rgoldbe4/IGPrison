@@ -39,8 +39,8 @@ public class PlayerChatEvent implements Listener {
 			event.setMessage(ChatConverter.convertToColor(event.getMessage()));
 		}
 		
-		//Step 2: Determine if the player has a nickname.
-		String name = igPlayer.hasNickname() ? "~" + igPlayer.getNickname() : igPlayer.getName();
+		//Step 2: Determine if the player has a nickname (added this in object to handle logic).
+		String name = igPlayer.getDisplayName();
 		
 		//Step 3: Determine if the player is in Staff Chat
 		if ( staffchat.contains(player.getUniqueId()) ){

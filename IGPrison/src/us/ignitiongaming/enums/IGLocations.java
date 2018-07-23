@@ -1,6 +1,5 @@
 package us.ignitiongaming.enums;
 
-import us.ignitiongaming.config.ServerDefaults;
 
 public enum IGLocations {
 	SPAWN ("spawn"), SOLITARY ("solitary"), D ("d"), C ("c"), B ("b"), A ("a");
@@ -12,10 +11,10 @@ public enum IGLocations {
 	public String getLabel() { return label; }
 	
 	public static IGLocations getLocationByLabel(String label) {
-		IGLocations loc = IGLocations.valueOf(ServerDefaults.getSetting(IGSettings.DEFAULT_LOCATION).getValue().toString());
+		IGLocations loc = IGLocations.SPAWN;
 		for (IGLocations location : IGLocations.values()) {
 			if (location.getLabel().equalsIgnoreCase(label)) loc = location;
-		}		
+		}
 		return loc;
 	}
 }

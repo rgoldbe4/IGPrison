@@ -25,6 +25,7 @@ import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
+import us.ignitiongaming.enums.IGEnvironments;
 import us.ignitiongaming.event.gang.GangAttackEvent;
 import us.ignitiongaming.event.gang.PendingRequestEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
@@ -54,6 +55,15 @@ public class IGPrison extends JavaPlugin {
 		for (IGSetting setting : ServerDefaults.settings) {
 			this.getLogger().log(Level.INFO, setting.getId() + ": " + setting.getLabel().toUpperCase() + " = " + setting.getValue().toString());
 		}
+		
+		//Determine which environment this plugin is using...
+		if (this.getDataFolder().getAbsolutePath().contains("/home/minecraft/prison/")) {
+			ServerDefaults.ENVIRONMENT = IGEnvironments.MAIN;
+		} else {
+			ServerDefaults.ENVIRONMENT = IGEnvironments.TESTING;
+		}
+		//Display this to console.
+		this.getLogger().log(Level.INFO, "Environment: " + ServerDefaults.ENVIRONMENT.toString().toUpperCase());
 		
 		/* Events */
 		this.getServer().getPluginManager().registerEvents(new PlayerVerificationEvent(), this);
