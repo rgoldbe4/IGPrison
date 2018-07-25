@@ -1,6 +1,5 @@
 package us.ignitiongaming.enums;
 
-import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGCell;
 import us.ignitiongaming.factory.other.IGCellFactory;
 
@@ -15,7 +14,7 @@ public enum IGCells {
 	public String getLabel() { return label; }
 	
 	public static IGCells getCell(String label) {
-		IGCells cell = IGCells.valueOf(ServerDefaults.getSetting(IGSettings.DEFAULT_CELL).getValue().toString());
+		IGCells cell = IGCells.D;
 		for (IGCells c : IGCells.values()) {
 			if (c.getLabel().equalsIgnoreCase(label)) cell = c;
 		}

@@ -43,7 +43,7 @@ public class LockdownCommand implements CommandExecutor {
 							}
 						}
 						
-						if (args.length == 1) {
+						else if (args.length == 1) {
 							// [/lockdown help]
 							if (args[0].equalsIgnoreCase("help")) {
 								player.sendMessage(" -- " + GlobalTags.LOCKDOWN + " --");
@@ -56,7 +56,7 @@ public class LockdownCommand implements CommandExecutor {
 							
 						}
 						
-						if (args.length == 2) {
+						else if (args.length == 2) {
 							if (args[0].equalsIgnoreCase("start")) {
 								IGCells cell = IGCells.getCell(args[1]);
 								//Make sure the cell is not under lockdown already.
@@ -64,12 +64,15 @@ public class LockdownCommand implements CommandExecutor {
 									//Add the lockdown.
 									IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 									IGLockdownFactory.add(cell.toCell(), igPlayer);
-									//Deny PVP
-									Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag cell" + cell.getLabel() + "center pvp -w world deny");
 									IGRankNodes igRank = IGRankNodes.valueOf(args[1].toUpperCase());
-									Bukkit.broadcastMessage(GlobalTags.LOCKDOWN + "§4Cell " + igRank.getTag() + "§cis under lockdown!");
+									//Deny PVP
+									Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag " + cell.getLabel() + "_block_pvp pvp -w world deny");
+									Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), 
+											"region flag " + cell.getLabel() + "_block_pvp greeting -w world " + igRank.getTag() + "&b&lLockdown!");
+									
+									Bukkit.broadcastMessage(GlobalTags.LOCKDOWN + igRank.getTag() + "§c§lBLOCK under lockdown!");
 								} else {
-									player.sendMessage(GlobalTags.LOCKDOWN + "§4Cell " + args[1].toUpperCase() + " is already under lockdown!");
+									player.sendMessage(GlobalTags.LOCKDOWN + args[1].toUpperCase() + " §4§lBLOCK is already under lockdown!");
 								}
 							}
 							
@@ -84,12 +87,14 @@ public class LockdownCommand implements CommandExecutor {
 									for (IGLockdown lockdown : currentLockdowns) {
 										if (lockdown.getCell().getLabel().equalsIgnoreCase(cell.getLabel())) {
 											//Allow PVP
-											Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag cell" + cell.getLabel() + "center pvp -w world allow");
+											IGRankNodes igRank = IGRankNodes.valueOf(args[1].toUpperCase());
+											Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag pvp -w world allow");
+											Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), 
+													"region flag " + cell.getLabel() + "_block_pvp greeting -w world " + igRank.getTag() + "&4&lPvP Enabled");
 											lockdown.setEndId(igPlayer.getId());
 											lockdown.setEnded(DateConverter.getCurrentTime());
 											lockdown.save();
-											IGRankNodes igRank = IGRankNodes.valueOf(args[1].toUpperCase());
-											Bukkit.broadcastMessage(GlobalTags.LOCKDOWN + "§aCell " + igRank.getTag() + "§anow longer under lockdown!");
+											Bukkit.broadcastMessage(GlobalTags.LOCKDOWN + "§aCell " + igRank.getTag() + "§ano longer under lockdown!");
 										}
 									}
 								} else {

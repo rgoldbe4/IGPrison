@@ -16,6 +16,7 @@ public class IGLocation extends HasID {
 	
 	private String label, worldName;
 	private int x, y, z;
+	private float yaw;
 	
 	public void assign(ResultSet results) {
 		try {
@@ -25,6 +26,7 @@ public class IGLocation extends HasID {
 			setX(results.getInt("x"));
 			setY(results.getInt("y"));
 			setZ(results.getInt("z"));
+			setDirection(results.getFloat("direction"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -34,6 +36,7 @@ public class IGLocation extends HasID {
 		setX(location.getBlockX());
 		setY(location.getBlockY());
 		setZ(location.getBlockZ());
+		setDirection(location.getYaw());
 		setWorldName(location.getWorld().getName());
 	}
 	
@@ -44,6 +47,7 @@ public class IGLocation extends HasID {
 		query.addSet("x", x);
 		query.addSet("y", y);
 		query.addSet("z", z);
+		query.addSet("direction", yaw);
 		query.addID(getId());
 		query.execute();
 	}
@@ -65,9 +69,14 @@ public class IGLocation extends HasID {
 	public void setZ(int z) { this.z = z; }
 	public int getZ() { return z; }
 	
+	public void setDirection(float direction) { this.yaw = direction; }
+	public float getDirection() { return yaw; }
+	
 	public Location toLocation() { return getLocation(); }
 	
 	public Location getLocation() {
-		return new Location(Bukkit.getWorld(worldName), x, y, z);
+		Location location = new Location(Bukkit.getWorld(worldName), x, y, z);
+		location.setYaw(yaw);
+		return location;
 	}
 }

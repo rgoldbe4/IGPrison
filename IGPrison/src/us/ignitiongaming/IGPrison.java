@@ -57,7 +57,7 @@ public class IGPrison extends JavaPlugin {
 		}
 		
 		//Determine which environment this plugin is using...
-		if (this.getDataFolder().getAbsolutePath().contains("/home/minecraft/prison/")) {
+		if (this.getDataFolder().getAbsolutePath().contains("/home/minecraft/multicraft/servers/prison/")) {
 			ServerDefaults.ENVIRONMENT = IGEnvironments.MAIN;
 		} else {
 			ServerDefaults.ENVIRONMENT = IGEnvironments.TESTING;
