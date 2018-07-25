@@ -9,7 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import us.ignitiongaming.command.AdminCommand;
 import us.ignitiongaming.command.ClearChatCommand;
-import us.ignitiongaming.command.ClockInOutCommand;
 import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.GangCommand;
@@ -22,6 +21,7 @@ import us.ignitiongaming.command.RankupCommand;
 import us.ignitiongaming.command.SmeltCommand;
 import us.ignitiongaming.command.SolitaryCommand;
 import us.ignitiongaming.command.StaffChatCommand;
+import us.ignitiongaming.command.StaffCommand;
 import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
@@ -135,8 +135,8 @@ public class IGPrison extends JavaPlugin {
 		this.getCommand("nickname").setExecutor(new NicknameCommand());
 		
 		// -- Clockin/out commands --
-		this.getCommand("clockin").setExecutor(new ClockInOutCommand());
-		this.getCommand("clockout").setExecutor(new ClockInOutCommand());
+		this.getCommand("guard").setExecutor(new StaffCommand());
+		this.getCommand("warden").setExecutor(new StaffCommand());
 		
 		// -- Link command --
 		this.getCommand("link").setExecutor(new LinkCommand());

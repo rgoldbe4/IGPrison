@@ -106,7 +106,7 @@ public class GangCommand implements CommandExecutor{
 						}
 						
 						// [/gang add <player>]
-						else if (args[0].equalsIgnoreCase("add")) {
+						else if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("invite")) {
 							addPlayerToGang(player, igPlayer, isPlayerInGang, args[1]);
 						}
 						

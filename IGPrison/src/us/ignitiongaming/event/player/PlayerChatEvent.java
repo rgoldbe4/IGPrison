@@ -1,8 +1,5 @@
 package us.ignitiongaming.event.player;
 
-import java.util.ArrayList;
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +14,6 @@ import us.ignitiongaming.factory.gang.IGPlayerGangFactory;
 import us.ignitiongaming.factory.player.IGPlayerDonatorFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.singleton.IGList;
-import us.ignitiongaming.singleton.IGSingleton;
 import us.ignitiongaming.util.convert.ChatConverter;
 
 public class PlayerChatEvent implements Listener {
@@ -29,7 +25,7 @@ public class PlayerChatEvent implements Listener {
 		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 		IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
 		boolean isPlayerDonator = IGPlayerDonatorFactory.isIGPlayerDonator(igPlayer);
-		ArrayList<UUID> staffchat = IGSingleton.getInstance().getStaffChatters();
+		
 		
 		//Step 1: Determine if the player has the ability to change the color of chat (Donator, Staff, Guard, Warden)
 		if (player.hasPermission(IGRankNodes.STAFF.getNode()) 
@@ -43,7 +39,7 @@ public class PlayerChatEvent implements Listener {
 		String name = igPlayer.getDisplayName();
 		
 		//Step 3: Determine if the player is in Staff Chat
-		if ( staffchat.contains(player.getUniqueId()) ){
+		if ( IGList.staffChat.contains(player) ){
 			for (Player online : Bukkit.getOnlinePlayers()){
 				if( online.hasPermission(IGRankNodes.STAFF.getNode()) || online.hasPermission(IGRankNodes.GUARD.getNode()) || online.hasPermission(IGRankNodes.WARDEN.getNode()) ) 
 					online.sendMessage("§b§l" + name + "§r§b: " + event.getMessage());
