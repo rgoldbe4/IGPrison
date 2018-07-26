@@ -7,9 +7,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import us.ignitiongaming.config.GlobalTags;
+import us.ignitiongaming.entity.gang.IGGang;
 import us.ignitiongaming.entity.gang.IGPlayerGang;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.enums.IGRankNodes;
+import us.ignitiongaming.factory.gang.IGGangFactory;
 import us.ignitiongaming.factory.gang.IGPlayerGangFactory;
 import us.ignitiongaming.factory.player.IGPlayerDonatorFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
@@ -69,10 +71,20 @@ public class PlayerChatEvent implements Listener {
 		else {
 			
 			String format = "";
+			boolean isPlayerInGang = IGPlayerGangFactory.isPlayerInGang(igPlayer);
 			
+			// Add the donation tag if the player is a donator.
 			if ( isPlayerDonator && !playerRank.isStaff() && playerRank != IGRankNodes.SOLITARY )
 				format += GlobalTags.DONATION;
 			
+			// Add the player's gang tag if they are in a gang.
+			if ( isPlayerInGang ) {
+				IGPlayerGang igPlayerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
+				IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangId());
+				format += "§8[§9" + igGang.getName() + "§8] §r";
+			}
+
+			// General Formatting For All Text Messages
 			format += playerRank.getTag() + playerRank.getNameColor() + name + " §r> " + event.getMessage();
 			
 			event.setFormat(format);
