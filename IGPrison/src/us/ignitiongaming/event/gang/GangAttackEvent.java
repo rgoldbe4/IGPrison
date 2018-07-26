@@ -30,7 +30,7 @@ public class GangAttackEvent implements Listener {
 				IGPlayerGang igAttackerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igAttacker);
 				IGPlayerGang igDefenderGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igDefender);
 				
-				if (igAttackerGang.getGangID() == igDefenderGang.getGangID()) {
+				if (igAttackerGang.getGangId() == igDefenderGang.getGangId()) {
 					attacker.sendMessage(GlobalTags.GANG + "§4You cannot attack a fellow gang member.");
 				}
 			}

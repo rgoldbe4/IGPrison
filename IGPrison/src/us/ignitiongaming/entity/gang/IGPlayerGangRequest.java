@@ -14,11 +14,11 @@ public class IGPlayerGangRequest extends HasID {
 	private int playerID = -1, gangID = -1;
 	private IGPlayerGangRequestAnswer answer;
 	
-	public void setPlayerID(int playerID) { this.playerID = playerID; }
-	public int getPlayerID() { return playerID; }
+	public void setPlayerId(int playerId) { this.playerID = playerId; }
+	public int getPlayerId() { return playerID; }
 	
-	public void setGangID(int gangID) { this.gangID = gangID; }
-	public int getGangID() { return gangID; }
+	public void setGangId(int gangId) { this.gangID = gangId; }
+	public int getGangId() { return gangID; }
 	
 	public IGPlayerGangRequestAnswer getAnswer() { return answer; }
 	public void setAnswer(IGPlayerGangRequestAnswer answer) { this.answer = answer; }
@@ -30,8 +30,8 @@ public class IGPlayerGangRequest extends HasID {
 	public void assign(ResultSet results) {
 		try {
 			setId(results);
-			setPlayerID(results.getInt("playerID"));
-			setGangID(results.getInt("gangID"));
+			setPlayerId(results.getInt("playerID"));
+			setGangId(results.getInt("gangID"));
 			setAnswer(results.getInt("answer"));
 		} catch (Exception ex) {
 			

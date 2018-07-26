@@ -14,7 +14,7 @@ public class IGPlayerRank extends HasID {
 	
 	public void assign(ResultSet results) {
 		try {
-			setId(results.getInt("ID"));
+			setId(results);
 			setPlayerId(results.getInt("playerID"));
 			setRankId(results.getInt("rankID"));
 		} catch (Exception ex) {

@@ -18,7 +18,7 @@ public class IGPlayerStats extends HasID {
 	
 	public void assign(ResultSet results) {
 		try {
-			setId(results.getInt("ID"));
+			setId(results);
 			setKills(results.getInt("kills"));
 			setDeaths(results.getInt("deaths"));
 			setDonatorPoints(results.getInt("donatorpoints"));

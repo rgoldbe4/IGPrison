@@ -15,7 +15,7 @@ public class IGPlayerSolitary extends HasID {
 	
 	public void assign(ResultSet results) {
 		try {
-			setId(results.getInt("ID"));
+			setId(results);
 			setPlayerId(results.getInt("playerID"));
 			setStart(results.getString("start"));
 			setEnd(results.getString("end"));

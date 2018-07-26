@@ -57,7 +57,7 @@ public class PlayerChatEvent implements Listener {
 				if (IGPlayerGangFactory.isPlayerInGang(igOnline)) {
 					//Determine if the online player is in the same gang.
 					IGPlayerGang igOnlineGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igOnline);
-					if (igOnlineGang.getGangID() == igPlayerGang.getGangID()) {
+					if (igOnlineGang.getGangId() == igPlayerGang.getGangId()) {
 						//Send the message to the player.
 						online.sendMessage("§5§l" + name + "§5: " + event.getMessage());
 					}

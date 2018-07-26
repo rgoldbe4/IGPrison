@@ -182,7 +182,7 @@ public class GangCommand implements CommandExecutor{
 	private void displayGangInformation(Player player, IGPlayer igPlayer) {
 		//Get the player's current PlayerGang information to get a Gang.
 		IGPlayerGang playerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
-		IGGang gang = IGGangFactory.getGangById(playerGang.getGangID());
+		IGGang gang = IGGangFactory.getGangById(playerGang.getGangId());
 		List<IGPlayerGang> playersInGang = IGPlayerGangFactory.getPlayersInGang(gang.getId());
 		
 		ChatConverter.clearPlayerChat(player);
@@ -195,7 +195,7 @@ public class GangCommand implements CommandExecutor{
 		
 		//Go through each gang and find out their name and rank... Sort by ranks (Leader > Officer > Member) in query.
 		for (IGPlayerGang playerInGang : playersInGang) {
-			IGPlayer igPlayerInGang = IGPlayerFactory.getIGPlayerById(playerInGang.getPlayerID());
+			IGPlayer igPlayerInGang = IGPlayerFactory.getIGPlayerById(playerInGang.getPlayerId());
 			player.sendMessage(playerInGang.getGangRank().getLabel() + " - " + igPlayerInGang.getName());
 		}
 		
@@ -239,7 +239,7 @@ public class GangCommand implements CommandExecutor{
 			if (igPlayerGang.getGangRank() == IGGangRank.LEADER || igPlayerGang.getGangRank() == IGGangRank.OFFICER) {
 				
 				//Step 3: Determine if the gang is closed or not.
-				IGGang gang = IGGangFactory.getGangById(igPlayerGang.getGangID());
+				IGGang gang = IGGangFactory.getGangById(igPlayerGang.getGangId());
 				
 				if (gang.isClosed()) {
 					player.sendMessage(GlobalTags.GANG + "§4Your gang has closed off the gang to new members.");
@@ -339,7 +339,7 @@ public class GangCommand implements CommandExecutor{
 			
 			//Step 2: Determine if the player is a leader...
 			IGPlayerGang playerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
-			int gangID = playerGang.getGangID();
+			int gangID = playerGang.getGangId();
 			
 			if (playerGang.getGangRank() == IGGangRank.LEADER) {
 				
@@ -378,7 +378,7 @@ public class GangCommand implements CommandExecutor{
 		if (isPlayerInGang) {
 			//Step 1: Determine if the player that is running the command has the correct permissions.
 			IGPlayerGang igPlayerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
-			IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangID());
+			IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangId());
 			
 			if (igPlayerGang.getGangRank() == IGGangRank.LEADER || igPlayer.getId() == igGang.getFounderId()) {
 				
@@ -392,7 +392,7 @@ public class GangCommand implements CommandExecutor{
 					if (igTargetGang.isValid()) {
 						
 						//Another step: Make sure the target is in the same gang.
-						if (igTargetGang.getGangID() == igPlayerGang.getGangID()) {
+						if (igTargetGang.getGangId() == igPlayerGang.getGangId()) {
 							if (igTargetGang.getGangRank() == IGGangRank.LEADER) {
 								player.sendMessage(GlobalTags.GANG + "§4The player you entered cannot rank up any higher.");
 							} else {
@@ -431,7 +431,7 @@ public class GangCommand implements CommandExecutor{
 		//Step 1: Determine if the player is in a gang.
 		if (isPlayerInGang) {
 			IGPlayerGang igPlayerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
-			IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangID());
+			IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangId());
 			
 			//Step 2: Determine if the player is a leader.
 			if (igPlayerGang.getGangRank() == IGGangRank.LEADER) {
@@ -446,7 +446,7 @@ public class GangCommand implements CommandExecutor{
 						IGPlayerGang igTargetGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igTarget);
 						
 						//Step 5: Determine if the target is in the same gang.
-						if (igTargetGang.getGangID() == igPlayerGang.getGangID()) {
+						if (igTargetGang.getGangId() == igPlayerGang.getGangId()) {
 							
 							//Step 6: Determine if the target can be demoted...
 							if (igTargetGang.getGangRank() != IGGangRank.MEMBER) {
@@ -591,7 +591,7 @@ public class GangCommand implements CommandExecutor{
 			
 			//Go through each gang and find out their name and rank... Sort by ranks (Leader > Officer > Member) in query.
 			for (IGPlayerGang playerInGang : playersInGang) {
-				IGPlayer igPlayerInGang = IGPlayerFactory.getIGPlayerById(playerInGang.getPlayerID());
+				IGPlayer igPlayerInGang = IGPlayerFactory.getIGPlayerById(playerInGang.getPlayerId());
 				player.sendMessage(playerInGang.getGangRank().getLabel() + " - " + igPlayerInGang.getName());
 			}
 		} else {
@@ -610,13 +610,13 @@ public class GangCommand implements CommandExecutor{
 			if (igPlayerGang.getGangRank() == IGGangRank.OFFICER || igPlayerGang.getGangRank() == IGGangRank.LEADER) {
 				
 				//Step 3: Grab all requests...
-				List<IGPlayerGangRequest> requests = IGPlayerGangRequestFactory.getRequestsByGang(igPlayerGang.getGangID());
+				List<IGPlayerGangRequest> requests = IGPlayerGangRequestFactory.getRequestsByGang(igPlayerGang.getGangId());
 				
 				ChatConverter.clearPlayerChat(player);
 				
 				player.sendMessage("=== §6§lRequest History§r ===");
 				for (IGPlayerGangRequest request : requests) {
-					IGPlayer sentTo = IGPlayerFactory.getIGPlayerById(request.getPlayerID());
+					IGPlayer sentTo = IGPlayerFactory.getIGPlayerById(request.getPlayerId());
 					player.sendMessage(sentTo.getName() + " -> " + request.getAnswer().getLabel().toUpperCase());
 				}
 			}
@@ -661,7 +661,7 @@ public class GangCommand implements CommandExecutor{
 					//Step 4: Withdraw from the account, and add it to the gang.
 					ServerDefaults.econ.withdrawPlayer(player, money);
 					IGPlayerGang igPlayerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
-					IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangID());
+					IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangId());
 					igGang.addMoney(money);
 					igGang.save();
 					
@@ -703,7 +703,7 @@ public class GangCommand implements CommandExecutor{
 		//Step 1: Determine if the player is in a gang.
 		if (isPlayerInGang) {
 			IGPlayerGang igPlayerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
-			IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangID());
+			IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangId());
 			double playerBalance = ServerDefaults.econ.getBalance(player);
 			
 			//Step 2: Determine if the gang member can afford the drugs.
@@ -744,7 +744,7 @@ public class GangCommand implements CommandExecutor{
 			IGPlayerGang igPlayerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
 			if (igPlayerGang.getGangRank() == IGGangRank.LEADER) {
 				//Step 3: Toggle the current setting.
-				IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangID());
+				IGGang igGang = IGGangFactory.getGangById(igPlayerGang.getGangId());
 				igGang.toggleAllowedMembersToBuyDrugs();
 				igGang.save();
 				if (igGang.canMembersBuyDrugs())
