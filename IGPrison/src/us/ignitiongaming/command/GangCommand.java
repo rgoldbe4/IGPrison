@@ -90,6 +90,11 @@ public class GangCommand implements CommandExecutor{
 							toggleCanMembersBuyDrugs(player, igPlayer, isPlayerInGang);
 						}
 						
+						// [/gang drugs]
+						else if (args[0].equalsIgnoreCase("drugs")) {
+							buyDrug(player, igPlayer, isPlayerInGang, ""); //Voluntary send it an invalid drug so it displays the drug types.
+						}
+						
 						else {
 							player.sendMessage(GlobalMessages.INVALID_COMMAND);
 						}
@@ -727,10 +732,10 @@ public class GangCommand implements CommandExecutor{
 			} 
 			//All failed, so let the player know they can't afford the drugs.
 			else {
-				if (!igGang.canMembersBuyDrugs()) 
+				if (igGang.canMembersBuyDrugs()) 
 					player.sendMessage(GlobalTags.DRUGS + "§4You or your gang could not afford to buy drugs.");
 				else
-					player.sendMessage(GlobalTags.DRUGS + "§4You cannot afford to buy more drugs.");
+					player.sendMessage(GlobalTags.DRUGS + "§4You do not have enough money to buy drugs.");
 			}
 		}
 	}
