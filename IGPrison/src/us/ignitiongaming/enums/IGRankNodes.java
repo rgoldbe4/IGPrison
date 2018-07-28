@@ -53,5 +53,9 @@ public enum IGRankNodes {
 		return (player.hasPermission(IGRankNodes.SOLITARY.getNode()));
 	}
 	
+	public String getFormatting() {
+		return tag + nameColor;
+	}
+	
 	
 }

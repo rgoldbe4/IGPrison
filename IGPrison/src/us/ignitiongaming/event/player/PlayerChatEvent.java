@@ -85,7 +85,7 @@ public class PlayerChatEvent implements Listener {
 			}
 
 			// General Formatting For All Text Messages
-			format += playerRank.getTag() + playerRank.getNameColor() + name + " §r> " + event.getMessage();
+			format += playerRank.getFormatting() + name + " §r> " + event.getMessage();
 			
 			event.setFormat(format);
 		}

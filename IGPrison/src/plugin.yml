@@ -98,4 +98,6 @@ commands:
      warden:
         description: Activate your warden status and patrol the jail.
         permission: igprison.wardencmd
-
+     bounty:
+        description: Ignition Gaming's Prison bounty system.
+        permission: igprison.bounty

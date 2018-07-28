@@ -8,6 +8,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.ignitiongaming.command.AdminCommand;
+import us.ignitiongaming.command.BountyCommand;
 import us.ignitiongaming.command.ClearChatCommand;
 import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
@@ -26,6 +27,7 @@ import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.enums.IGEnvironments;
+import us.ignitiongaming.event.bounty.KillPlayerWithBountyEvent;
 import us.ignitiongaming.event.gang.GangAttackEvent;
 import us.ignitiongaming.event.gang.PendingRequestEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
@@ -79,6 +81,7 @@ public class IGPrison extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new NotifyPlayerConnectionEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PendingRequestEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new GangAttackEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new KillPlayerWithBountyEvent(), this);
 		
 		/* Commands */
 		// -- Help Command --
@@ -144,10 +147,13 @@ public class IGPrison extends JavaPlugin {
 		// -- Gang command --
 		this.getCommand("gang").setExecutor(new GangCommand());
 		
+		// - Bounty command --
+		this.getCommand("bounty").setExecutor(new BountyCommand());
+		
 	}
 	
 	public void onDisable() {
-		
+		this.getLogger().log(Level.SEVERE, "IGPlugin is now disabled. Any data after this moment will not be saved or extracted.");
 	}
 	
 	/**
