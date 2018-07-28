@@ -13,20 +13,20 @@ public class IGPlayerGang extends HasID {
 	
 	private int playerID = -1, gangID = -1, gangRankID = -1;
 	
-	public void setPlayerID(int playerID) { this.playerID = playerID; }
-	public int getPlayerID() { return playerID; }
+	public void setPlayerId(int playerId) { this.playerID = playerId; }
+	public int getPlayerId() { return playerID; }
 	
-	public void setGangID(int gangID) { this.gangID = gangID; }
-	public int getGangID() { return gangID; }
+	public void setGangId(int gangId) { this.gangID = gangId; }
+	public int getGangId() { return gangID; }
 	
 	public void setGangRank(IGGangRank igGangRank) { this.gangRankID = igGangRank.getId(); }
-	public IGGangRank getGangRank() { return IGGangRank.getRankByID(gangRankID); }
+	public IGGangRank getGangRank() { return IGGangRank.getRankById(gangRankID); }
 	
 	public void promote() {
 		//Make sure the player is not a leader. Otherwise they can be promoted
 		if (getGangRank() != IGGangRank.LEADER) {
 			gangRankID++;
-			IGGangRank igGangRank = IGGangRank.getRankByID(gangRankID);
+			IGGangRank igGangRank = IGGangRank.getRankById(gangRankID);
 			setGangRank(igGangRank);
 		}
 	}
@@ -35,7 +35,7 @@ public class IGPlayerGang extends HasID {
 		//Make sure the player is not a member. Otherwise they can be demoted.
 		if (getGangRank() != IGGangRank.MEMBER) {
 			gangRankID--;
-			IGGangRank igGangRank = IGGangRank.getRankByID(gangRankID);
+			IGGangRank igGangRank = IGGangRank.getRankById(gangRankID);
 			setGangRank(igGangRank);
 		}
 	}
@@ -43,9 +43,9 @@ public class IGPlayerGang extends HasID {
 	public void assign(ResultSet results) {
 		try {
 			setId(results);
-			setPlayerID(results.getInt("playerID"));
-			setGangID(results.getInt("gangID"));
-			IGGangRank igGangRank = IGGangRank.getRankByID(results.getInt("gangRankID"));
+			setPlayerId(results.getInt("playerID"));
+			setGangId(results.getInt("gangID"));
+			IGGangRank igGangRank = IGGangRank.getRankById(results.getInt("gangRankID"));
 			setGangRank(igGangRank);			
 		} catch (Exception ex) {
 			

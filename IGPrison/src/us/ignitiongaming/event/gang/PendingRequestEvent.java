@@ -34,7 +34,7 @@ public class PendingRequestEvent implements Listener {
 							"§eYou have pending gang request(s). Type in §f§o/gang accept <gang>§r§e or §f§o/gang decline <gang>§r§eto answer the request.");
 					player.sendMessage("The following gangs have sent you an invitation: ");
 					for (IGPlayerGangRequest request : requests) {
-						IGGang igGang = IGGangFactory.getGangById(request.getGangID());
+						IGGang igGang = IGGangFactory.getGangById(request.getGangId());
 						player.sendMessage("* " + igGang.getName());
 					}
 				}

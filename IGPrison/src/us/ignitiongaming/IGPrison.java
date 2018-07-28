@@ -8,8 +8,8 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import us.ignitiongaming.command.AdminCommand;
+import us.ignitiongaming.command.BountyCommand;
 import us.ignitiongaming.command.ClearChatCommand;
-import us.ignitiongaming.command.ClockInOutCommand;
 import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.GangCommand;
@@ -22,10 +22,12 @@ import us.ignitiongaming.command.RankupCommand;
 import us.ignitiongaming.command.SmeltCommand;
 import us.ignitiongaming.command.SolitaryCommand;
 import us.ignitiongaming.command.StaffChatCommand;
+import us.ignitiongaming.command.StaffCommand;
 import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.enums.IGEnvironments;
+import us.ignitiongaming.event.bounty.KillPlayerWithBountyEvent;
 import us.ignitiongaming.event.gang.GangAttackEvent;
 import us.ignitiongaming.event.gang.PendingRequestEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
@@ -57,7 +59,7 @@ public class IGPrison extends JavaPlugin {
 		}
 		
 		//Determine which environment this plugin is using...
-		if (this.getDataFolder().getAbsolutePath().contains("/home/minecraft/prison/")) {
+		if (this.getDataFolder().getAbsolutePath().contains("/home/minecraft/multicraft/servers/prison/")) {
 			ServerDefaults.ENVIRONMENT = IGEnvironments.MAIN;
 		} else {
 			ServerDefaults.ENVIRONMENT = IGEnvironments.TESTING;
@@ -79,6 +81,7 @@ public class IGPrison extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new NotifyPlayerConnectionEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PendingRequestEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new GangAttackEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new KillPlayerWithBountyEvent(), this);
 		
 		/* Commands */
 		// -- Help Command --
@@ -135,8 +138,8 @@ public class IGPrison extends JavaPlugin {
 		this.getCommand("nickname").setExecutor(new NicknameCommand());
 		
 		// -- Clockin/out commands --
-		this.getCommand("clockin").setExecutor(new ClockInOutCommand());
-		this.getCommand("clockout").setExecutor(new ClockInOutCommand());
+		this.getCommand("guard").setExecutor(new StaffCommand());
+		this.getCommand("warden").setExecutor(new StaffCommand());
 		
 		// -- Link command --
 		this.getCommand("link").setExecutor(new LinkCommand());
@@ -144,10 +147,13 @@ public class IGPrison extends JavaPlugin {
 		// -- Gang command --
 		this.getCommand("gang").setExecutor(new GangCommand());
 		
+		// - Bounty command --
+		this.getCommand("bounty").setExecutor(new BountyCommand());
+		
 	}
 	
 	public void onDisable() {
-		
+		this.getLogger().log(Level.SEVERE, "IGPlugin is now disabled. Any data after this moment will not be saved or extracted.");
 	}
 	
 	/**

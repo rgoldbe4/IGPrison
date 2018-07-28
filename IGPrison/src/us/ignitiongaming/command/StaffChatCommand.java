@@ -1,7 +1,5 @@
 package us.ignitiongaming.command;
 
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.enums.IGRankNodes;
-import us.ignitiongaming.singleton.IGSingleton;
+import us.ignitiongaming.singleton.IGList;
 
 public class StaffChatCommand implements CommandExecutor{
 
@@ -18,9 +16,7 @@ public class StaffChatCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String lbl, String[] args) {
 		try {
 			if (sender instanceof Player) {
-				IGSingleton igs = IGSingleton.getInstance();
 				Player player = (Player) sender;
-				UUID playerID = player.getUniqueId();
 				if (lbl.equalsIgnoreCase("sc") || lbl.equalsIgnoreCase("staffchat")) {
 					if (args.length != 0){
 						for ( Player online : Bukkit.getOnlinePlayers() ){
@@ -30,7 +26,8 @@ public class StaffChatCommand implements CommandExecutor{
 						}
 					}
 					else {
-						igs.toggleStaffChatter(playerID);
+						if (IGList.staffChat.contains(player)) IGList.staffChat.remove(player);
+						else IGList.staffChat.add(player);
 						player.sendMessage("§b§lToggled Staff Chat");
 					}
 				}

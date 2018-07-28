@@ -10,6 +10,7 @@ public class GlobalTags {
 	public static final String RANKUP = "§1[§fRankup§1] §r";
 	public static final String GANG = "§9[§3GANGS§r§9] §r";
 	public static final String DRUGS = "§9§l[§r§eDrugs§9§l] §r";
+	public static final String BOUNTY = "§0§l[§r§4Bounty§r§0§l] §r";
 	
 	public static final String LOGO = "§6[§8I§4G§6] §r";
 	

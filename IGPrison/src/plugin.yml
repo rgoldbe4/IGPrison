@@ -87,15 +87,17 @@ commands:
      whois:
         description: gets a player with a nickname's real name
         permission: igprison.whois
-     clockin:
-        description: clocks a guard in for work
-        permission: igprison.clockin
-     clockout:
-        description: clocks a guard out for work
-        permission: igprison.clockout
      link:
         description: Link your Ignition Gaming account to your Minecraft account.
         permission: igprison.link
      gang:
         description: Ignition Gaming's gang system.
-
+     guard:
+        description: Activate your guard status and patrol the jail.
+        permission: igprison.guardcmd
+     warden:
+        description: Activate your warden status and patrol the jail.
+        permission: igprison.wardencmd
+     bounty:
+        description: Ignition Gaming's Prison bounty system.
+        permission: igprison.bounty

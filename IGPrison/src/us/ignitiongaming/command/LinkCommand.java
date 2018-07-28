@@ -37,7 +37,7 @@ public class LinkCommand implements CommandExecutor{
 								link.save();
 								player.sendMessage("Your account has been verified!");
 								//Now update the IGUser with the correct playerID
-								IGUserFactory.setPlayerIDByUserID(link.getUserID(), igPlayer.getId());
+								IGUserFactory.setPlayerIDByUserID(link.getUserId(), igPlayer.getId());
 							}
 						} else {
 							player.sendMessage("Your account has no pending link code. Please visit http://www.ignitiongaming.us/mc/donate/link.php to retrieve a code.");

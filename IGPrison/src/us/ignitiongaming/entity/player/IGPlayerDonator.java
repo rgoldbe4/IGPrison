@@ -12,7 +12,7 @@ public class IGPlayerDonator extends HasID {
 	
 	public void assign(ResultSet results) {
 		try {
-			setId(results.getInt("ID"));
+			setId(results);
 			setPlayerId(results.getInt("playerID"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
