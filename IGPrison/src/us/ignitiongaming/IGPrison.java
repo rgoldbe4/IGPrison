@@ -65,7 +65,7 @@ public class IGPrison extends JavaPlugin {
 			ServerDefaults.ENVIRONMENT = IGEnvironments.TESTING;
 		}
 		//Display this to console.
-		this.getLogger().log(Level.INFO, "Environment: " + ServerDefaults.ENVIRONMENT.toString().toUpperCase());
+		this.getLogger().log(Level.CONFIG, "Environment: " + ServerDefaults.ENVIRONMENT.toString().toUpperCase());
 		
 		/* Events */
 		this.getServer().getPluginManager().registerEvents(new PlayerVerificationEvent(), this);

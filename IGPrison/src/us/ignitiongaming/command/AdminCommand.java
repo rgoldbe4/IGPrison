@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.ServerDefaults;
+import us.ignitiongaming.database.Database;
 import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.factory.other.IGSettingFactory;
 
@@ -38,6 +39,10 @@ public class AdminCommand implements CommandExecutor{
 								for (IGSetting setting : ServerDefaults.settings) {
 									player.sendMessage(setting.getLabel() + " = " + setting.getValue());
 								}
+							}
+							
+							if (args[0].equalsIgnoreCase("db")) {
+								player.sendMessage("Is Database Connected? " + !Database.connection.isClosed());
 							}
 						}
 						

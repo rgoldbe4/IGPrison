@@ -95,6 +95,10 @@ public class GangCommand implements CommandExecutor{
 							buyDrug(player, igPlayer, isPlayerInGang, ""); //Voluntary send it an invalid drug so it displays the drug types.
 						}
 						
+						else if (args[0].equalsIgnoreCase("leave")) {
+							leaveGang(player, igPlayer, isPlayerInGang);
+						}
+						
 						else {
 							player.sendMessage(GlobalMessages.INVALID_COMMAND);
 						}
@@ -218,6 +222,7 @@ public class GangCommand implements CommandExecutor{
 		player.sendMessage(" §8§o/gang §linfo §r§8§o<gang> §r§7§oDisplays public information of a <gang>.");
 		player.sendMessage(" §8§o/gang §llist §r§7§oDisplays all gangs and their leaders.");
 		player.sendMessage(" §8§o/gang §lranks §r§7§oDisplays all of the ranks and their functionality.");
+		player.sendMessage(" §8§o/gang §lleave §r§7§oLeave the gang you are in.");
 		
 	}
 	
@@ -794,6 +799,51 @@ public class GangCommand implements CommandExecutor{
 			} else {
 				player.sendMessage(GlobalTags.GANG + "§4You are not an officer or leader of the gang.");
 			}
+		} else {
+			player.sendMessage(GlobalTags.GANG + "§4You don't belong to a gang.");
+		}
+	}
+	
+	private void leaveGang(Player player, IGPlayer igPlayer, boolean isPlayerInGang) {
+		
+		//Step 1: Determine if player is in the gang.
+		if (isPlayerInGang) {
+			IGPlayerGang playerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
+			IGGang igGang = IGGangFactory.getGangById(playerGang.getGangId());
+			
+			//Step 2: Determine if player is a leader.
+			if (playerGang.getGangRank() == IGGangRank.LEADER) {
+				//Step 3: Check if the player is the only leader.
+				List<IGPlayerGang> leaders = IGPlayerGangFactory.getLeadersInGang(igGang);
+				
+				if (leaders.size() > 1) {
+					//Step 4: Determine if the player is the founder.
+					if (igGang.getFounderId() != igPlayer.getId()) {
+						
+						//Step 5: Remove the player from the gang.
+						playerGang.delete();
+						
+						//Step 6: Let the player know.
+						player.sendMessage(GlobalTags.GANG + "§cYou have left the gang.");
+					} else {
+						player.sendMessage(GlobalTags.GANG + "§4The founder of a gang cannot leave their gang. You may only leave through disbanding the gang.");
+					}
+				} else {
+					player.sendMessage(GlobalTags.GANG + "§4You cannot leave as the only leader.");
+				}
+			} else {
+				if (igGang.getFounderId() != igPlayer.getId()) {
+					
+					//Step 5: Remove the player from the gang.
+					playerGang.delete();
+					
+					//Step 6: Let the player know.
+					player.sendMessage(GlobalTags.GANG + "§cYou have left the gang.");
+				} else {
+					player.sendMessage(GlobalTags.GANG + "§4The founder of a gang cannot leave their gang. You may only leave through disbanding the gang.");
+				}
+			}
+			
 		} else {
 			player.sendMessage(GlobalTags.GANG + "§4You don't belong to a gang.");
 		}
