@@ -77,7 +77,7 @@ public class GuardArmor {
 			
 			/* Other */
 			enchantments.put(Enchantment.BINDING_CURSE, 10);
-			enchantments.put(Enchantment.THORNS, 10);
+			enchantments.put(Enchantment.THORNS, 5);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
