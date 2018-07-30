@@ -4,6 +4,7 @@ import java.util.logging.Level;
 
 import net.milkbowl.vault.economy.Economy;
 
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,6 +29,7 @@ import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.enums.IGEnvironments;
 import us.ignitiongaming.event.bounty.KillPlayerWithBountyEvent;
+import us.ignitiongaming.event.gang.DrugUseEvent;
 import us.ignitiongaming.event.gang.GangAttackEvent;
 import us.ignitiongaming.event.gang.PendingRequestEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
@@ -35,6 +37,7 @@ import us.ignitiongaming.event.player.GuardDeathEvent;
 import us.ignitiongaming.event.player.InteractSellSignEvent;
 import us.ignitiongaming.event.player.PlaceSellSignEvent;
 import us.ignitiongaming.event.player.PlayerChatEvent;
+import us.ignitiongaming.event.player.PlayerListEvent;
 import us.ignitiongaming.event.player.PlayerRecordEvent;
 import us.ignitiongaming.event.player.PlayerSpawnEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
@@ -45,110 +48,123 @@ import us.ignitiongaming.factory.other.IGSettingFactory;
 
 
 public class IGPrison extends JavaPlugin {	
+	
+	public static Plugin plugin;
 	public void onEnable() {
+		try {
+			plugin = this;
+			
+			this.saveDefaultConfig();
+	
+			//This must go first... So we connect to the right database.
+			//Display this to console.
+			this.getLogger().log(Level.WARNING, "Config Environment: " + this.getConfig().getString("environment"));
+			if (this.getConfig().getString("environment").contains("main")) {
+				ServerDefaults.ENVIRONMENT = IGEnvironments.MAIN;
+			} else {
+				ServerDefaults.ENVIRONMENT = IGEnvironments.TESTING;
+			}
+			this.getLogger().log(Level.INFO, "Assigned Environment: " + ServerDefaults.ENVIRONMENT);
+			
+			//You know? Vault is kinda stupid for making me use a global variable...
+			setupEconomy();
+			this.getLogger().log(Level.INFO, "Economy linked to plugin.");
+			
+			//Setup settings..
+			ServerDefaults.settings = IGSettingFactory.getSettings();
+			this.getLogger().log(Level.INFO, "Settings applied to plugin. Applied: ");
+			for (IGSetting setting : ServerDefaults.settings) {
+				this.getLogger().log(Level.INFO, setting.getId() + ": " + setting.getLabel().toUpperCase() + " = " + setting.getValue().toString());
+			}
+			
+			/* Events */
+			this.getServer().getPluginManager().registerEvents(new PlayerVerificationEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new PlayerRecordEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new ServerListEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new PlayerChatEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new VerifySolitaryEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new InteractSellSignEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new PlaceSellSignEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new FancySignEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new PlayerSpawnEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new GuardDeathEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new NotifyPlayerConnectionEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new PendingRequestEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new GangAttackEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new KillPlayerWithBountyEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new DrugUseEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new PlayerListEvent(), this);
+			
+			/* Commands */
+			// -- Help Command --
+			this.getCommand("ighelp").setExecutor(new HelpCommand());
+			this.getCommand("now").setExecutor(new HelpCommand());
+			
+			// -- Donator Commands --
+			this.getCommand("donate").setExecutor(new DonatorCommand());
+			this.getCommand("points").setExecutor(new DonatorCommand());
+			this.getCommand("donatorpoints").setExecutor(new DonatorCommand());
+			
+			// -- Admin Commands --
+			this.getCommand("iga").setExecutor(new AdminCommand());
+			
+			// -- Rankup Command --
+			this.getCommand("rankup").setExecutor(new RankupCommand());
+			this.getCommand("setrank").setExecutor(new RankupCommand());
+			
+			// -- Teleport Commands --
+			this.getCommand("spawn").setExecutor(new TeleportCommand());
+			this.getCommand("warp").setExecutor(new TeleportCommand());
+			this.getCommand("setspawn").setExecutor(new TeleportCommand());
+			this.getCommand("goto").setExecutor(new TeleportCommand());
+			this.getCommand("bring").setExecutor(new TeleportCommand());
+			
+			// -- Solitary Commands --
+			this.getCommand("solitary").setExecutor(new SolitaryCommand());
+			this.getCommand("solitarylist").setExecutor(new SolitaryCommand());
+			
+			// -- Smelt Command --
+			this.getCommand("smelt").setExecutor(new SmeltCommand());
+			
+			// -- Staff Chat Command --
+			this.getCommand("sc").setExecutor(new StaffChatCommand());
+			this.getCommand("staffchat").setExecutor(new StaffChatCommand());
+			
+			// -- Lockdown Command --
+			this.getCommand("lockdown").setExecutor(new LockdownCommand());
+			
+			// -- Dev Commands (YAY!) --
+			this.getCommand("igdev").setExecutor(new DevelopmentCommand());
+			
+			// -- Kick Ban Command --
+			this.getCommand("igskick").setExecutor(new IGSKickBanCommand());
+			this.getCommand("igkick").setExecutor(new IGSKickBanCommand());
+			this.getCommand("igsban").setExecutor(new IGSKickBanCommand());
+			this.getCommand("igban").setExecutor(new IGSKickBanCommand());
+			
+			// -- Clear Chat Command --
+			this.getCommand("clearchat").setExecutor(new ClearChatCommand());
+			
+			// -- Nickname commands --
+			this.getCommand("whois").setExecutor(new NicknameCommand());
+			this.getCommand("nickname").setExecutor(new NicknameCommand());
+			
+			// -- Clockin/out commands --
+			this.getCommand("guard").setExecutor(new StaffCommand());
+			this.getCommand("warden").setExecutor(new StaffCommand());
+			
+			// -- Link command --
+			this.getCommand("link").setExecutor(new LinkCommand());
+			
+			// -- Gang command --
+			this.getCommand("gang").setExecutor(new GangCommand());
+			
+			// - Bounty command --
+			this.getCommand("bounty").setExecutor(new BountyCommand());
 		
-		//You know? Vault is kinda stupid for making me use a global variable...
-		setupEconomy();
-		this.getLogger().log(Level.INFO, "Economy linked to plugin.");
-		
-		//Setup settings..
-		ServerDefaults.settings = IGSettingFactory.getSettings();
-		this.getLogger().log(Level.INFO, "Settings applied to plugin. Applied: ");
-		for (IGSetting setting : ServerDefaults.settings) {
-			this.getLogger().log(Level.INFO, setting.getId() + ": " + setting.getLabel().toUpperCase() + " = " + setting.getValue().toString());
+		} catch (Exception ex) {
+			
 		}
-		
-		//Determine which environment this plugin is using...
-		if (this.getDataFolder().getAbsolutePath().contains("/home/minecraft/multicraft/servers/prison/")) {
-			ServerDefaults.ENVIRONMENT = IGEnvironments.MAIN;
-		} else {
-			ServerDefaults.ENVIRONMENT = IGEnvironments.TESTING;
-		}
-		//Display this to console.
-		this.getLogger().log(Level.CONFIG, "Environment: " + ServerDefaults.ENVIRONMENT.toString().toUpperCase());
-		
-		/* Events */
-		this.getServer().getPluginManager().registerEvents(new PlayerVerificationEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new PlayerRecordEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new ServerListEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new PlayerChatEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new VerifySolitaryEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new InteractSellSignEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new PlaceSellSignEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new FancySignEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new PlayerSpawnEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new GuardDeathEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new NotifyPlayerConnectionEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new PendingRequestEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new GangAttackEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new KillPlayerWithBountyEvent(), this);
-		
-		/* Commands */
-		// -- Help Command --
-		this.getCommand("ighelp").setExecutor(new HelpCommand());
-		this.getCommand("now").setExecutor(new HelpCommand());
-		
-		// -- Donator Commands --
-		this.getCommand("donate").setExecutor(new DonatorCommand());
-		this.getCommand("points").setExecutor(new DonatorCommand());
-		this.getCommand("donatorpoints").setExecutor(new DonatorCommand());
-		
-		// -- Admin Commands --
-		this.getCommand("iga").setExecutor(new AdminCommand());
-		
-		// -- Rankup Command --
-		this.getCommand("rankup").setExecutor(new RankupCommand());
-		this.getCommand("setrank").setExecutor(new RankupCommand());
-		
-		// -- Teleport Commands --
-		this.getCommand("spawn").setExecutor(new TeleportCommand());
-		this.getCommand("warp").setExecutor(new TeleportCommand());
-		this.getCommand("setspawn").setExecutor(new TeleportCommand());
-		this.getCommand("goto").setExecutor(new TeleportCommand());
-		this.getCommand("bring").setExecutor(new TeleportCommand());
-		
-		// -- Solitary Commands --
-		this.getCommand("solitary").setExecutor(new SolitaryCommand());
-		this.getCommand("solitarylist").setExecutor(new SolitaryCommand());
-		
-		// -- Smelt Command --
-		this.getCommand("smelt").setExecutor(new SmeltCommand());
-		
-		// -- Staff Chat Command --
-		this.getCommand("sc").setExecutor(new StaffChatCommand());
-		this.getCommand("staffchat").setExecutor(new StaffChatCommand());
-		
-		// -- Lockdown Command --
-		this.getCommand("lockdown").setExecutor(new LockdownCommand());
-		
-		// -- Dev Commands (YAY!) --
-		this.getCommand("igdev").setExecutor(new DevelopmentCommand());
-		
-		// -- Kick Ban Command --
-		this.getCommand("igskick").setExecutor(new IGSKickBanCommand());
-		this.getCommand("igkick").setExecutor(new IGSKickBanCommand());
-		this.getCommand("igsban").setExecutor(new IGSKickBanCommand());
-		this.getCommand("igban").setExecutor(new IGSKickBanCommand());
-		
-		// -- Clear Chat Command --
-		this.getCommand("clearchat").setExecutor(new ClearChatCommand());
-		
-		// -- Nickname commands --
-		this.getCommand("whois").setExecutor(new NicknameCommand());
-		this.getCommand("nickname").setExecutor(new NicknameCommand());
-		
-		// -- Clockin/out commands --
-		this.getCommand("guard").setExecutor(new StaffCommand());
-		this.getCommand("warden").setExecutor(new StaffCommand());
-		
-		// -- Link command --
-		this.getCommand("link").setExecutor(new LinkCommand());
-		
-		// -- Gang command --
-		this.getCommand("gang").setExecutor(new GangCommand());
-		
-		// - Bounty command --
-		this.getCommand("bounty").setExecutor(new BountyCommand());
 		
 	}
 	

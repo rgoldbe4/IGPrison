@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
 
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.enums.IGEnvironments;
@@ -50,10 +53,15 @@ public class Database {
 	public static Statement GetStatement() {
 		try {
 			if (connection == null) {
-				if (ServerDefaults.ENVIRONMENT == IGEnvironments.MAIN)
+				Bukkit.getLogger().log(Level.WARNING, "IS MAIN? " + (ServerDefaults.ENVIRONMENT == IGEnvironments.MAIN));
+				if (ServerDefaults.ENVIRONMENT.equals(IGEnvironments.MAIN)) {
 					ConnectToMain();
-				else
+					Bukkit.getLogger().log(Level.INFO, "Connected to Main Database");
+				}
+				else {
 					ConnectToTesting();
+					Bukkit.getLogger().log(Level.INFO, "Connected to Testing Database");
+				}
 			}
 			Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			

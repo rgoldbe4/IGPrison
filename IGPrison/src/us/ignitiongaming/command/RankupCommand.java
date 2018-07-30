@@ -9,8 +9,10 @@ import org.bukkit.entity.Player;
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.config.ServerDefaults;
+import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.enums.IGSettings;
+import us.ignitiongaming.factory.player.IGPlayerFactory;
 
 public class RankupCommand implements CommandExecutor {
 
@@ -22,6 +24,7 @@ public class RankupCommand implements CommandExecutor {
 				// [/rankup]
 				if (lbl.equalsIgnoreCase("rankup")) {
 					double playerBalance = ServerDefaults.econ.getBalance(player);
+					IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 					IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
 					
 					switch (playerRank) {
@@ -32,6 +35,7 @@ public class RankupCommand implements CommandExecutor {
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostD));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set c");
 							ServerDefaults.econ.withdrawPlayer(player, rankupCostD);
+							player.setPlayerListName(IGRankNodes.getPlayerRank(player).getFormatting() + igPlayer.getDisplayName());
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a$" + (rankupCostD - playerBalance) + "§c to rankup.");
 						}
@@ -43,6 +47,7 @@ public class RankupCommand implements CommandExecutor {
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostC));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set b");
 							ServerDefaults.econ.withdrawPlayer(player, rankupCostC);
+							player.setPlayerListName(IGRankNodes.getPlayerRank(player).getFormatting() + igPlayer.getDisplayName());
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a$" + (rankupCostC - playerBalance) + "§c to rankup.");
 						}
@@ -54,6 +59,7 @@ public class RankupCommand implements CommandExecutor {
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostB));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set a");
 							ServerDefaults.econ.withdrawPlayer(player, rankupCostB);
+							player.setPlayerListName(IGRankNodes.getPlayerRank(player).getFormatting() + igPlayer.getDisplayName());
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a$" + (rankupCostB - playerBalance) + "§c to rankup.");
 						}
@@ -65,6 +71,7 @@ public class RankupCommand implements CommandExecutor {
 							player.sendMessage("§8Your balance is now: §a$" + (playerBalance - rankupCostA));
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set free");
 							ServerDefaults.econ.withdrawPlayer(player, rankupCostA);
+							player.setPlayerListName(IGRankNodes.getPlayerRank(player).getFormatting() + igPlayer.getDisplayName());
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a$" + (rankupCostA - playerBalance) + "§c to rankup.");
 						}
@@ -86,7 +93,6 @@ public class RankupCommand implements CommandExecutor {
 						if (player.hasPermission("igprison.staff")) {
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + args[0] + " group set " + args[1]);
 							player.sendMessage(args[0] + " has been added to " + args[1]);
-							
 						} else {
 							player.sendMessage(GlobalMessages.NO_PERMISSIONS);
 						}

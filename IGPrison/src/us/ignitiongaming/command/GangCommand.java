@@ -718,14 +718,8 @@ public class GangCommand implements CommandExecutor{
 			
 			//Step 2: Determine if the gang member can afford the drugs.
 			double costOfDrugs = Double.parseDouble(ServerDefaults.getSetting(IGSettings.DEFAULT_DRUG_COST).getValue().toString());
-			if (playerBalance >= costOfDrugs) {
-				ServerDefaults.econ.withdrawPlayer(player, costOfDrugs);
-				player.getInventory().addItem(drugType.toDrug());
-				
-			} 
-			//Step 2: Determine if the gang will let the player buy drugs using the gang money pot.
-			else if (igGang.canMembersBuyDrugs()){
-				
+			//1) Buy drugs through gang if allowed.
+			if (igGang.canMembersBuyDrugs()){
 				//Step 3: Determine if the gang can actually afford the drugs.
 				if (igGang.getMoney() >= costOfDrugs) {
 					//Buy the drugs and send them to the player.
@@ -735,7 +729,13 @@ public class GangCommand implements CommandExecutor{
 					player.getInventory().addItem(drugType.toDrug());
 				}
 			} 
-			//All failed, so let the player know they can't afford the drugs.
+			//2) Buy drugs if player has enough.
+			else if (playerBalance >= costOfDrugs) {
+				ServerDefaults.econ.withdrawPlayer(player, costOfDrugs);
+				player.getInventory().addItem(drugType.toDrug());
+				
+			} 
+			//3) All failed, so let the player know they can't afford the drugs.
 			else {
 				if (igGang.canMembersBuyDrugs()) 
 					player.sendMessage(GlobalTags.DRUGS + "§4You or your gang could not afford to buy drugs.");

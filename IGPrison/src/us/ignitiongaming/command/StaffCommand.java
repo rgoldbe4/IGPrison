@@ -67,6 +67,7 @@ public class StaffCommand implements CommandExecutor{
 							//Add guard equipment
 							player.getInventory().addItem(StaffBaton.getBaton());
 							player.getInventory().addItem(StaffBaton.getSolitaryBaton());
+							player.getInventory().addItem(StaffBaton.getShockBaton());
 						}
 					} else {
 						player.sendMessage(GlobalMessages.NO_PERMISSIONS);
