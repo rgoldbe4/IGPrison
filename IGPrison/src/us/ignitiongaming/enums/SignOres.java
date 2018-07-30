@@ -4,7 +4,7 @@ import org.bukkit.Material;
 
 public enum SignOres {
 
-IRON ("IRON"), GOLD ("GOLD"), DIAMOND ("DIAMOND"), EMERALD ("EMERALD");
+IRON ("IRON"), GOLD ("GOLD"), DIAMOND ("DIAMOND"), EMERALD ("EMERALD"), COAL ("COAL"), COBBLESTONE ("COBBLESTONE");
 	
 	private String name;
 	
@@ -42,6 +42,10 @@ IRON ("IRON"), GOLD ("GOLD"), DIAMOND ("DIAMOND"), EMERALD ("EMERALD");
 			case EMERALD:
 				material = Material.EMERALD;
 				break;
+			case COAL:
+				material = Material.COAL;
+			case COBBLESTONE:
+				material = Material.COBBLESTONE;
 		}
 		return material;
 	}

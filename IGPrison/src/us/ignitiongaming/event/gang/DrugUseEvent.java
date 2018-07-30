@@ -25,9 +25,13 @@ public class DrugUseEvent implements Listener {
 		try {
 			//Ensure the user is attempting to consume the drug via right click.
 			if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-				//Declare variables.
-				final Player player = (Player) event.getPlayer();
+
+				Player player = (Player) event.getPlayer();
+				if (player.getInventory().getItemInMainHand() == null) return;
+				
 				ItemStack itemInHand = player.getInventory().getItemInMainHand();
+				
+				if (itemInHand.getItemMeta().getLore() == null) return;
 				
 				//Determine if player is using auto drop.
 				if (itemInHand.getItemMeta().getLore().get(0).equalsIgnoreCase(GlobalTags.DRUGS + IGDrugType.AUTO_DROP.getTitle())) {

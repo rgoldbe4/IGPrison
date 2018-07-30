@@ -34,7 +34,7 @@ public class InteractSellSignEvent implements Listener {
 					 * 1 -> $10.00
 					 * 2 -> Iron
 					 */
-					//Sign found... Verify it's a pickaxe sign
+					//Sign found... Verify it's a sell sign
 					Sign sign = (Sign) event.getClickedBlock().getState();
 					Player player = (Player) event.getPlayer();
 					if (sign.getLine(0).contains(SignTags.SELL)) {
