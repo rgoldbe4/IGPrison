@@ -33,6 +33,7 @@ import us.ignitiongaming.event.gang.DrugUseEvent;
 import us.ignitiongaming.event.gang.GangAttackEvent;
 import us.ignitiongaming.event.gang.PendingRequestEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
+import us.ignitiongaming.event.player.BatonAttackEvent;
 import us.ignitiongaming.event.player.GuardDeathEvent;
 import us.ignitiongaming.event.player.InteractBuySignEvent;
 import us.ignitiongaming.event.player.InteractSellHeadSignEvent;
@@ -102,6 +103,7 @@ public class IGPrison extends JavaPlugin {
 			this.getServer().getPluginManager().registerEvents(new PlaceBuySignEvent(), this);
 			this.getServer().getPluginManager().registerEvents(new InteractBuySignEvent(), this);
 			this.getServer().getPluginManager().registerEvents(new PickaxeDamageEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new BatonAttackEvent(), this);
 			
 			/* Commands */
 			// -- Help Command --

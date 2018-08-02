@@ -34,7 +34,8 @@ public class InteractBuySignEvent implements Listener {
 					Player player = (Player) event.getPlayer();
 					if (sign.getLine(0).contains(SignTags.BUY)) {
 						String strippedPrice = ChatConverter.stripColor( ChatConverter.stripCurrency( sign.getLine(1) ) );
-						IGSignItems signItem = IGSignItems.getItem(sign.getLine(2));
+						IGSignItems signItem = IGSignItems.getItem( ChatConverter.stripColor( sign.getLine(2) ) );
+
 						double price = 0.0;
 						//If not free...
 						if (!strippedPrice.equalsIgnoreCase("free")) {
@@ -49,7 +50,7 @@ public class InteractBuySignEvent implements Listener {
 						item.setAmount(signItem.getAmount());
 						
 						player.getInventory().addItem(item);
-						player.sendMessage(GlobalTags.LOGO + "You were given " + (signItem == IGSignItems.MELON ? "melons" : signItem.getName()) + ".");
+						player.sendMessage(GlobalTags.LOGO + "You were given " + signItem.getName() + ".");
 					}
 				}
 			}

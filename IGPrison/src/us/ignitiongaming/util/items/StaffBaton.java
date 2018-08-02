@@ -16,7 +16,9 @@ public class StaffBaton {
 		ItemStack item = new ItemStack(Material.STICK);
 		ItemMeta itemMeta = item.getItemMeta();
 		
-		item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
+		item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 20);
+		item.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 20);
+		
 		itemMeta.setDisplayName(IGBatons.GUARD_BATON.getTag());
 		
 		List<String> lore = new ArrayList<>();

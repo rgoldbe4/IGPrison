@@ -3,15 +3,20 @@ package us.ignitiongaming.enums;
 import org.bukkit.Material;
 
 public enum IGSignItems {
-	IRON ("IRON"), GOLD ("GOLD"), DIAMOND ("DIAMOND"), EMERALD ("EMERALD"), COAL ("COAL"), COBBLESTONE ("COBBLESTONE"),
-	PICKAXE ("PICKAXE", 1), PLAYER_SKULL ("SKULL"), MELON ("MELON", 16);
+	IRON ("IRON", 0),
+	IRON_INGOT ("IRON_INGOT", 0),
+	GOLD ("GOLD", 0),
+	DIAMOND ("DIAMOND", 0),
+	EMERALD ("EMERALD", 0),
+	COAL ("COAL", 0),
+	COBBLESTONE ("COBBLESTONE", 0),
+	PICKAXE ("PICKAXE", 1),
+	PLAYER_SKULL ("SKULL", 0),
+	MELON ("MELON", 16);
 	
 	private String name;
 	private int amount;
 	
-	private IGSignItems(String name) {
-		this(name, 0);
-	}
 	
 	private IGSignItems(String name, int amount) {
 		this.name = name;
@@ -41,6 +46,7 @@ public enum IGSignItems {
 		Material material = Material.IRON_INGOT;
 		switch (ore) {
 			case IRON:
+			case IRON_INGOT:
 				material = Material.IRON_INGOT;
 				break;
 			case GOLD:

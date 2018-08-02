@@ -208,6 +208,7 @@ public class BountyCommand implements CommandExecutor{
 		}
 	}
 	private void viewCurrentBounties(Player player, IGPlayer igPlayer) {
+		ChatConverter.clearPlayerChat(player);
 		List<IGBounty> bounties = IGBountyFactory.getBountiesTargettingPlayer(igPlayer, IGBountyProgress.ONGOING); //We only want current bounties, not finished ones.
 		if (bounties.size() == 0) player.sendMessage(GlobalTags.BOUNTY + "§cYou do not have any ongoing bounties.");
 		for (IGBounty bounty : bounties) {

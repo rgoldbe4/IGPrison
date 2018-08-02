@@ -575,6 +575,11 @@ public class GangCommand implements CommandExecutor{
 					request.decline();
 					request.save();
 					
+					//[#64] - Give the gang they got the request from their money back
+					double refund = GangCalculator.costforNewMember(igGang);
+					igGang.addMoney(refund);
+					igGang.save();
+					
 					player.sendMessage(GlobalTags.GANG + "§cYou have declined the request from: §f" + name);
 				} else {
 					player.sendMessage(GlobalTags.GANG + "§4You do not have a request from that gang.");
