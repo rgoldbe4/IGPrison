@@ -44,8 +44,10 @@ IRON ("IRON"), GOLD ("GOLD"), DIAMOND ("DIAMOND"), EMERALD ("EMERALD"), COAL ("C
 				break;
 			case COAL:
 				material = Material.COAL;
+				break;
 			case COBBLESTONE:
 				material = Material.COBBLESTONE;
+				break;
 		}
 		return material;
 	}

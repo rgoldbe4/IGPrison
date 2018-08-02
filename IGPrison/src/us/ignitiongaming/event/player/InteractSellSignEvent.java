@@ -43,7 +43,7 @@ public class InteractSellSignEvent implements Listener {
 						SignOres item = SignOres.getItem(ChatColor.stripColor(sign.getLine(2).toUpperCase()));
 						int amount = removeOres(player, item);
 						if (amount == 0) {
-							player.sendMessage(SignTags.SELL + " §4You do not have any " + item.getName().toUpperCase());
+							player.sendMessage(SignTags.SELL + " §4You do not have any " + item.getName().toLowerCase());
 						} else {
 							double totalRewarded = amount * price;
 							ServerDefaults.econ.depositPlayer(player, totalRewarded);

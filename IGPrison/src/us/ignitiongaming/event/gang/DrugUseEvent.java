@@ -31,6 +31,8 @@ public class DrugUseEvent implements Listener {
 				
 				ItemStack itemInHand = player.getInventory().getItemInMainHand();
 				
+				//#15 - Exception when right clicking with bare hand. Check for nulls in this specific instance.
+				if (itemInHand.getItemMeta() == null) return;
 				if (itemInHand.getItemMeta().getLore() == null) return;
 				
 				//Determine if player is using auto drop.
