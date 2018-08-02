@@ -21,5 +21,11 @@ public class ChatConverter {
 	public static String stripColor(String message) {
 		return ChatColor.stripColor(message);
 	}
+	
+	public static String stripCurrency(String message) {
+		return message.replace("$", "").replace(",", "");
+	}
+	
+	
 
 }

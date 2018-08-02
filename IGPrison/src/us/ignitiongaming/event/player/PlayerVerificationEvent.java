@@ -146,7 +146,7 @@ public class PlayerVerificationEvent implements Listener {
 		}
 	}
 	
-	@EventHandler
+	//Don't fire this event.
 	public static void onPlayerJoinAddTheirRank(PlayerJoinEvent event) {
 		ScoreboardManager manager = Bukkit.getScoreboardManager();
 		Scoreboard board = manager.getNewScoreboard();
