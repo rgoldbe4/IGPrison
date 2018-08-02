@@ -1,14 +1,9 @@
 package us.ignitiongaming.command;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
 
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.GlobalTags;
@@ -26,17 +21,7 @@ public class StaffCommand implements CommandExecutor{
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				
-				ScoreboardManager manager = Bukkit.getScoreboardManager();
-				Scoreboard guardBoard = manager.getNewScoreboard();
-				Scoreboard wardenBoard = manager.getNewScoreboard();
 				
-				Objective wardenObj = wardenBoard.registerNewObjective("showwarden", "dummy");
-				wardenObj.setDisplaySlot(DisplaySlot.BELOW_NAME);
-				wardenObj.setDisplayName(IGRankNodes.WARDEN.getTag());
-				
-				Objective guardObj = guardBoard.registerNewObjective("showguard", "dummy");
-				guardObj.setDisplaySlot(DisplaySlot.BELOW_NAME);
-				guardObj.setDisplayName(IGRankNodes.GUARD.getTag());
 				
 				if (lbl.equalsIgnoreCase("guard")) {
 					if (player.hasPermission(IGRankNodes.GUARD.getNode())) {
@@ -44,7 +29,6 @@ public class StaffCommand implements CommandExecutor{
 							IGList.clockedIn.remove(player);
 							player.sendMessage(GlobalTags.LOGO + "You have been clocked out.");
 							player.getInventory().clear();
-							player.removeScoreboardTag("showguard");
 						} else {
 							IGList.clockedIn.add(player);
 							player.sendMessage(GlobalTags.LOGO + "You have been clocked in.");
@@ -58,7 +42,6 @@ public class StaffCommand implements CommandExecutor{
 							//Add guard equipment
 							player.getInventory().addItem(StaffBaton.getBaton());
 							player.getInventory().addItem(StaffBaton.getSolitaryBaton());
-							player.setScoreboard(guardBoard);
 							
 						}
 					} else {
@@ -74,7 +57,6 @@ public class StaffCommand implements CommandExecutor{
 							IGList.clockedIn.remove(player);
 							player.sendMessage(GlobalTags.LOGO + "You have been clocked out.");
 							player.getInventory().clear();
-							player.removeScoreboardTag("showwarden");
 						} else {
 							IGList.clockedIn.add(player);
 							player.sendMessage(GlobalTags.LOGO + "You have been clocked in.");
@@ -89,7 +71,6 @@ public class StaffCommand implements CommandExecutor{
 							player.getInventory().addItem(StaffBaton.getBaton());
 							player.getInventory().addItem(StaffBaton.getSolitaryBaton());
 							player.getInventory().addItem(StaffBaton.getShockBaton());
-							player.setScoreboard(wardenBoard);
 						}
 					} else {
 						player.sendMessage(GlobalMessages.NO_PERMISSIONS);

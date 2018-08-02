@@ -1,14 +1,20 @@
 package us.ignitiongaming.event.player;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerStats;
+import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.player.IGPlayerBannedFactory;
 import us.ignitiongaming.factory.player.IGPlayerDonatorFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
@@ -138,5 +144,17 @@ public class PlayerVerificationEvent implements Listener {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	@EventHandler
+	public static void onPlayerJoinAddTheirRank(PlayerJoinEvent event) {
+		ScoreboardManager manager = Bukkit.getScoreboardManager();
+		Scoreboard board = manager.getNewScoreboard();
+		
+		Objective objective = board.registerNewObjective("showrank", "dummy");
+		objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+		objective.setDisplayName(IGRankNodes.getPlayerRank(event.getPlayer()).getTag());
+		
+		event.getPlayer().setScoreboard(board);
 	}
 }
