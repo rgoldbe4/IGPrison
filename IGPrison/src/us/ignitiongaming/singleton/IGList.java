@@ -11,4 +11,7 @@ public class IGList {
 	public static List<Player> staffChat = new ArrayList<>();
 	
 	public static List<Player> clockedIn = new ArrayList<>();
+	
+	// * DRUGS *
+	public static List<Player> drillUse = new ArrayList<>();
 }

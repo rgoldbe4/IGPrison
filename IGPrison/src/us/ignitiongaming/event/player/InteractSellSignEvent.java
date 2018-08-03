@@ -13,7 +13,8 @@ import org.bukkit.inventory.ItemStack;
 
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.config.SignTags;
-import us.ignitiongaming.enums.SignOres;
+import us.ignitiongaming.enums.IGSignItems;
+import us.ignitiongaming.util.convert.ChatConverter;
 
 public class InteractSellSignEvent implements Listener {
 
@@ -34,16 +35,19 @@ public class InteractSellSignEvent implements Listener {
 					 * 1 -> $10.00
 					 * 2 -> Iron
 					 */
-					//Sign found... Verify it's a pickaxe sign
+					//Sign found... Verify it's a sell sign
 					Sign sign = (Sign) event.getClickedBlock().getState();
 					Player player = (Player) event.getPlayer();
 					if (sign.getLine(0).contains(SignTags.SELL)) {
-						double price = Double.parseDouble(ChatColor.stripColor(sign.getLine(1).replace("$", "").replace(",", "")));
+						double price = 0.0;
+						if (!ChatConverter.stripColor(sign.getLine(1).replace("$", "").replace(",", "")).equalsIgnoreCase("FREE")) {
+							price = Double.parseDouble(ChatColor.stripColor(sign.getLine(1).replace("$", "").replace(",", "")));
+						}
 						
-						SignOres item = SignOres.getItem(ChatColor.stripColor(sign.getLine(2).toUpperCase()));
+						IGSignItems item = IGSignItems.getItem(ChatColor.stripColor(sign.getLine(2).toUpperCase()));
 						int amount = removeOres(player, item);
 						if (amount == 0) {
-							player.sendMessage(SignTags.SELL + " §4You do not have any " + item.getName().toUpperCase());
+							player.sendMessage(SignTags.SELL + " §4You do not have any " + item.getName().toLowerCase() + ".");
 						} else {
 							double totalRewarded = amount * price;
 							ServerDefaults.econ.depositPlayer(player, totalRewarded);
@@ -60,7 +64,7 @@ public class InteractSellSignEvent implements Listener {
 			
 	}
 	
-	private int removeOres(Player player, SignOres ore) {
+	private int removeOres(Player player, IGSignItems ore) {
 		int amount = 0;
 		Material material = ore.toMaterial();
 		

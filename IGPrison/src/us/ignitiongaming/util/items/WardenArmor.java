@@ -25,7 +25,7 @@ public class WardenArmor {
 		helmet.setItemMeta(itemMeta);
 		
 		/* Setup Enchantments */
-		helmet.addEnchantments(getUnsafeEnchantments());
+		helmet.addUnsafeEnchantments(getUnsafeEnchantments());
 		return helmet;
 	}
 	
@@ -37,7 +37,7 @@ public class WardenArmor {
 		chestplate.setItemMeta(itemMeta);
 		
 		/* Setup Enchantments */
-		chestplate.addEnchantments(getUnsafeEnchantments());
+		chestplate.addUnsafeEnchantments(getUnsafeEnchantments());
 		return chestplate;
 	}
 	
@@ -49,7 +49,7 @@ public class WardenArmor {
 		leggings.setItemMeta(itemMeta);
 		
 		/* Setup Enchantments */
-		leggings.addEnchantments(getUnsafeEnchantments());
+		leggings.addUnsafeEnchantments(getUnsafeEnchantments());
 		return leggings;
 	}
 	
@@ -61,7 +61,7 @@ public class WardenArmor {
 		boots.setItemMeta(itemMeta);
 		
 		/* Setup Enchantments */
-		boots.addEnchantments(getUnsafeEnchantments());
+		boots.addUnsafeEnchantments(getUnsafeEnchantments());
 		return boots;
 	}
 	
@@ -76,7 +76,6 @@ public class WardenArmor {
 			enchantments.put(Enchantment.PROTECTION_PROJECTILE, 7);
 			
 			/* Other */
-			enchantments.put(Enchantment.BINDING_CURSE, 10);
 			enchantments.put(Enchantment.THORNS, 7);
 			
 		} catch (Exception ex) {

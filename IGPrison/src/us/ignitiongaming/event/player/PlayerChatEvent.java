@@ -87,6 +87,9 @@ public class PlayerChatEvent implements Listener {
 			// General Formatting For All Text Messages
 			format += playerRank.getFormatting() + name + " §r> " + event.getMessage();
 			
+			// [#60] - If a player types in % into chat, it throws an exception because of conversion in .setFormat();
+			format = format.replace("%", "");
+			
 			event.setFormat(format);
 		}
 	}

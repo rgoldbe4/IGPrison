@@ -39,11 +39,15 @@ public class AdminCommand implements CommandExecutor{
 								for (IGSetting setting : ServerDefaults.settings) {
 									player.sendMessage(setting.getLabel() + " = " + setting.getValue());
 								}
+								player.sendMessage("Environment: " + ServerDefaults.ENVIRONMENT);	
+								
 							}
 							
 							if (args[0].equalsIgnoreCase("db")) {
 								player.sendMessage("Is Database Connected? " + !Database.connection.isClosed());
 							}
+							
+							
 						}
 						
 					} else {

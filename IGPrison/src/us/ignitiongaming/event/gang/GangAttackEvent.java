@@ -32,6 +32,7 @@ public class GangAttackEvent implements Listener {
 				
 				if (igAttackerGang.getGangId() == igDefenderGang.getGangId()) {
 					attacker.sendMessage(GlobalTags.GANG + "§4You cannot attack a fellow gang member.");
+					event.setCancelled(true);
 				}
 			}
 			

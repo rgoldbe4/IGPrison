@@ -5,6 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import us.ignitiongaming.config.ServerDefaults;
+import us.ignitiongaming.enums.IGDrugType;
 import us.ignitiongaming.enums.IGSettings;
 
 public class Drugs {
@@ -17,7 +18,7 @@ public class Drugs {
 		/* Item Meta */
 		ItemMeta cactusMeta = cactus.getItemMeta();
 		cactusMeta.setLore(DrugLore.getAutoDropLore());
-		cactusMeta.setDisplayName("§eOne Punch Man");
+		cactusMeta.setDisplayName(IGDrugType.AUTO_DROP.getTitle());
 		cactus.setItemMeta(cactusMeta);
 		
 		//Default drug amount

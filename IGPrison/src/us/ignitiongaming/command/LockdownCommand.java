@@ -88,7 +88,7 @@ public class LockdownCommand implements CommandExecutor {
 										if (lockdown.getCell().getLabel().equalsIgnoreCase(cell.getLabel())) {
 											//Allow PVP
 											IGRankNodes igRank = IGRankNodes.valueOf(args[1].toUpperCase());
-											Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag pvp -w world allow");
+											Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag " + cell.getLabel() + "_block_pvp pvp -w world allow");
 											Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), 
 													"region flag " + cell.getLabel() + "_block_pvp greeting -w world " + igRank.getTag() + "&4&lPvP Enabled");
 											lockdown.setEndId(igPlayer.getId());

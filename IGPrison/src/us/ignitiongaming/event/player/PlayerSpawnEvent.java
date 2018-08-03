@@ -1,13 +1,17 @@
 package us.ignitiongaming.event.player;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import us.ignitiongaming.enums.IGLocations;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.other.IGLocationFactory;
+import us.ignitiongaming.factory.player.IGPlayerFactory;
+import us.ignitiongaming.util.handy.FacingDirection;
 
 public class PlayerSpawnEvent implements Listener {
 
@@ -33,6 +37,17 @@ public class PlayerSpawnEvent implements Listener {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		}
+	}
+	
+	@EventHandler
+	public static void onPlayerJoinGoToSpawn(PlayerJoinEvent event) {
+		Player player = event.getPlayer();
+		
+		if (IGPlayerFactory.getIGPlayerByPlayer(player).isValid()) {
+			Location location = IGLocationFactory.getSpawnByPlayerRank(player).toLocation();
+			location.setYaw(FacingDirection.EAST);
+			player.teleport(location);
 		}
 	}
 }

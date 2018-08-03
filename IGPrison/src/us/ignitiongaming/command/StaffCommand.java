@@ -21,6 +21,8 @@ public class StaffCommand implements CommandExecutor{
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				
+				
+				
 				if (lbl.equalsIgnoreCase("guard")) {
 					if (player.hasPermission(IGRankNodes.GUARD.getNode())) {
 						if (IGList.clockedIn.contains(player)) {
@@ -40,6 +42,7 @@ public class StaffCommand implements CommandExecutor{
 							//Add guard equipment
 							player.getInventory().addItem(StaffBaton.getBaton());
 							player.getInventory().addItem(StaffBaton.getSolitaryBaton());
+							
 						}
 					} else {
 						player.sendMessage(GlobalMessages.NO_PERMISSIONS);
@@ -67,6 +70,7 @@ public class StaffCommand implements CommandExecutor{
 							//Add guard equipment
 							player.getInventory().addItem(StaffBaton.getBaton());
 							player.getInventory().addItem(StaffBaton.getSolitaryBaton());
+							player.getInventory().addItem(StaffBaton.getShockBaton());
 						}
 					} else {
 						player.sendMessage(GlobalMessages.NO_PERMISSIONS);

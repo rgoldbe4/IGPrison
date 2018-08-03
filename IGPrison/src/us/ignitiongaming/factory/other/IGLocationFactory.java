@@ -53,7 +53,7 @@ public class IGLocationFactory {
 	
 	public static IGLocation getSpawnByPlayerRank(Player player) {
 		try {
-			if (IGRankNodes.isPlayerInSolitary(player)) return getLocationByIGLocations(IGLocations.SOLITARY);
+			if (IGRankNodes.isPlayerInSolitary(player) && !player.isOp()) return getLocationByIGLocations(IGLocations.SOLITARY);
 			
 			IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
 			IGLocations spawnLocation = IGLocations.getLocationByLabel(playerRank.name());
