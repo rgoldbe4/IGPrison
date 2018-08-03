@@ -16,7 +16,7 @@ public enum IGGangRank {
 	public int getId() { return ID; }
 	public String getLabel() { return label; }
 	
-	public static IGGangRank getRankByID(int ID) {
+	public static IGGangRank getRankById(int ID) {
 		IGGangRank rank = IGGangRank.MEMBER;
 		for (IGGangRank igGangRank : IGGangRank.values()) {
 			if (igGangRank.getId() == ID) rank = igGangRank;

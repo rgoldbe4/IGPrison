@@ -25,7 +25,7 @@ public class GuardArmor {
 		helmet.setItemMeta(itemMeta);
 		
 		/* Setup Enchantments */
-		helmet.addEnchantments(getUnsafeEnchantments());
+		helmet.addUnsafeEnchantments(getUnsafeEnchantments());
 		return helmet;
 	}
 	
@@ -37,7 +37,7 @@ public class GuardArmor {
 		chestplate.setItemMeta(itemMeta);
 		
 		/* Setup Enchantments */
-		chestplate.addEnchantments(getUnsafeEnchantments());
+		chestplate.addUnsafeEnchantments(getUnsafeEnchantments());
 		return chestplate;
 	}
 	
@@ -49,7 +49,7 @@ public class GuardArmor {
 		leggings.setItemMeta(itemMeta);
 		
 		/* Setup Enchantments */
-		leggings.addEnchantments(getUnsafeEnchantments());
+		leggings.addUnsafeEnchantments(getUnsafeEnchantments());
 		return leggings;
 	}
 	
@@ -61,7 +61,7 @@ public class GuardArmor {
 		boots.setItemMeta(itemMeta);
 		
 		/* Setup Enchantments */
-		boots.addEnchantments(getUnsafeEnchantments());
+		boots.addUnsafeEnchantments(getUnsafeEnchantments());
 		return boots;
 	}
 	
@@ -76,8 +76,7 @@ public class GuardArmor {
 			enchantments.put(Enchantment.PROTECTION_PROJECTILE, 5);
 			
 			/* Other */
-			enchantments.put(Enchantment.BINDING_CURSE, 10);
-			enchantments.put(Enchantment.THORNS, 10);
+			enchantments.put(Enchantment.THORNS, 5);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();

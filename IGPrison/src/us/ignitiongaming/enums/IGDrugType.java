@@ -5,13 +5,14 @@ import org.bukkit.inventory.ItemStack;
 import us.ignitiongaming.util.items.Drugs;
 
 public enum IGDrugType {
-	AUTO_DROP ("onepunchman");
+	AUTO_DROP ("fastmining", "§eFast Mining");
 	
-	private String label;
+	private String label, title;
 	
-	private IGDrugType(String label) { this.label = label; }
+	private IGDrugType(String label, String title) { this.label = label; this.title = title; }
 	
 	public String getLabel() { return label; }
+	public String getTitle() { return title; }
 	
 	public ItemStack toDrug() {
 		switch (this) {

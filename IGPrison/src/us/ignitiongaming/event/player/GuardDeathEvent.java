@@ -13,7 +13,7 @@ import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerStats;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
-import us.ignitiongaming.singleton.IGSingleton;
+import us.ignitiongaming.singleton.IGList;
 
 public class GuardDeathEvent implements Listener {
 
@@ -31,9 +31,11 @@ public class GuardDeathEvent implements Listener {
 						Player killer = event.getEntity().getKiller();
 						IGPlayer igKiller = IGPlayerFactory.getIGPlayerByPlayer(killer);
 						IGPlayerStats igStats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igKiller);
-						if(IGSingleton.getInstance().getClockedIn().contains(event.getEntity().getUniqueId()))igStats.addDonatorPoint();
+						if(IGList.clockedIn.contains(event.getEntity())) {
+							igStats.addDonatorPoint();
+							event.setDeathMessage(GlobalMessages.GUARD_DEATH);
+						}
 						igStats.save();
-						event.setDeathMessage(GlobalMessages.GUARD_DEATH);
 					}
 				}				
 			}	

@@ -13,9 +13,9 @@ public class IGPlayerKicked extends HasID {
 	
 	public void assign(ResultSet results) {
 		try {
-			setId(results.getInt("ID"));
+			setId(results);
 			setPlayerId(results.getInt("playerID"));
-			setKicker(results.getInt("staffID"));
+			setKickerId(results.getInt("staffID"));
 			setReason(results.getString("Reason"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -28,6 +28,6 @@ public class IGPlayerKicked extends HasID {
 	public String getReason() { return reason; }
 	public void setReason(String reason) { this.reason = reason; }
 
-	public int getKicker() { return kickerID; }
-	public void setKicker(int banner) { this.kickerID = banner; }
+	public int getKickerId() { return kickerID; }
+	public void setKickerId(int banner) { this.kickerID = banner; }
 }

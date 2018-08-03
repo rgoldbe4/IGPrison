@@ -1,5 +1,6 @@
 package us.ignitiongaming.util.convert;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class ChatConverter {
@@ -16,5 +17,15 @@ public class ChatConverter {
 		for (int i = 0; i < 200; i++)
 			player.sendMessage("");
 	}
+	
+	public static String stripColor(String message) {
+		return ChatColor.stripColor(message);
+	}
+	
+	public static String stripCurrency(String message) {
+		return message.replace("$", "").replace(",", "");
+	}
+	
+	
 
 }

@@ -14,11 +14,11 @@ public class IGLink extends HasID {
 	private int playerID = 0, userID = 0, confirm = -1;
 	private String code;
 	
-	public void setPlayerID(int playerID) { this.playerID = playerID; }
-	public int getPlayerID() { return playerID; }
+	public void setPlayerId(int playerId) { this.playerID = playerId; }
+	public int getPlayerId() { return playerID; }
 	
-	public void setUserID(int userID) { this.userID = userID; }
-	public int getUserID() { return userID; }
+	public void setUserId(int userId) { this.userID = userId; }
+	public int getUserId() { return userID; }
 	
 	public void setCode(String code) { this.code = code; }
 	public String getCode() { return code; }
@@ -30,8 +30,8 @@ public class IGLink extends HasID {
 	public void assign(ResultSet results) {
 		try {
 			setId(results);
-			setPlayerID(results.getInt("playerID"));
-			setUserID(results.getInt("userID"));
+			setPlayerId(results.getInt("playerID"));
+			setUserId(results.getInt("userID"));
 			setCode(results.getString("code"));
 			setConfirm(BooleanConverter.getBooleanFromInteger(results.getInt("confirm"))); //Convert 0 => false, 1 => true
 		} catch (Exception ex) {
