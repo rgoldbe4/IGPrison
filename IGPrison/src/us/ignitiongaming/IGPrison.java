@@ -55,6 +55,8 @@ import us.ignitiongaming.factory.other.IGSettingFactory;
 public class IGPrison extends JavaPlugin {	
 	
 	public static Plugin plugin;
+	public static IGEnvironments environment;
+	
 	public void onEnable() {
 		try {
 			plugin = this;
@@ -65,11 +67,11 @@ public class IGPrison extends JavaPlugin {
 			//Display this to console.
 			this.getLogger().log(Level.WARNING, "Config Environment: " + this.getConfig().getString("environment"));
 			if (this.getConfig().getString("environment").contains("main")) {
-				ServerDefaults.ENVIRONMENT = IGEnvironments.MAIN;
+				environment = IGEnvironments.MAIN;
 			} else {
-				ServerDefaults.ENVIRONMENT = IGEnvironments.TESTING;
+				environment = IGEnvironments.TESTING;
 			}
-			this.getLogger().log(Level.INFO, "Assigned Environment: " + ServerDefaults.ENVIRONMENT);
+			this.getLogger().log(Level.INFO, "Assigned Environment: " + environment);
 			
 			//You know? Vault is kinda stupid for making me use a global variable...
 			setupEconomy();

@@ -5,7 +5,6 @@ import java.util.List;
 import net.milkbowl.vault.economy.Economy;
 import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.enums.IGCells;
-import us.ignitiongaming.enums.IGEnvironments;
 import us.ignitiongaming.enums.IGLocations;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.enums.IGSettings;
@@ -41,6 +40,5 @@ public class ServerDefaults {
 	public static IGCells DEFAULT_CELL = IGCells.D;
 	
 	public static Economy econ;
-	public static IGEnvironments ENVIRONMENT;
 	
 }
