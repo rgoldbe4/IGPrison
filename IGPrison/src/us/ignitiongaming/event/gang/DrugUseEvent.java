@@ -47,6 +47,7 @@ public class DrugUseEvent implements Listener {
 						
 						//Add default speed for 10 seconds.
 						player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, TickConverter.getTicksInSeconds(10), 0));
+						player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, TickConverter.getTicksInSeconds(10), 0));
 						
 						player.sendMessage(GlobalTags.DRUGS + "You have consumed: " + IGDrugType.AUTO_DROP.getTitle());
 						
