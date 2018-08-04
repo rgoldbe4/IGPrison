@@ -37,7 +37,7 @@ public class PlayerVerificationEvent implements Listener {
 			Player player = event.getPlayer();
 			IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 			//Either returns an entity (which means it exists) or returns null (add it!).
-			if (!igPlayer.isValid()) {
+			if (igPlayer == null) {
 				IGPlayerFactory.add(player);
 			}
 		} catch (Exception ex) {

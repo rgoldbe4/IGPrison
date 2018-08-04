@@ -11,7 +11,7 @@ import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 
-import us.ignitiongaming.config.ServerDefaults;
+import us.ignitiongaming.IGPrison;
 import us.ignitiongaming.enums.IGEnvironments;
 
 public class Database {
@@ -53,8 +53,8 @@ public class Database {
 	public static Statement GetStatement() {
 		try {
 			if (connection == null) {
-				Bukkit.getLogger().log(Level.WARNING, "IS MAIN? " + (ServerDefaults.ENVIRONMENT == IGEnvironments.MAIN));
-				if (ServerDefaults.ENVIRONMENT.equals(IGEnvironments.MAIN)) {
+				Bukkit.getLogger().log(Level.WARNING, "IS MAIN? " + (IGPrison.environment == IGEnvironments.MAIN));
+				if (IGPrison.environment.equals(IGEnvironments.MAIN)) {
 					ConnectToMain();
 					Bukkit.getLogger().log(Level.INFO, "Connected to Main Database");
 				}
@@ -63,6 +63,7 @@ public class Database {
 					Bukkit.getLogger().log(Level.INFO, "Connected to Testing Database");
 				}
 			}
+			
 			Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			activeStatements.add(statement);

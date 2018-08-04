@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import us.ignitiongaming.IGPrison;
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.database.Database;
@@ -39,7 +40,7 @@ public class AdminCommand implements CommandExecutor{
 								for (IGSetting setting : ServerDefaults.settings) {
 									player.sendMessage(setting.getLabel() + " = " + setting.getValue());
 								}
-								player.sendMessage("Environment: " + ServerDefaults.ENVIRONMENT);	
+								player.sendMessage("Environment: " + IGPrison.environment);	
 								
 							}
 							
