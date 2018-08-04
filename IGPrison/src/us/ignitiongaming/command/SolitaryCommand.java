@@ -31,6 +31,16 @@ public class SolitaryCommand implements CommandExecutor{
 				// [/solitary <add/remove> <name> <context...>]
 				if (lbl.equalsIgnoreCase("solitary")) {
 					
+					/*if (args.length < 2) {
+						player.sendMessage(GlobalTags.SOLITARY);
+						player.sendMessage(" /solitary -> Shows this.");
+						player.sendMessage(" /solitary help -> Shows this.");
+						player.sendMessage(" /solitary context -> Display all context you can use for <duration> arguments.");
+						player.sendMessage(" /solitary add <player> <duration> -> Add a player to solitary.");
+						player.sendMessage(" /solitary remove <player> -> Remove a player from solitary.");
+						player.sendMessage(" /solitary list -> Display all current players in solitary.");
+						player.sendMessage(" /solitary info <player> -> Display in-depth information on a player.");
+					*/
 					if (args.length < 2) {
 						player.sendMessage(GlobalMessages.INVALID_COMMAND);
 					} else {
