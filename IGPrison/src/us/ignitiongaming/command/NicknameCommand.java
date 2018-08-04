@@ -1,5 +1,7 @@
 package us.ignitiongaming.command;
 
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,9 +45,13 @@ public class NicknameCommand  implements CommandExecutor {
 				// [/nickname <nickname>]
 				} else if (args.length == 1) {
 					String nickname = ChatConverter.stripColor(args[0]);
-					igPlayer.setNickname(nickname);
-					igPlayer.save();
-					player.sendMessage(GlobalTags.LOGO + "§aYour nickname is now: §l" + nickname);
+					if (!isNicknameInUse(nickname)) {
+						igPlayer.setNickname(nickname);
+						igPlayer.save();
+						player.sendMessage(GlobalTags.LOGO + "§aYour nickname is now: §l" + nickname);
+					} else {
+						player.sendMessage(GlobalTags.LOGO + "§4The nickname you wanted is either a player's name or is in use.");
+					}
 				} else {
 					player.sendMessage(GlobalMessages.INVALID_COMMAND);
 				}
@@ -55,5 +61,19 @@ public class NicknameCommand  implements CommandExecutor {
 		return false;
 	}
 	
+	private boolean isNicknameInUse(String nickname) {
+		List<IGPlayer> allPlayers = IGPlayerFactory.getAllPlayers();
+		boolean isInUse = false;
+		
+		for(IGPlayer igPlayer : allPlayers) {
+			if (igPlayer.getName().equalsIgnoreCase(nickname)) isInUse = true;
+			if (igPlayer.hasNickname()) {
+				if (igPlayer.getNickname().equalsIgnoreCase(nickname))
+					isInUse = true;
+			}
+		}
+		
+		return isInUse;
+	}
 
 }
