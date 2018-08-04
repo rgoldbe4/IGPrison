@@ -94,7 +94,7 @@ public class LockdownCommand implements CommandExecutor {
 											lockdown.setEndId(igPlayer.getId());
 											lockdown.setEnded(DateConverter.getCurrentTime());
 											lockdown.save();
-											Bukkit.broadcastMessage(GlobalTags.LOCKDOWN + "§aCell " + igRank.getTag() + "§ano longer under lockdown!");
+											Bukkit.broadcastMessage(GlobalTags.LOCKDOWN + igRank.getTag() + "§a§lBLOCK cleared lockdown!");
 										}
 									}
 								} else {
