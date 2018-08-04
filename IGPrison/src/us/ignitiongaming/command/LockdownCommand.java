@@ -47,11 +47,23 @@ public class LockdownCommand implements CommandExecutor {
 							// [/lockdown help]
 							if (args[0].equalsIgnoreCase("help")) {
 								player.sendMessage(" -- " + GlobalTags.LOCKDOWN + " --");
+								player.sendMessage("§7§o/lockdown ->§r Show all current lockdowns.");
 								player.sendMessage("§7§o/lockdown help ->§r Displays command list.");
+								player.sendMessage("§7§o/lockdown all->§r Display the entire lockdown history.");
 								player.sendMessage("§7§o/lockdown start <cell> ->§r Starts a lockdown in <cell>.");
 								player.sendMessage("§7§o/lockdown stop <cell> ->§r Ends a lockdown in <cell>");
-								player.sendMessage("§7§o/lockdown ->§r Show all current lockdowns.");
 								player.sendMessage("§8§lCells:§r A, B, C, D");
+							}
+							
+							else if (args[0].equalsIgnoreCase("all")) {
+								List<IGLockdown> currentLockdowns = IGLockdownFactory.getAllLockdowns();
+								for (IGLockdown lockdown : currentLockdowns) {
+									player.sendMessage("§8[[");
+									player.sendMessage("§eCell: §f" + lockdown.getCell().getLabel());
+									player.sendMessage("§eStarted By: §f" + lockdown.getStartPlayer().getName());
+									player.sendMessage("§eStarted At: §f" + lockdown.getStartedFriendly());
+									player.sendMessage("§8]]"); 
+								}
 							}
 							
 						}
