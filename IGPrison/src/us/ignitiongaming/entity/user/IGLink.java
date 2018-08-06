@@ -40,7 +40,7 @@ public class IGLink extends HasID {
 	}
 	
 	public boolean isValid() {
-		return (!hasId() || playerID == 0 || userID == 0 || code == null || confirm == -1);
+		return !(!hasId() || playerID == 0 || userID == 0 || code == null || confirm == -1);
 	}
 	
 	public void save() {

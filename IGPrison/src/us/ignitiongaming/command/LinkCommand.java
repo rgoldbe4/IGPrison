@@ -26,8 +26,11 @@ public class LinkCommand implements CommandExecutor{
 				
 				if (lbl.equalsIgnoreCase("link")) {
 					
-					if (IGPrison.environment == IGEnvironments.MAIN) {
-						if (args.length == 1) {
+					if (IGPrison.environment == IGEnvironments.MAIN || player.getName().equalsIgnoreCase("buffsovernexus")) {
+						if (args.length == 0) {
+							player.sendMessage(GlobalTags.LOGO + "§8URL: §7§o§nhttp://www.ignitiongaming.us/mc/link§r");
+						}
+						else if (args.length == 1) {
 							IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 							//Now see if they have any links.
 							IGLink link = IGLinkFactory.getLinkByIGPlayer(igPlayer);
