@@ -201,6 +201,7 @@ public class BountyCommand implements CommandExecutor{
 	}
 
 	private void viewBountiesMadeByPlayer(Player player, IGPlayer igPlayer) {
+		ChatConverter.clearPlayerChat(player);
 		List<IGBounty> bounties = IGBountyFactory.getBountiesByPlayer(igPlayer); //We want all bounties.
 		if (bounties.size() == 0) player.sendMessage(GlobalTags.BOUNTY + "§cYou do not have any bounties.");
 		for (IGBounty bounty : bounties) {
