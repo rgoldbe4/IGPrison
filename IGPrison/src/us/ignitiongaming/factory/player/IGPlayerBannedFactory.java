@@ -3,7 +3,6 @@ package us.ignitiongaming.factory.player;
 import java.sql.ResultSet;
 import java.util.Date;
 
-import us.ignitiongaming.database.DatabaseUtils;
 import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.player.IGPlayer;
@@ -14,39 +13,43 @@ import us.ignitiongaming.util.convert.DateConverter;
 public class IGPlayerBannedFactory {
 	
 	public static boolean isBanned(IGPlayer igPlayer){
+		boolean isPlayerBanned = false;
 		try {
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerBanned.TABLE_NAME);
 			query.addWhere("playerID", igPlayer.getId());
-			ResultSet bans = query.getResults();
-			if(DatabaseUtils.getNumRows(bans) == 0) return false;
-			Date latestDate = new Date(0);
-			while(bans.next()){
-				String banDate = bans.getString("banEnd");
-				latestDate = (DateConverter.convertStringDateTimeToDate(banDate).after(latestDate))
-						? DateConverter.convertStringDateTimeToDate(banDate) : latestDate;
-			}	
-			return new Date().after(latestDate) ? false : true;
+			ResultSet results = query.getResults();
+			
+			while (results.next()) {
+				IGPlayerBanned player = new IGPlayerBanned();
+				player.assign(results);
+				//If any of the bans found are applicable, mark them as "yes".
+				if (player.isBanned()) isPlayerBanned = true;
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			return false;
 		}
+		
+		return isPlayerBanned;
 	}
 	
-	public static void add(IGPlayer igPlayer, Date start, Date end, String reason, IGPlayer staff, boolean isPermanent) {
+	public static IGPlayerBanned getPlayerBan(IGPlayer igPlayer) {
+		IGPlayerBanned igPlayerBanned = new IGPlayerBanned();
 		try {
-			SQLQuery query = new SQLQuery(QueryType.INSERT, IGPlayerBanned.TABLE_NAME);
-			query.addGrabColumns("playerID", "staffID", "banStart", "banEnd", "Reason", "permanent");
-			query.addValues(igPlayer.getId(),
-					staff.getId(),
-					DateConverter.convertDateToString(start),
-					DateConverter.convertDateToString(end),
-					reason,
-					BooleanConverter.getIntegerFromBoolean(isPermanent));
-			query.execute();			
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerBanned.TABLE_NAME);
+			query.addWhere("playerID", igPlayer.getId());
+			ResultSet results = query.getResults();
+			
+			while (results.next()) {
+				IGPlayerBanned player = new IGPlayerBanned();
+				player.assign(results);
+				if (player.isBanned()) igPlayerBanned = player;
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		
+		return igPlayerBanned;
 	}
 	
 	public static void add(IGPlayer igStaff, IGPlayer igTarget, Date end, String reason) {
@@ -82,25 +85,6 @@ public class IGPlayerBannedFactory {
 			query.execute();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}
-	}
-
-	public static String getBanDate(IGPlayer igPlayer) {
-		try {
-			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerBanned.TABLE_NAME);
-			query.addWhere("playerID", igPlayer.getId());
-			ResultSet bans = query.getResults();
-			Date latestDate = new Date(0);
-			while(bans.next()){
-				String banDate = bans.getString("banEnd");
-				latestDate = (DateConverter.convertStringDateTimeToDate(banDate).after(latestDate))
-						? DateConverter.convertStringDateTimeToDate(banDate) : latestDate;
-			}	
-			return latestDate.toString();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			return null;
 		}
 	}
 

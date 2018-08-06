@@ -13,6 +13,7 @@ import org.bukkit.scoreboard.ScoreboardManager;
 
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.entity.player.IGPlayer;
+import us.ignitiongaming.entity.player.IGPlayerBanned;
 import us.ignitiongaming.entity.player.IGPlayerStats;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.player.IGPlayerBannedFactory;
@@ -110,16 +111,19 @@ public class PlayerVerificationEvent implements Listener {
 			ex.printStackTrace();
 		}
 	}
+	
 	@EventHandler
 	public static void onBannedPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
 		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
-		if(igPlayer.isValid()){
-			if(IGPlayerBannedFactory.isBanned(igPlayer)){
-				player.kickPlayer("You have been banned until " + DateConverter.toFriendlyDate(IGPlayerBannedFactory.getBanDate(igPlayer)));
+		if (igPlayer.isValid()){
+			if (IGPlayerBannedFactory.isBanned(igPlayer)){
+				IGPlayerBanned playerBan = IGPlayerBannedFactory.getPlayerBan(igPlayer);
+				player.kickPlayer(playerBan.getReason());
 			}
 		}
 	}
+	
 	
 	@EventHandler
 	public static void onPlayerChatWithoutIGPlayer(AsyncPlayerChatEvent event) {

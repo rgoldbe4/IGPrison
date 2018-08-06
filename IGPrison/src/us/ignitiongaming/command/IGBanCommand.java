@@ -14,6 +14,7 @@ import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.factory.player.IGPlayerBannedFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
+import us.ignitiongaming.util.convert.ChatConverter;
 import us.ignitiongaming.util.convert.DateConverter;
 
 public class IGBanCommand implements CommandExecutor {
@@ -30,9 +31,8 @@ public class IGBanCommand implements CommandExecutor {
 				IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 				
 				if (args.length == 0) {
-					player.sendMessage("Usage: /igban <player> <-s> <context> <reason>");
-					player.sendMessage("Example: /igban BuffsOverNexus 1d3h This is a broadcasted ban for 1 day, 3 hours!");
-					player.sendMessage("Example: /igban BuffsOverNexus -s 1d2h This is a silent ban for 1 day, 2 hours!");
+					ChatConverter.clearPlayerChat(player);
+					player.sendMessage("§eUsage: §r§o/igban <player> <-s> <context> <reason>");
 				}
 				else if (args.length == 2) {
 					// [/igban <player> <context>]
@@ -76,7 +76,7 @@ public class IGBanCommand implements CommandExecutor {
 		Player target = Bukkit.getPlayer(igTarget.getName());
 		
 		//Data Verification: Make sure igTarget is valid.
-		if (!igTarget.isValid()) player.sendMessage(GlobalTags.LOGO + "The player you entered was not found.");
+		if (!igTarget.isValid()) player.sendMessage(GlobalTags.LOGO + "§4The player you entered was not found.");
 		
 		//Step 1: Determine if the player is already banned.
 		if (!IGPlayerBannedFactory.isBanned(igTarget)) {
@@ -92,8 +92,8 @@ public class IGBanCommand implements CommandExecutor {
 				if (target != null) target.kickPlayer(reason);
 				
 				//Display the ban in chat (or just to the player).
-				if (isSilent) player.sendMessage(GlobalTags.LOGO + "You have banned " + igTarget.getName() + " permanently.");
-				else Bukkit.broadcastMessage(GlobalTags.LOGO + igPlayer.getName() + " has banned " + igTarget.getName() + " permanently.");
+				if (isSilent) player.sendMessage(GlobalTags.LOGO + "§aYou have banned §l" + igTarget.getName() + "§r§a permanently.");
+				else Bukkit.broadcastMessage(GlobalTags.LOGO + igPlayer.getName() + " has banned §e§l" + igTarget.getName() + "§r permanently.");
 				
 				
 			} else {
@@ -104,13 +104,13 @@ public class IGBanCommand implements CommandExecutor {
 				//Find the player (if online) and kick them for <reason>
 				if (target != null) target.kickPlayer(reason);
 				
-				if (isSilent) player.sendMessage(GlobalTags.LOGO + "You have banned " + igTarget.getName() + " until " + DateConverter.toFriendlyDate(end));
-				else Bukkit.broadcastMessage(GlobalTags.LOGO + igPlayer.getName() + " has banned " + igTarget.getName() + ".");
+				if (isSilent) player.sendMessage(GlobalTags.LOGO + "§aYou have banned §l" + igTarget.getName() + "§r§a until §e" + DateConverter.toFriendlyDate(end));
+				else Bukkit.broadcastMessage(GlobalTags.LOGO + igPlayer.getName() + " has banned §e§l" + igTarget.getName() + "§r.");
 				
 			}
 			
 		} else {
-			player.sendMessage(GlobalTags.LOGO + "The player you entered, " + igTarget.getName() + ", is already banned.");
+			player.sendMessage(GlobalTags.LOGO + "§4The player you entered, " + igTarget.getName() + ", is already banned.");
 		}
 	}
 

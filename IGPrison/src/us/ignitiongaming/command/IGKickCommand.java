@@ -11,6 +11,7 @@ import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerKickedFactory;
+import us.ignitiongaming.util.convert.ChatConverter;
 
 public class IGKickCommand implements CommandExecutor {
 
@@ -24,13 +25,12 @@ public class IGKickCommand implements CommandExecutor {
 				if (lbl.equalsIgnoreCase("igkick")) {
 					
 					if (args.length == 0) {
-						player.sendMessage("Usage: /igkick <player> <-s> <reason>");
-						player.sendMessage("Example: /igkick BuffsOverNexus This is a broadcasted kick!");
-						player.sendMessage("Example: /igkick BuffsOverNexus -s This is a silent kick!");
+						ChatConverter.clearPlayerChat(player);
+						player.sendMessage("§eUsage: §o/igkick <player> <-s> <reason>");
 					}
 					else if (args.length == 2 || args.length == 1) {
 						boolean isSilent = (args.length == 1 ? false : args[1].equalsIgnoreCase("-s"));
-						kickPlayer(igPlayer, player, args[0], "You have been kicked by " + player.getName(), isSilent);
+						kickPlayer(igPlayer, player, args[0], "§cYou have been kicked by " + player.getName(), isSilent);
 					}
 					else if (args.length > 2) {
 						//Determine if this is a silent kick or not.
@@ -61,15 +61,15 @@ public class IGKickCommand implements CommandExecutor {
 			IGPlayerKickedFactory.add(igTarget, reason, igStaff);
 			
 			//Broadcast the kick
-			if (!isSilent) Bukkit.broadcastMessage(GlobalTags.LOGO + igTarget.getDisplayName() + " has been kicked from the server by " + staff.getName());
+			if (!isSilent) Bukkit.broadcastMessage(GlobalTags.LOGO + igTarget.getDisplayName() + " has been kicked from the server by §e" + staff.getName());
 			else {
-				staff.sendMessage(GlobalTags.LOGO + "You have kicked " + igTarget.getDisplayName() + " from the server.");
+				staff.sendMessage(GlobalTags.LOGO + "§aYou have kicked " + igTarget.getDisplayName() + " from the server.");
 			}
 			
 			//Actually kick the player.
 			target.kickPlayer(reason);
 		} else {
-			staff.sendMessage(GlobalTags.LOGO + "The player you requested to kick is not online.");
+			staff.sendMessage(GlobalTags.LOGO + "§4The player you requested to kick is not online.");
 		}
 	}
 

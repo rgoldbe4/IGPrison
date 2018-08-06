@@ -1,9 +1,11 @@
 package us.ignitiongaming.entity.player;
 
 import java.sql.ResultSet;
+import java.util.Date;
 
 import us.ignitiongaming.entity.HasID;
 import us.ignitiongaming.util.convert.BooleanConverter;
+import us.ignitiongaming.util.convert.DateConverter;
 
 public class IGPlayerBanned extends HasID {
 
@@ -47,5 +49,13 @@ public class IGPlayerBanned extends HasID {
 	public boolean isPermanent() { return BooleanConverter.getBooleanFromInteger(permanent); }
 	public void setPermanent() { permanent = BooleanConverter.getIntegerFromBoolean(true); }
 	public void setPermanent(int permanent) { this.permanent = permanent; }
+	
+	public boolean isBanned() {
+		if (BooleanConverter.getBooleanFromInteger(permanent)) return true; //Always banned if permanent;
+		Date currentTime = DateConverter.getCurrentTime();
+		Date endTime = DateConverter.convertStringDateTimeToDate(endDate);
+		
+		return !currentTime.after(endTime);
+	}
 	
 }
