@@ -26,7 +26,7 @@ public class IGKickCommand implements CommandExecutor {
 					
 					if (args.length == 0) {
 						ChatConverter.clearPlayerChat(player);
-						player.sendMessage("§eUsage: §o/igkick <player> <-s> <reason>");
+						player.sendMessage("§eUsage: §f§o/igkick <player> <-s> <reason>");
 					}
 					else if (args.length == 2 || args.length == 1) {
 						boolean isSilent = (args.length == 1 ? false : args[1].equalsIgnoreCase("-s"));
