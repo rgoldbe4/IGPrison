@@ -709,7 +709,7 @@ public class GangCommand implements CommandExecutor{
 			for (IGDrugType drug : IGDrugType.values()) {
 				drugTypes += " " + drug.getLabel().toLowerCase();
 			}
-			player.sendMessage(GlobalTags.DRUGS + "§4Drug types:§f" + drugTypes);
+			player.sendMessage(GlobalTags.DRUGS + "§4Drug types§f:" + drugTypes);
 			return;
 		}
 		
@@ -732,6 +732,20 @@ public class GangCommand implements CommandExecutor{
 					igGang.save();
 					
 					player.getInventory().addItem(drugType.toDrug());
+				} 
+				//Check if the player can afford the drugs outright.
+				else if (playerBalance >= costOfDrugs) {
+					
+					ServerDefaults.econ.withdrawPlayer(player, costOfDrugs);
+					
+					player.getInventory().addItem(drugType.toDrug());
+				}
+				else {
+					//Alert the player that neither the gang or individual could buy the drugs
+					if (igGang.canMembersBuyDrugs()) 
+						player.sendMessage(GlobalTags.DRUGS + "§4You or your gang could not afford to buy drugs.");
+					else
+						player.sendMessage(GlobalTags.DRUGS + "§4You do not have enough money to buy drugs.");
 				}
 			} 
 			//2) Buy drugs if player has enough.
