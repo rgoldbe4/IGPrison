@@ -1,4 +1,4 @@
-package us.ignitiongaming.event.player;
+package us.ignitiongaming.event.other;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
