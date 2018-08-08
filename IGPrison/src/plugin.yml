@@ -93,3 +93,6 @@ commands:
      bounty:
         description: Ignition Gaming's Prison bounty system.
         permission: igprison.bounty
+     tower:
+        description: Teleport to a Guard tower.
+        permission: igprison.tower

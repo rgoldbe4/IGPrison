@@ -26,6 +26,7 @@ import us.ignitiongaming.command.SolitaryCommand;
 import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.StaffCommand;
 import us.ignitiongaming.command.TeleportCommand;
+import us.ignitiongaming.command.TowerCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.enums.IGEnvironments;
@@ -171,6 +172,9 @@ public class IGPrison extends JavaPlugin {
 			
 			// - Bounty command --
 			this.getCommand("bounty").setExecutor(new BountyCommand());
+			
+			// - Tower command --
+			this.getCommand("tower").setExecutor(new TowerCommand());
 		
 		} catch (Exception ex) {
 			
