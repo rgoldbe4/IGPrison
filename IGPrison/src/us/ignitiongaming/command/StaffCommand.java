@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.GlobalTags;
+import us.ignitiongaming.enums.IGLocations;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.singleton.IGList;
 import us.ignitiongaming.util.items.GuardArmor;
@@ -43,6 +44,7 @@ public class StaffCommand implements CommandExecutor{
 							player.getInventory().addItem(StaffBaton.getBaton());
 							player.getInventory().addItem(StaffBaton.getSolitaryBaton());
 							
+							player.teleport(IGLocations.D_TOWER.toLocation());
 						}
 					} else {
 						player.sendMessage(GlobalMessages.NO_PERMISSIONS);
@@ -71,6 +73,8 @@ public class StaffCommand implements CommandExecutor{
 							player.getInventory().addItem(StaffBaton.getBaton());
 							player.getInventory().addItem(StaffBaton.getSolitaryBaton());
 							player.getInventory().addItem(StaffBaton.getShockBaton());
+							
+							player.teleport(IGLocations.D_TOWER.toLocation());
 						}
 					} else {
 						player.sendMessage(GlobalMessages.NO_PERMISSIONS);
