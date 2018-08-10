@@ -196,16 +196,16 @@ public class GangCommand implements CommandExecutor{
 		
 		ChatConverter.clearPlayerChat(player);
 		
-		player.sendMessage("=== { §9§l" + gang.getName().toUpperCase() + "§f } ===");
-		player.sendMessage("  §2§l" + CurrencyConverter.convertToCurrency(gang.getMoney()));
-		player.sendMessage(GlobalTags.DEFIANCE + "§5Points§f: §8§l" + gang.getPoints());
-		player.sendMessage("Can members buy drugs using gang money? §e" + gang.canMembersBuyDrugs()); 
-		player.sendMessage("-----------------------");
+		player.sendMessage(" §8§l[ §r§9§l" + gang.getName().toUpperCase() + "§8§l ]");
+		player.sendMessage(" §8§lBank: §r§2" + CurrencyConverter.convertToCurrency(gang.getMoney()));
+		player.sendMessage("");
+		player.sendMessage(" §8§l[ §7Players §8§l]");
 		
 		//Go through each gang and find out their name and rank... Sort by ranks (Leader > Officer > Member) in query.
 		for (IGPlayerGang playerInGang : playersInGang) {
 			IGPlayer igPlayerInGang = IGPlayerFactory.getIGPlayerById(playerInGang.getPlayerId());
-			player.sendMessage(playerInGang.getGangRank().getLabel() + " - " + igPlayerInGang.getName());
+			boolean isPlayerOnline = Bukkit.getPlayer(igPlayerInGang.getName()) != null;
+			player.sendMessage(" §7[" +( !isPlayerOnline ? "§4*" : "§2*") + "§r§7] " + playerInGang.getGangRank().getLabel() + " " + ( !isPlayerOnline ? "§7" : "§f") + igPlayerInGang.getName());
 		}
 		
 	}
@@ -597,17 +597,20 @@ public class GangCommand implements CommandExecutor{
 		IGGang igGang = IGGangFactory.getGangByName(name);
 		List<IGPlayerGang> playersInGang = IGPlayerGangFactory.getPlayersInGang(igGang.getId());
 		if (igGang.isValid()) {
+			IGPlayerGang playerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
+			IGGang gang = IGGangFactory.getGangById(playerGang.getGangId());
+			
 			ChatConverter.clearPlayerChat(player);
 			
-			player.sendMessage("=== { §9§l" + igGang.getName().toUpperCase() + "§f } ===");
-			player.sendMessage("  §2§l" + CurrencyConverter.convertToCurrency(igGang.getMoney()));
-			player.sendMessage(GlobalTags.DEFIANCE + "§5Points§f: §8§l" + igGang.getPoints());
-			player.sendMessage("-----------------------");
+			player.sendMessage(" §8§l[ §r§9§l" + gang.getName().toUpperCase() + "§8§l ]");
+			player.sendMessage(" §8§lBank: §r§2" + CurrencyConverter.convertToCurrency(gang.getMoney()));
+			player.sendMessage("");
+			player.sendMessage(" §8§l[ §7Players §8§l]");
 			
 			//Go through each gang and find out their name and rank... Sort by ranks (Leader > Officer > Member) in query.
 			for (IGPlayerGang playerInGang : playersInGang) {
 				IGPlayer igPlayerInGang = IGPlayerFactory.getIGPlayerById(playerInGang.getPlayerId());
-				player.sendMessage(playerInGang.getGangRank().getLabel() + " - " + igPlayerInGang.getName());
+				player.sendMessage(" §7[" +(Bukkit.getPlayer(igPlayerInGang.getName()) == null ? "§4*" : "§2*") + "§r§7] " + playerInGang.getGangRank().getLabel() + " §7" + igPlayerInGang.getName());
 			}
 		} else {
 			player.sendMessage(GlobalTags.GANG + "§4The gang (" + name + ") was not found.");
@@ -646,7 +649,7 @@ public class GangCommand implements CommandExecutor{
 		
 		int ranking = 1;
 		for (IGGang gang : gangs) {
-			player.sendMessage("#" + ranking + ": §8" + gang.getName() + " §f[§2§l" + CurrencyConverter.convertToCurrency(gang.getMoney()) + "§r§f]");
+			player.sendMessage("#" + ranking + ": §8§l" + gang.getName().toUpperCase() + "§r §f[§2§l" + CurrencyConverter.convertToCurrency(gang.getMoney()) + "§r§f]");
 			ranking++;
 		}
 	}
@@ -667,10 +670,10 @@ public class GangCommand implements CommandExecutor{
 			
 			//Step 2: Convert the amount into $$
 			try {
-				double money = Double.parseDouble(amount);
+				double money = Double.parseDouble(amount.replace(",", ""));
 				
 				//Check if user has money in their bank
-				double balance =ServerDefaults.econ.getBalance(player);
+				double balance = ServerDefaults.econ.getBalance(player);
 				
 				if (balance >= money) {
 					//Step 4: Withdraw from the account, and add it to the gang.
