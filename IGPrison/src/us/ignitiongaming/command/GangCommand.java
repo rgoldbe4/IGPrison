@@ -95,8 +95,14 @@ public class GangCommand implements CommandExecutor{
 							buyDrug(player, igPlayer, isPlayerInGang, ""); //Voluntary send it an invalid drug so it displays the drug types.
 						}
 						
+						// [/gang leave]
 						else if (args[0].equalsIgnoreCase("leave")) {
 							leaveGang(player, igPlayer, isPlayerInGang);
+						}
+						
+						// [/gang info]
+						else if (args[0].equalsIgnoreCase("info")) {
+							displayGangInformation(player, igPlayer);
 						}
 						
 						else {
