@@ -28,7 +28,7 @@ public class VerifySolitaryEvent implements Listener {
 			if (IGPlayerSolitaryFactory.isIGPlayerInSolitary(igPlayer)) {
 				IGPlayerSolitary igPlayerSolitary = IGPlayerSolitaryFactory.getIGPlayerInSolitary(igPlayer);
 				if (igPlayerSolitary.hasServed()) {
-					IGPlayerSolitaryFactory.remove(igPlayer);
+					igPlayerSolitary.delete();
 					player.sendMessage(GlobalTags.SOLITARY + "§eYou have served your time in solitary.");
 					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " remove " + IGRankNodes.SOLITARY.getNode());
 					player.teleport(IGLocationFactory.getSpawnByPlayerRank(player).toLocation());
@@ -42,29 +42,24 @@ public class VerifySolitaryEvent implements Listener {
 	}
 	
 	@EventHandler
-	public void checkIfPlayerIsInSolitaryOnLogin(PlayerJoinEvent event) {
-		try {
-			Player player = event.getPlayer();
-			IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
-			//Ensure that we have a valid igPlayer object.
-			if (igPlayer != null) {
-				//Check if the player is in solitary.
-				if (IGPlayerSolitaryFactory.isIGPlayerInSolitary(igPlayer)) {
-					IGPlayerSolitary igPlayerSolitary = IGPlayerSolitaryFactory.getIGPlayerInSolitary(igPlayer);
-					if (!igPlayerSolitary.hasServed()) {
-						//Make sure they are teleported back to solitary on log in.
-						player.teleport(IGLocationFactory.getLocationByIGLocations(IGLocations.SOLITARY).toLocation());
-					} else {
-						//Teleport them to spawn.
-						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " remove " + IGRankNodes.SOLITARY.getNode());
-						player.teleport(IGLocationFactory.getSpawnByPlayerRank(player).toLocation());
-						Bukkit.broadcastMessage(GlobalTags.SOLITARY + "§a" + player.getName() + " §fwas removed from solitary.");
-					}
-					
+	public static void onPlayerJoinRemoveFromSolitary(PlayerJoinEvent event) {
+		Player player = event.getPlayer();
+		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
+		
+		if (igPlayer != null) {
+			if (IGPlayerSolitaryFactory.isIGPlayerInSolitary(igPlayer)) {
+				//We have a record of them, yes, but, are they IN solitary?
+				IGPlayerSolitary playerSolitary = IGPlayerSolitaryFactory.getIGPlayerInSolitary(igPlayer);
+				
+				if (playerSolitary.hasServed()) {
+					playerSolitary.delete();
+					player.teleport(IGLocationFactory.getSpawnByPlayerRank(player).toLocation());
+					player.sendMessage(GlobalTags.SOLITARY + "§aYou are no longer in solitary.");
+				} else {
+					//Teleport them to solitary always
+					player.teleport(IGLocations.SOLITARY.toLocation());
 				}
 			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
 	}
 }
