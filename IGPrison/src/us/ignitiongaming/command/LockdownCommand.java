@@ -47,11 +47,23 @@ public class LockdownCommand implements CommandExecutor {
 							// [/lockdown help]
 							if (args[0].equalsIgnoreCase("help")) {
 								player.sendMessage(" -- " + GlobalTags.LOCKDOWN + " --");
+								player.sendMessage("§7§o/lockdown ->§r Show all current lockdowns.");
 								player.sendMessage("§7§o/lockdown help ->§r Displays command list.");
+								player.sendMessage("§7§o/lockdown all->§r Display the entire lockdown history.");
 								player.sendMessage("§7§o/lockdown start <cell> ->§r Starts a lockdown in <cell>.");
 								player.sendMessage("§7§o/lockdown stop <cell> ->§r Ends a lockdown in <cell>");
-								player.sendMessage("§7§o/lockdown ->§r Show all current lockdowns.");
 								player.sendMessage("§8§lCells:§r A, B, C, D");
+							}
+							
+							else if (args[0].equalsIgnoreCase("all")) {
+								List<IGLockdown> currentLockdowns = IGLockdownFactory.getAllLockdowns();
+								for (IGLockdown lockdown : currentLockdowns) {
+									player.sendMessage("§8[[");
+									player.sendMessage("§eCell: §f" + lockdown.getCell().getLabel());
+									player.sendMessage("§eStarted By: §f" + lockdown.getStartPlayer().getName());
+									player.sendMessage("§eStarted At: §f" + lockdown.getStartedFriendly());
+									player.sendMessage("§8]]"); 
+								}
 							}
 							
 						}
@@ -78,23 +90,25 @@ public class LockdownCommand implements CommandExecutor {
 							
 							if (args[0].equalsIgnoreCase("stop") || args[0].equalsIgnoreCase("end")) {
 								IGCells cell = IGCells.getCell(args[1]);
-								
+
 								//Make sure the cell is under lockdown already.
 								if (IGLockdownFactory.isCellInLockdown(cell)) {
 									IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 									List<IGLockdown> currentLockdowns = IGLockdownFactory.getCurrentLockdowns();
 									//Go through all of the current lockdowns and find the cell... Then... Add an "end".
 									for (IGLockdown lockdown : currentLockdowns) {
-										if (lockdown.getCell().getLabel().equalsIgnoreCase(cell.getLabel())) {
-											//Allow PVP
-											IGRankNodes igRank = IGRankNodes.valueOf(args[1].toUpperCase());
-											Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag " + cell.getLabel() + "_block_pvp pvp -w world allow");
-											Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), 
-													"region flag " + cell.getLabel() + "_block_pvp greeting -w world " + igRank.getTag() + "&4&lPvP Enabled");
-											lockdown.setEndId(igPlayer.getId());
-											lockdown.setEnded(DateConverter.getCurrentTime());
-											lockdown.save();
-											Bukkit.broadcastMessage(GlobalTags.LOCKDOWN + "§aCell " + igRank.getTag() + "§ano longer under lockdown!");
+										if (!lockdown.hasEnded()) {
+											if (lockdown.getCell().getLabel().equalsIgnoreCase(cell.getLabel())) {
+												//Allow PVP
+												IGRankNodes igRank = IGRankNodes.valueOf(args[1].toUpperCase());
+												Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "region flag " + cell.getLabel() + "_block_pvp pvp -w world allow");
+												Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), 
+														"region flag " + cell.getLabel() + "_block_pvp greeting -w world " + igRank.getTag() + "&4&lPvP Enabled");
+												lockdown.setEndId(igPlayer.getId());
+												lockdown.setEnded(DateConverter.getCurrentTime());
+												lockdown.save();
+												Bukkit.broadcastMessage(GlobalTags.LOCKDOWN + igRank.getTag() + "§a§lBLOCK cleared lockdown!");
+											}
 										}
 									}
 								} else {

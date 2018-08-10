@@ -1,6 +1,8 @@
 package us.ignitiongaming.factory.player;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.entity.Player;
 
@@ -83,6 +85,23 @@ public class IGPlayerFactory {
 		}
 		
 		return igPlayer;
+	}
+	
+	public static List<IGPlayer> getAllPlayers() {
+		List<IGPlayer> players = new ArrayList<>();
+		try {
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayer.TABLE_NAME);
+			ResultSet results = query.getResults();
+			
+			while (results.next()) {
+				IGPlayer igPlayer = new IGPlayer();
+				igPlayer.assign(results);
+				players.add(igPlayer);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return players;
 	}
 	
 	/**

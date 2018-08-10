@@ -27,9 +27,6 @@ commands:
      solitary:
         description: Add or remove a player from solitary confinement.
         permission: igprison.solitarycmd
-     solitarylist:
-        description: View all players in solitary.
-        permission: igprison.solitarylist
      spawn:
         description: Go to spawn based on your rank.
         permission: igprison.spawn
@@ -67,31 +64,26 @@ commands:
         description: Bring player(s) to you!
         permission: igprison.bring
      igkick:
-        description: kicks a player
+        description: Kicks a player
         permission: igprison.kick
-     igskick:
-        description: kicks a player silently
-        permission: igprison.skick
      igban:
-        description: bans a player
+        description: Bans a player
         permission: igprison.ban
-     igsban:
-        description: bans a player silently
-        permission: igprison.sban
      clearchat:
-        description: clears chat for all players
+        description: Clears chat for all players
         permission: igprison.clearchat
      nickname:
-        description: sets your nickname
+        description: Sets your nickname
         permission: igprison.nickname
      whois:
-        description: gets a player with a nickname's real name
+        description: Gets a player with a nickname's real name
         permission: igprison.whois
      link:
         description: Link your Ignition Gaming account to your Minecraft account.
         permission: igprison.link
      gang:
         description: Ignition Gaming's gang system.
+        permission: igprison.gang
      guard:
         description: Activate your guard status and patrol the jail.
         permission: igprison.guardcmd
@@ -101,3 +93,6 @@ commands:
      bounty:
         description: Ignition Gaming's Prison bounty system.
         permission: igprison.bounty
+     tower:
+        description: Teleport to a Guard tower.
+        permission: igprison.tower

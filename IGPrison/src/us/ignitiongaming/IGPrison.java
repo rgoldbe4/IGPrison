@@ -15,7 +15,8 @@ import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.GangCommand;
 import us.ignitiongaming.command.HelpCommand;
-import us.ignitiongaming.command.IGSKickBanCommand;
+import us.ignitiongaming.command.IGBanCommand;
+import us.ignitiongaming.command.IGKickCommand;
 import us.ignitiongaming.command.LinkCommand;
 import us.ignitiongaming.command.LockdownCommand;
 import us.ignitiongaming.command.NicknameCommand;
@@ -25,6 +26,7 @@ import us.ignitiongaming.command.SolitaryCommand;
 import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.StaffCommand;
 import us.ignitiongaming.command.TeleportCommand;
+import us.ignitiongaming.command.TowerCommand;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.enums.IGEnvironments;
@@ -32,8 +34,8 @@ import us.ignitiongaming.event.bounty.KillPlayerWithBountyEvent;
 import us.ignitiongaming.event.gang.DrugUseEvent;
 import us.ignitiongaming.event.gang.GangAttackEvent;
 import us.ignitiongaming.event.gang.PendingRequestEvent;
+import us.ignitiongaming.event.other.BatonAttackEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
-import us.ignitiongaming.event.player.BatonAttackEvent;
 import us.ignitiongaming.event.player.GuardDeathEvent;
 import us.ignitiongaming.event.player.InteractBuySignEvent;
 import us.ignitiongaming.event.player.InteractSellHeadSignEvent;
@@ -133,7 +135,6 @@ public class IGPrison extends JavaPlugin {
 			
 			// -- Solitary Commands --
 			this.getCommand("solitary").setExecutor(new SolitaryCommand());
-			this.getCommand("solitarylist").setExecutor(new SolitaryCommand());
 			
 			// -- Smelt Command --
 			this.getCommand("smelt").setExecutor(new SmeltCommand());
@@ -149,10 +150,8 @@ public class IGPrison extends JavaPlugin {
 			this.getCommand("igdev").setExecutor(new DevelopmentCommand());
 			
 			// -- Kick Ban Command --
-			this.getCommand("igskick").setExecutor(new IGSKickBanCommand());
-			this.getCommand("igkick").setExecutor(new IGSKickBanCommand());
-			this.getCommand("igsban").setExecutor(new IGSKickBanCommand());
-			this.getCommand("igban").setExecutor(new IGSKickBanCommand());
+			this.getCommand("igkick").setExecutor(new IGKickCommand());
+			this.getCommand("igban").setExecutor(new IGBanCommand());
 			
 			// -- Clear Chat Command --
 			this.getCommand("clearchat").setExecutor(new ClearChatCommand());
@@ -173,6 +172,9 @@ public class IGPrison extends JavaPlugin {
 			
 			// - Bounty command --
 			this.getCommand("bounty").setExecutor(new BountyCommand());
+			
+			// - Tower command --
+			this.getCommand("tower").setExecutor(new TowerCommand());
 		
 		} catch (Exception ex) {
 			

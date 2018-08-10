@@ -24,6 +24,7 @@ public class IGLockdownFactory {
 			query.addWhere("ended", null);
 			ResultSet results = query.getResults();
 			
+			query.broadcastQuery();
 			while (results.next()) {
 				IGLockdown lockdown = new IGLockdown();
 				lockdown.assign(results);
@@ -48,6 +49,7 @@ public class IGLockdownFactory {
 			
 			while (results.next()) {
 				IGLockdown lockdown = new IGLockdown();
+				lockdown.assign(results);
 				lockdowns.add(lockdown);
 			}
 			
@@ -71,6 +73,23 @@ public class IGLockdownFactory {
 			ex.printStackTrace();
 			return false;
 		}
+	}
+	
+	public static List<IGLockdown> getAllLockdowns() {
+		List<IGLockdown> lockdowns = new ArrayList<>();
+		try {
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGLockdown.TABLE_NAME);
+			ResultSet results = query.getResults();
+			
+			while (results.next()) {
+				IGLockdown lockdown = new IGLockdown();
+				lockdown.assign(results);
+				lockdowns.add(lockdown);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return lockdowns;
 	}
 	
 	public static void add(IGCell cell, IGPlayer igPlayer) {

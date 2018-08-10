@@ -10,6 +10,7 @@ import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.database.Database;
 import us.ignitiongaming.entity.other.IGSetting;
+import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.other.IGSettingFactory;
 
 public class AdminCommand implements CommandExecutor{
@@ -46,6 +47,12 @@ public class AdminCommand implements CommandExecutor{
 							
 							if (args[0].equalsIgnoreCase("db")) {
 								player.sendMessage("Is Database Connected? " + !Database.connection.isClosed());
+							}
+							
+							if (args[0].equalsIgnoreCase("ranks")) {
+								for (IGRankNodes rank : IGRankNodes.values()) {
+									player.sendMessage(rank.getFormatting());
+								}
 							}
 							
 							
