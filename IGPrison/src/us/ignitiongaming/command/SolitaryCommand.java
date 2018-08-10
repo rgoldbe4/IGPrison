@@ -11,14 +11,13 @@ import org.bukkit.entity.Player;
 
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.GlobalTags;
-import us.ignitiongaming.entity.other.IGLocation;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerSolitary;
 import us.ignitiongaming.enums.IGLocations;
-import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.other.IGLocationFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerSolitaryFactory;
+import us.ignitiongaming.util.convert.ChatConverter;
 import us.ignitiongaming.util.convert.DateConverter;
 
 public class SolitaryCommand implements CommandExecutor{
@@ -28,85 +27,48 @@ public class SolitaryCommand implements CommandExecutor{
 		try {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
-				// [/solitary <add/remove> <name> <context...>]
 				if (lbl.equalsIgnoreCase("solitary")) {
 					
-					if (args.length < 2) {
-						player.sendMessage(GlobalMessages.INVALID_COMMAND);
-					} else {
-						String addOrRemove = args[0];
-						String playerName = args[1];
-						Player pl = Bukkit.getPlayer(playerName);
-						//Step 1: Determine if the player is already in solitary.
-						if (pl != null) {
-							IGPlayer igPl = IGPlayerFactory.getIGPlayerByPlayer(pl);
-							boolean isPlayerInSolitary = IGPlayerSolitaryFactory.isIGPlayerInSolitary(igPl);
-							//Determine if add or remove.
-							if (!addOrRemove.equalsIgnoreCase("remove")) {
-								if (!isPlayerInSolitary) {
-									//Step 2: Add up all of the time contexts.
-									Date end = DateConverter.getCurrentTime();
-									for (int i = 2; i < args.length; i++) {
-										end = DateConverter.addTimeFromString(end, args[i]);
-									}
-									
-									//Step 3: Add them to the database.
-									IGPlayerSolitaryFactory.add(igPl, end);
-									
-									//Step 4: Teleport them to solitary.
-									IGLocation igLocation = IGLocationFactory.getLocationByIGLocations(IGLocations.SOLITARY);
-									pl.teleport(igLocation.toLocation());
-									//Enhancement: Add the addition group of solitary.
-									Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " add " + IGRankNodes.SOLITARY.getNode());
-									pl.sendMessage(GlobalTags.SOLITARY + "§cYou were sent to solitary!");
-									pl.sendMessage("§cYou will be let out: §f" + DateConverter.toFriendlyDate(end));
-									Bukkit.broadcastMessage(GlobalTags.SOLITARY + "§a" + args[1] + " §fwas put in solitary until §a" + DateConverter.toFriendlyDate(end) + "§f.");
-									
-								} else {
-									//Player is already in solitary. Cannot add them.
-									player.sendMessage(GlobalTags.SOLITARY + "§4Player is already in solitary. Failed to add them.");
-								}
-								
-							} else {
-								//Remove them from solitary
-								if (isPlayerInSolitary) {
-									IGPlayerSolitaryFactory.remove(igPl);
-									pl.sendMessage(GlobalTags.SOLITARY + "§aYou were removed from solitary!");
-									Bukkit.broadcastMessage(GlobalTags.SOLITARY + "§a" + args[1] + " §fwas removed from solitary.");
-									Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " remove " + IGRankNodes.SOLITARY.getNode());
-									//Teleport them back to the spawn area they deserve to be in
-									player.teleport(IGLocationFactory.getSpawnByPlayerRank(pl).toLocation());
-								} else {
-									player.sendMessage(GlobalTags.SOLITARY + "§4Player is not in solitary. Failed to remove them.");
-								}
-							}
-						} else {
-							//Player is offline. Look them up based on IGPlayer. Add later.
-							player.sendMessage(GlobalMessages.UNDER_CONSTRUCTION);
-						}
+					if (args.length == 0) {
+						displayHelp(player);
+					}
+					else if (args.length == 1) {
 						
+						if (args[0].equalsIgnoreCase("help")) {
+							displayHelp(player);
+						}
+						else if (args[0].equalsIgnoreCase("context")) {
+							displayContext(player);
+						}
+						else if (args[0].equalsIgnoreCase("list")) {
+							displayList(player);
+						}
+						else {
+							player.sendMessage(GlobalMessages.INVALID_COMMAND);
+						}
 					}
-				}
-				
-				// [/solitarylist]
-				if (lbl.equalsIgnoreCase("solitarylist")) {
-					player.sendMessage("-- " + GlobalTags.SOLITARY + " --");
-					List<IGPlayerSolitary> playersInSolitary = IGPlayerSolitaryFactory.getAllPlayersInSolitary();
-					if (playersInSolitary.size() == 0) player.sendMessage("§4No players in solitary.");
-					for (IGPlayerSolitary solitary : playersInSolitary) {
-						IGPlayer igPlayer = IGPlayerFactory.getIGPlayerById(solitary.getPlayerId());
-						String duration = DateConverter.compareDatesFriendly(solitary.getStartDate(), solitary.getEndDate());
-						player.sendMessage("§8[[");
-						player.sendMessage("§eName:  §f" + igPlayer.getName());
-						player.sendMessage("§aStart: §f" + solitary.getStartFriendly());
-						player.sendMessage("§cEnd:   §f" + solitary.getEndFriendly());
-						player.sendMessage("§7Duration:§f " + duration);
-						player.sendMessage("§8]]");
-								
+					else if (args.length == 2) {
+						if (args[0].equalsIgnoreCase("info")) {
+							displayPlayer(player, args[1]);
+						}
+						else if (args[0].equalsIgnoreCase("remove")) {
+							removePlayer(player, args[1]);
+						} else {
+							player.sendMessage(GlobalMessages.INVALID_COMMAND);
+						}
 					}
-				}
+					else if (args.length == 3) {
+						if (args[0].equalsIgnoreCase("add")) {
+							addPlayer(player, args[1], args[2]);
+						} else {
+							player.sendMessage(GlobalMessages.INVALID_COMMAND);
+						}
+					}
+					else {
+						player.sendMessage(GlobalMessages.INVALID_COMMAND);
+					}
 				
-			
+				}
 				
 				
 			}
@@ -115,5 +77,141 @@ public class SolitaryCommand implements CommandExecutor{
 		}
 		return false;
 	}
+	
+	private void displayHelp(Player player) {
+		player.sendMessage("----- " + GlobalTags.SOLITARY + " -----");
+		player.sendMessage(" /solitary -> Shows this.");
+		player.sendMessage(" /solitary help -> Shows this.");
+		player.sendMessage(" /solitary context -> Display all context you can use for <duration> arguments.");
+		player.sendMessage(" /solitary add <player> <duration> -> Add a player to solitary.");
+		player.sendMessage(" /solitary remove <player> -> Remove a player from solitary.");
+		player.sendMessage(" /solitary list -> Display all current players in solitary.");
+		player.sendMessage(" /solitary info <player> -> Display in-depth information on a player.");
+	}
 
+	private void displayContext(Player player) {
+		ChatConverter.clearPlayerChat(player);
+		player.sendMessage("m = Minutes");
+		player.sendMessage("M = Months");
+		player.sendMessage("s = Seconds");
+		player.sendMessage("d = Days");
+		player.sendMessage("y = Years");
+	}
+
+	private void displayList(Player player) {
+		List<IGPlayerSolitary> allPlayers = IGPlayerSolitaryFactory.getAllPlayersInSolitary();
+		ChatConverter.clearPlayerChat(player);
+		if (allPlayers.size() == 0) player.sendMessage(GlobalTags.SOLITARY + "§4There are no players currently in solitary.");
+		for (IGPlayerSolitary playerSolitary : allPlayers) {
+			IGPlayer currentPlayer = IGPlayerFactory.getIGPlayerById(playerSolitary.getPlayerId());
+			String friendlyStart = playerSolitary.getStartFriendly();
+			String friendlyEnd = playerSolitary.getEndFriendly();
+			String durationContext = DateConverter.compareDatesFriendly(playerSolitary.getStartDate(), playerSolitary.getEndDate());
+			
+			player.sendMessage("§8§l[ §r§f" + currentPlayer.getName() + " §8§l]");
+			player.sendMessage("§8Start: §7" + friendlyStart);
+			player.sendMessage("§8Stop: §7" + friendlyEnd);
+			player.sendMessage("§8Duration: §7" + durationContext);
+		}
+	}
+
+	private void displayPlayer(Player player, String target) {
+		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerFromName(target);
+		
+		//Step 1: Determine if the player is valid.
+		if (igPlayer.isValid()) {
+			
+			//Step 2: Determine if the player is in solitary.
+			if (IGPlayerSolitaryFactory.isIGPlayerInSolitary(igPlayer)) {
+				ChatConverter.clearPlayerChat(player);
+				IGPlayerSolitary playerSolitary = IGPlayerSolitaryFactory.getIGPlayerInSolitary(igPlayer);
+				String friendlyStart = playerSolitary.getStartFriendly();
+				String friendlyEnd = playerSolitary.getEndFriendly();
+				String durationContext = DateConverter.compareDatesFriendly(playerSolitary.getStartDate(), playerSolitary.getEndDate());
+				
+				player.sendMessage("§8§l[ §r§f" + igPlayer.getName() + " §8§l]");
+				player.sendMessage("§8Start: §7" + friendlyStart);
+				player.sendMessage("§8Stop: §7" + friendlyEnd);
+				player.sendMessage("§8Duration: §7" + durationContext);
+				
+			} else {
+				player.sendMessage(GlobalTags.SOLITARY + "§4" + igPlayer.getName() + " is not in solitary.");
+			}
+		} else {
+			player.sendMessage(GlobalTags.SOLITARY + "§4The player, " + target + ", was not found.");
+		}
+	}
+
+	private void removePlayer(Player player, String target) {
+		IGPlayer igPlayer = IGPlayerFactory.getIGPlayerFromName(target);
+		
+		//Step 1: Determine if the player is valid
+		if (igPlayer.isValid()) {
+			
+			//Step 2: Determine if the player is in solitary
+			if (IGPlayerSolitaryFactory.isIGPlayerInSolitary(igPlayer)) {
+				IGPlayerSolitary playerSolitary = IGPlayerSolitaryFactory.getIGPlayerInSolitary(igPlayer);
+				
+				//Logic: Remove the solitary, tp the player back to where they should be, and let them know they were freed by player.
+				playerSolitary.delete();
+				
+				player.sendMessage(GlobalTags.SOLITARY + "§aYou have freed §f" + igPlayer.getName() + "§a from solitary.");
+				
+				//Determine if the target is online.
+				Player targetPlayer = Bukkit.getPlayer(igPlayer.getName());
+				
+				//Teleport them if they are.
+				if (targetPlayer != null) targetPlayer.teleport(IGLocationFactory.getSpawnByPlayerRank(targetPlayer).toLocation());
+				
+				//Tell them they were freed.
+				if (targetPlayer != null) targetPlayer.sendMessage(GlobalTags.SOLITARY + "§eYou were released from solitary by §f" + player.getName() + "§e.");
+				
+			} else {
+				player.sendMessage(GlobalTags.SOLITARY + "§4" + igPlayer.getName() + " is not in solitary.");
+			}
+			
+		} else {
+			player.sendMessage(GlobalTags.SOLITARY + "§4The player, " + target + ", was not found.");
+		}
+		
+	}
+
+	private void addPlayer(Player player, String target, String context) {
+		try {
+			IGPlayer igTarget = IGPlayerFactory.getIGPlayerFromName(target);
+			Player targetPlayer = Bukkit.getPlayer(target);
+			Date end = DateConverter.convertSingleArgumentContextToDate(context);
+			String duration = DateConverter.compareDatesFriendly(DateConverter.getCurrentTime(), end);
+			
+			//Step 1: Determine if target is legit.
+			if (igTarget.isValid()) {
+				
+				//Step 2: Determine if they are in solitary.
+				if (!IGPlayerSolitaryFactory.isIGPlayerInSolitary(igTarget)) {
+					
+					//Step 3: Well, add to DB and let both players know the situation.
+					IGPlayerSolitaryFactory.add(igTarget, end);
+					
+					if (targetPlayer != null) {
+						targetPlayer.sendMessage(GlobalTags.SOLITARY + "§cYou were sent to solitary by §f" + player.getName() + "§c.");
+						targetPlayer.sendMessage(GlobalTags.SOLITARY + "§fYou will be released in: §e" + duration);
+					}
+					
+					player.sendMessage(GlobalTags.SOLITARY + "§aYou have sent §f" + igTarget.getName() + "§a to solitary for §f" + duration + "§f.");
+					
+					if (targetPlayer != null) targetPlayer.teleport(IGLocations.SOLITARY.toLocation());
+					
+				} else {
+					player.sendMessage(GlobalTags.SOLITARY + "§4The player you specified is already in solitary.");
+					player.sendMessage(GlobalTags.SOLITARY + "§4Run §f§o/solitary info " + igTarget.getName() + "§r§4 to view more info.");
+				}
+			} else {
+				player.sendMessage(GlobalTags.SOLITARY + "§4The player, " + target + ", was not found.");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		
+	}
 }

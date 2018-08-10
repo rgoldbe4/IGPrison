@@ -3,6 +3,8 @@ package us.ignitiongaming.entity.player;
 import java.sql.ResultSet;
 import java.util.Date;
 
+import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.HasID;
 import us.ignitiongaming.util.convert.DateConverter;
 
@@ -10,8 +12,8 @@ public class IGPlayerSolitary extends HasID {
 
 	public static final String TABLE_NAME = "player_solitary";
 	
-	public int playerId = 0;
-	public String start, end;
+	private int playerId = 0;
+	private String start, end;
 	
 	public void assign(ResultSet results) {
 		try {
@@ -48,5 +50,20 @@ public class IGPlayerSolitary extends HasID {
 	
 	public boolean isValid() {
 		return !(!hasId() || start == null || end == null || playerId == 0);
+	}
+	
+	public void save() {
+		SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
+		query.addSet("playerID", getPlayerId());
+		query.addSet("start", getStart());
+		query.addSet("end", getEnd());
+		query.addID(getId());
+		query.execute();
+	}
+	
+	public void delete() {
+		SQLQuery query = new SQLQuery(QueryType.DELETE, TABLE_NAME);
+		query.addID(getId());
+		query.execute();
 	}
 }

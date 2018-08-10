@@ -51,6 +51,7 @@ public class IGPlayerSolitaryFactory {
 		List<IGPlayerSolitary> players = new ArrayList<>();
 		try {
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerSolitary.TABLE_NAME);
+			
 			ResultSet results = query.getResults();
 			
 			while (results.next()) {
@@ -65,15 +66,6 @@ public class IGPlayerSolitaryFactory {
 		return players;
 	}
 	
-	public static void remove(IGPlayer igPlayer) {
-		try {
-			SQLQuery query = new SQLQuery(QueryType.DELETE, IGPlayerSolitary.TABLE_NAME);
-			query.addWhere("playerID", igPlayer.getId());
-			query.execute();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
 	
 	/**
 	 * Add a player to solitary

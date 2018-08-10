@@ -4,22 +4,18 @@ import org.bukkit.entity.Player;
 
 public enum IGRankNodes {
 	//node, tag, nameColor, isStaff (default: false)
-	SOLITARY ("igprison.solitary", "§7[§8§lSolitary§r§7] §r", "§8"),
-	D ("igprison.d", "§8[§5D§8] §r", "§5"),
-	C ("igprison.c", "§8[§2C§8] §r", "§2"),
-	B ("igprison.b", "§8[§eB§8] §r", "§e"),
-	A ("igprison.a", "§8[§cA§8] §r", "§c"),
-	FREE ("igprison.free", "§8[§aFree§8] §r", "§a"),
+	SOLITARY ("igprison.solitary", "§7[§8§lSolitary§r§7] §r", "§8", false),
+	D ("igprison.d", "§8[§5D§8] §r", "§5", false),
+	C ("igprison.c", "§8[§2C§8] §r", "§2", false),
+	B ("igprison.b", "§8[§eB§8] §r", "§e", false),
+	A ("igprison.a", "§8[§cA§8] §r", "§c", false),
+	FREE ("igprison.free", "§8[§aFree§8] §r", "§a", false),
 	GUARD ("igprison.guard", "§8[§6Guard§8] §r", "§6", true),
 	WARDEN ("igprison.warden", "§8[§4Warden§8] §r", "§4", true),
 	STAFF ("igprison.staff", "§8[§bStaff§8] §r", "§b", true);
 	
 	private String node, tag, nameColor;
 	private boolean isStaff;
-	
-	private IGRankNodes(String node, String tag, String nameColor) {
-		this(node, tag, nameColor, false);
-	}
 	
 	private IGRankNodes(String node, String tag, String nameColor, boolean isStaff) { 
 		this.node = node;

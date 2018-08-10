@@ -1,8 +1,11 @@
 package us.ignitiongaming.entity.player;
 
 import java.sql.ResultSet;
+import java.util.Date;
 
 import us.ignitiongaming.entity.HasID;
+import us.ignitiongaming.util.convert.BooleanConverter;
+import us.ignitiongaming.util.convert.DateConverter;
 
 public class IGPlayerBanned extends HasID {
 
@@ -12,6 +15,7 @@ public class IGPlayerBanned extends HasID {
 	private String startDate;
 	private String reason;
 	private int bannerID; //aka The Hulk
+	private int permanent = 0;
 	
 	public void assign(ResultSet results) {
 		try {
@@ -19,8 +23,9 @@ public class IGPlayerBanned extends HasID {
 			setPlayerId(results.getInt("playerID"));
 			setEndDate(results.getString("banEnd"));
 			setStartDate(results.getString("banStart"));
-			setBanner(results.getInt("staffID"));
+			setBannerId(results.getInt("staffID"));
 			setReason(results.getString("Reason"));
+			setPermanent(results.getInt("permanent"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -38,6 +43,19 @@ public class IGPlayerBanned extends HasID {
 	public String getReason() { return reason; }
 	public void setReason(String reason) { this.reason = reason; }
 
-	public int getBanner() { return bannerID; }
-	public void setBanner(int banner) { this.bannerID = banner; }
+	public int getBannerId() { return bannerID; }
+	public void setBannerId(int banner) { this.bannerID = banner; }
+	
+	public boolean isPermanent() { return BooleanConverter.getBooleanFromInteger(permanent); }
+	public void setPermanent() { permanent = BooleanConverter.getIntegerFromBoolean(true); }
+	public void setPermanent(int permanent) { this.permanent = permanent; }
+	
+	public boolean isBanned() {
+		if (BooleanConverter.getBooleanFromInteger(permanent)) return true; //Always banned if permanent;
+		Date currentTime = DateConverter.getCurrentTime();
+		Date endTime = DateConverter.convertStringDateTimeToDate(endDate);
+		
+		return !currentTime.after(endTime);
+	}
+	
 }
