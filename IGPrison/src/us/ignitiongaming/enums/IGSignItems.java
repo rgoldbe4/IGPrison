@@ -3,13 +3,13 @@ package us.ignitiongaming.enums;
 import org.bukkit.Material;
 
 public enum IGSignItems {
-	IRON ("IRON", 0),
-	IRON_INGOT ("IRON_INGOT", 0),
-	GOLD ("GOLD", 0),
-	DIAMOND ("DIAMOND", 0),
-	EMERALD ("EMERALD", 0),
-	COAL ("COAL", 0),
-	COBBLESTONE ("COBBLESTONE", 0),
+	IRON ("IRON", 64),
+	IRON_INGOT ("IRON_INGOT", 64),
+	GOLD ("GOLD", 64),
+	DIAMOND ("DIAMOND", 64),
+	EMERALD ("EMERALD", 64),
+	COAL ("COAL", 64),
+	COBBLESTONE ("COBBLESTONE", 64),
 	PICKAXE ("PICKAXE", 1),
 	PLAYER_SKULL ("SKULL", 0),
 	MELON ("MELON", 16),
