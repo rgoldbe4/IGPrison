@@ -75,8 +75,7 @@ public class DrugUseEvent implements Listener {
 	}
 	
 	@EventHandler
-	public static void OnDrillClick(PlayerInteractEvent event)
-	{
+	public static void onDrillClick(PlayerInteractEvent event) {
 		try {
 			if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
 				if (IGList.drillUse.contains(event.getPlayer())) {
@@ -96,6 +95,44 @@ public class DrugUseEvent implements Listener {
 		}
 		catch (Exception ex) {
 			
+		}
+	}
+	
+	@EventHandler
+	public static void onWarriorUse(PlayerInteractEvent event) {
+		try {
+			//Ensure the user is attempting to consume the drug via right click.
+			if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+
+				Player player = (Player) event.getPlayer();
+				if (player.getInventory().getItemInMainHand() == null) return;
+				
+				ItemStack itemInHand = player.getInventory().getItemInMainHand();
+				
+				//#15 - Exception when right clicking with bare hand. Check for nulls in this specific instance.
+				if (itemInHand.getItemMeta() == null) return;
+				if (itemInHand.getItemMeta().getLore() == null) return;
+				
+				//Determine if player is using warrior.
+				if (itemInHand.getItemMeta().getLore().get(0).equalsIgnoreCase(GlobalTags.DRUGS + IGDrugType.WARRIOR.getTitle())) {
+					//Ensure we don't delete an entire stack for nothing...
+					if (itemInHand.getAmount() > 1)
+						itemInHand.setAmount(itemInHand.getAmount() - 1);
+					else
+						player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+					
+					//Add default speed for 10 seconds.
+					player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, TickConverter.getTicksInSeconds(10), 0));
+					player.addPotionEffect(new PotionEffect(PotionEffectType.HARM, TickConverter.getTicksInSeconds(10), 0));
+					player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, TickConverter.getTicksInSeconds(10), 0));
+					player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, TickConverter.getTicksInSeconds(10), 0));
+					
+					player.sendMessage(GlobalTags.DRUGS + "You have consumed: " + IGDrugType.WARRIOR.getTitle());
+					
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
 }

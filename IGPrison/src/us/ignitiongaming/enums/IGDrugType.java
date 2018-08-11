@@ -5,7 +5,8 @@ import org.bukkit.inventory.ItemStack;
 import us.ignitiongaming.util.items.Drugs;
 
 public enum IGDrugType {
-	AUTO_DROP ("fastmining", "§eFast Mining");
+	AUTO_DROP ("fastmining", "§eFast Mining"),
+	WARRIOR ("warrior", "§dWarrior");
 	
 	private String label, title;
 	
@@ -18,6 +19,8 @@ public enum IGDrugType {
 		switch (this) {
 			case AUTO_DROP:
 				return Drugs.getAutoDrop();
+			case WARRIOR:
+				return Drugs.getWarrior();
 			default:
 				return null;	
 		}
