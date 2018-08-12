@@ -214,4 +214,8 @@ public class DateConverter {
 		
 		return format;
 	}
+	
+	public static String compareDatesToNowFriendly(Date expires) {
+		return compareDatesFriendly(getCurrentTime(), expires);
+	}
 }
