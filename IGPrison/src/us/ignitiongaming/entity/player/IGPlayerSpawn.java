@@ -43,7 +43,7 @@ public class IGPlayerSpawn extends HasID {
 			SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
 			query.addSet("playerId", playerId);
 			query.addSet("cooldown", getCooldownString());
-			query.addID(getId());
+			query.addId(getId());
 			query.execute();
 		}
 	}
@@ -51,7 +51,7 @@ public class IGPlayerSpawn extends HasID {
 	public void delete() {
 		if (isValid()) {
 			SQLQuery query = new SQLQuery(QueryType.DELETE, TABLE_NAME);
-			query.addID(getId());
+			query.addId(getId());
 			query.execute();
 		}
 	}

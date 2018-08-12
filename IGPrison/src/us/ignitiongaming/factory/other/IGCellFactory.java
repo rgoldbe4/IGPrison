@@ -15,7 +15,7 @@ public class IGCellFactory {
 	public static IGCell getCellById(int id) {
 		try {
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGCell.TABLE_NAME);
-			query.addID(id);
+			query.addId(id);
 			ResultSet results = query.getResults();
 			
 			if (DatabaseUtils.getNumRows(results) == 0) return null;

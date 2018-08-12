@@ -240,8 +240,8 @@ public class SQLQuery {
 	 * Add "where ID = ID" to the query. 
 	 * @param ID
 	 */
-	public void addID(int ID) {
-		addWhere("ID", ID);
+	public void addId(int id) {
+		addWhere("ID", id);
 	}
 	
 	public void logQuery() {

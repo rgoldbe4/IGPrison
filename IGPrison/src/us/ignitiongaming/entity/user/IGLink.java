@@ -46,7 +46,7 @@ public class IGLink extends HasID {
 	public void save() {
 		try {
 			SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
-			query.addID(getId());
+			query.addId(getId());
 			query.addSet("playerID", playerID);
 			query.addSet("userID", userID);
 			query.addSet("code", code);

@@ -48,7 +48,7 @@ public class IGLocation extends HasID {
 		query.addSet("y", y);
 		query.addSet("z", z);
 		query.addSet("direction", yaw);
-		query.addID(getId());
+		query.addId(getId());
 		query.execute();
 	}
 	

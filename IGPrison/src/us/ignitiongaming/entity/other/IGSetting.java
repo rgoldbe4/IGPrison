@@ -29,7 +29,7 @@ public class IGSetting extends HasID {
 		SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
 		query.addSet("label", label);
 		query.addSet("value", value);
-		query.addID(getId());
+		query.addId(getId());
 		query.execute();
 	}
 	
