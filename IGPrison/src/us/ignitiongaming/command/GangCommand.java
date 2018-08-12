@@ -324,7 +324,7 @@ public class GangCommand implements CommandExecutor{
 		
 		//Step 1: Determine if player is in gang. If so, they cannot create a gang...
 		if (isPlayerInGang) {
-			player.sendMessage(GlobalTags.GANG + "§4You do not belong to a gang.");
+			player.sendMessage(GlobalTags.GANG + "§4You already belong to a gang.");
 		} else {
 			//Step 2: Determine if the player can afford to create a new gang.
 			double createPrice = Double.parseDouble(ServerDefaults.getSetting(IGSettings.CREATE_GANG_PRICE).getValue().toString());

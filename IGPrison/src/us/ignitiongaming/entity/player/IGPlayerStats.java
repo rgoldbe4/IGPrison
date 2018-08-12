@@ -58,9 +58,13 @@ public class IGPlayerStats extends HasID {
 	public int getDeaths() { return deaths; }
 	
 	public void setDonatorPoints(int donatorPoints) { this.donatorPoints = donatorPoints; }
-	public void addDonatorPoint() { donatorPoints++; }
+	public void addDonatorPoint() { addDonatorPoints(1); }
 	public void addDonatorPoints(int donatorPoints) { this.donatorPoints += donatorPoints; }
 	public int getDonatorPoints() { return donatorPoints; }
+	public void removeDonatorPoint() { removeDonatorPoints(1); }
+	public void removeDonatorPoints(int donatorPoints) {
+		this.donatorPoints -= donatorPoints;
+	}
 	
 	public String getJoined() { return joined; }
 	public void setJoined(String joinedDate) { this.joined = joinedDate; }

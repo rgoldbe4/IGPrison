@@ -15,11 +15,13 @@ import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.entity.other.IGLocation;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerSpawn;
+import us.ignitiongaming.entity.player.IGPlayerStats;
 import us.ignitiongaming.enums.IGLocations;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.other.IGLocationFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerSpawnFactory;
+import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
 import us.ignitiongaming.util.convert.DateConverter;
 
 public class TeleportCommand implements CommandExecutor {
@@ -50,7 +52,16 @@ public class TeleportCommand implements CommandExecutor {
 								playerSpawn.save();
 								player.teleport(location);
 							} else {
-								player.sendMessage(GlobalTags.LOGO + "§4On cooldown! §cAvailable in: §f" + DateConverter.compareDatesToNowFriendly(playerSpawn.getCooldown()));
+								//Determine if player has defiance points to spend.
+								IGPlayerStats igPlayerStats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
+								if (igPlayerStats.getDonatorPoints() > 0) {
+									igPlayerStats.removeDonatorPoint();
+									igPlayerStats.save();
+									player.sendMessage(GlobalTags.LOGO + "§dYou used one (1) " + GlobalTags.DEFIANCE + "§5Points §dto override your /spawn cooldown.");
+									player.teleport(location);
+								} else {
+									player.sendMessage(GlobalTags.LOGO + "§4On cooldown! §cAvailable in: §f" + DateConverter.compareDatesToNowFriendly(playerSpawn.getCooldown()));
+								}
 							}
 						} else {
 							//Not available, so add them to the database.
