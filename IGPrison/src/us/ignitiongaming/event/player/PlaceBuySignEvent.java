@@ -7,6 +7,7 @@ import org.bukkit.event.block.SignChangeEvent;
 
 import us.ignitiongaming.config.SignTags;
 import us.ignitiongaming.enums.IGRankNodes;
+import us.ignitiongaming.enums.IGSignItems;
 import us.ignitiongaming.util.convert.CurrencyConverter;
 
 public class PlaceBuySignEvent implements Listener {
@@ -20,10 +21,11 @@ public class PlaceBuySignEvent implements Listener {
 				//Only staff or wardens may create events...
 				boolean isPlayerStaff = IGRankNodes.getPlayerRank(player).isStaff();
 				if (isPlayerStaff) {
+					IGSignItems signItem = IGSignItems.getItem(event.getLine(3));
 					event.setLine(0, SignTags.BUY);
 					event.setLine(1, "§a" + CurrencyConverter.convertToCurrency(event.getLine(2)));
 					event.setLine(2, "§8" + event.getLine(3));
-					event.setLine(3, "");
+					event.setLine(3, signItem.getName());
 				}
 			}
 		} catch (Exception ex) {

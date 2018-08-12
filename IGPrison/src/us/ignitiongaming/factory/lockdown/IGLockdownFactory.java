@@ -24,7 +24,6 @@ public class IGLockdownFactory {
 			query.addWhere("ended", null);
 			ResultSet results = query.getResults();
 			
-			query.broadcastQuery();
 			while (results.next()) {
 				IGLockdown lockdown = new IGLockdown();
 				lockdown.assign(results);

@@ -654,8 +654,10 @@ public class GangCommand implements CommandExecutor{
 		List<IGGang> gangs = IGGangFactory.getAllGangs();
 		
 		int ranking = 1;
+		player.sendMessage("   §8§l--->  §r" + GlobalTags.GANG + " §9Leaderboard  §8§l<---  ");
+		player.sendMessage("");
 		for (IGGang gang : gangs) {
-			player.sendMessage("#" + ranking + ": §8§l" + gang.getName().toUpperCase() + "§r §f[§2§l" + CurrencyConverter.convertToCurrency(gang.getMoney()) + "§r§f]");
+			player.sendMessage("§9§l" + ranking + "§r§9) §8§l" + gang.getName().toUpperCase() + "§r - §2§l" + CurrencyConverter.convertToCurrency(gang.getMoney()) + "§r");
 			ranking++;
 		}
 	}
@@ -663,7 +665,7 @@ public class GangCommand implements CommandExecutor{
 	private void showAllRanks(Player player) {
 		ChatConverter.clearPlayerChat(player);
 		
-		player.sendMessage("----- Gang Ranks ------");
+		player.sendMessage("----- " + GlobalTags.GANG + " Ranks ------");
 		player.sendMessage(IGGangRank.MEMBER.getLabel() + " -> The lowest rank of the gang. Can add funds to the gang and earn bonuses through killing other gang members.");
 		player.sendMessage(IGGangRank.OFFICER.getLabel() + " -> The middle rank of the gang. Can add/remove gang members.");
 		player.sendMessage(IGGangRank.LEADER.getLabel() + " -> The highest rank of the gang. Can add/remove gang members, can promote/demote gang members.");
