@@ -27,7 +27,7 @@ public class DonatorCommand implements CommandExecutor {
 				if (lbl.equalsIgnoreCase("points") || lbl.equalsIgnoreCase("donatorpoints")) {
 					IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 					IGPlayerStats igStats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
-					player.sendMessage(GlobalTags.DONATION + "Points: " + igStats.getDonatorPoints());
+					player.sendMessage(GlobalTags.DEFIANCE_POINTS + "Points: " + igStats.getDonatorPoints());
 				}
 				
 				
