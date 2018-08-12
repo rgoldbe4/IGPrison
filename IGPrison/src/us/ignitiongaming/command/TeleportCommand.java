@@ -16,8 +16,10 @@ import us.ignitiongaming.entity.other.IGLocation;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerSpawn;
 import us.ignitiongaming.entity.player.IGPlayerStats;
+import us.ignitiongaming.enums.IGCells;
 import us.ignitiongaming.enums.IGLocations;
 import us.ignitiongaming.enums.IGRankNodes;
+import us.ignitiongaming.factory.lockdown.IGLockdownFactory;
 import us.ignitiongaming.factory.other.IGLocationFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerSpawnFactory;
@@ -122,6 +124,28 @@ public class TeleportCommand implements CommandExecutor {
 					}
 				}
 				
+				if (lbl.equalsIgnoreCase("visit")) {
+					
+					if (args.length == 1) {
+						//Determine if cell block is in lockdown
+						if (IGCells.isCell(args[0])) {
+							IGCells cell = IGCells.getCell(args[0]);
+							
+							if (IGLockdownFactory.isCellInLockdown(cell)) {
+								player.sendMessage(GlobalTags.LOGO + cell.getTag() + "§cis currently under lockdown. Try again later.");
+							} else {
+								player.teleport(IGLocations.getLocationByLabel(cell.getLabel() + "_visitation").toLocation());
+								player.sendMessage(GlobalTags.LOGO + "You are now visiting " + cell.getTag() + ".");
+							}
+						} else {
+							player.sendMessage(GlobalTags.LOGO + "You did not enter in the right cell. Try A, B, C, or D.");
+						}
+						
+					} else {
+						player.sendMessage(GlobalTags.LOGO + "Usage: /visit <a/b/c/d>");
+						player.sendMessage(GlobalTags.LOGO + "§cYou may not visit cell blocks in lockdown.");
+					}
+				}
 			
 				
 				

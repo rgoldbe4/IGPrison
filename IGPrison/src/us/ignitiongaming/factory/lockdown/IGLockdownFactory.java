@@ -91,6 +91,17 @@ public class IGLockdownFactory {
 		return lockdowns;
 	}
 	
+	public static IGLockdown getLockdownByCell(IGCells cell) {
+		try {
+			for (IGLockdown ld : getCurrentLockdowns()) {
+				if (ld.getCell().getLabel().equalsIgnoreCase(cell.getLabel())) return ld;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return new IGLockdown();
+	}
+	
 	public static void add(IGCell cell, IGPlayer igPlayer) {
 		try {
 			Date started = DateConverter.getCurrentTime();

@@ -175,6 +175,9 @@ public class IGPrison extends JavaPlugin {
 			
 			// - Tower command --
 			this.getCommand("tower").setExecutor(new TowerCommand());
+			
+			// - Visit command --
+			this.getCommand("visit").setExecutor(new TeleportCommand());
 		
 		} catch (Exception ex) {
 			

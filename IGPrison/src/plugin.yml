@@ -96,3 +96,6 @@ commands:
      tower:
         description: Teleport to a Guard tower.
         permission: igprison.tower
+     visit:
+        description: Visit a certain cell block.
+        permission: igprison.visit
