@@ -24,8 +24,8 @@ public class PlaceBuySignEvent implements Listener {
 					IGSignItems signItem = IGSignItems.getItem(event.getLine(3));
 					event.setLine(0, SignTags.BUY);
 					event.setLine(1, "§a" + CurrencyConverter.convertToCurrency(event.getLine(2)));
-					event.setLine(2, "§8" + event.getLine(3));
-					event.setLine(3, signItem.getName());
+					event.setLine(2, "§8" + signItem.getName());
+					event.setLine(3, "§9" + signItem.getAmount());
 				}
 			}
 		} catch (Exception ex) {

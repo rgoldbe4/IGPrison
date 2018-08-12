@@ -1,6 +1,7 @@
 package us.ignitiongaming.command;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,6 +11,7 @@ import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.enums.IGSettings;
+import us.ignitiongaming.factory.other.IGLocationFactory;
 import us.ignitiongaming.util.convert.CurrencyConverter;
 
 public class RankupCommand implements CommandExecutor {
@@ -33,6 +35,8 @@ public class RankupCommand implements CommandExecutor {
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set c");
 							ServerDefaults.econ.withdrawPlayer(player, rankupCostD);
 							player.setPlayerListName(IGRankNodes.getPlayerFormatting(player));
+							Location location = IGLocationFactory.getSpawnByPlayerRank(player).toLocation();
+							player.teleport(location);
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a" + CurrencyConverter.convertToCurrency(rankupCostD - playerBalance) + "§c to rankup.");
 						}
@@ -45,6 +49,8 @@ public class RankupCommand implements CommandExecutor {
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set b");
 							ServerDefaults.econ.withdrawPlayer(player, rankupCostC);
 							player.setPlayerListName(IGRankNodes.getPlayerFormatting(player));
+							Location location = IGLocationFactory.getSpawnByPlayerRank(player).toLocation();
+							player.teleport(location);
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a" + CurrencyConverter.convertToCurrency(rankupCostC - playerBalance) + "§c to rankup.");
 						}
@@ -57,6 +63,8 @@ public class RankupCommand implements CommandExecutor {
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set a");
 							ServerDefaults.econ.withdrawPlayer(player, rankupCostB);
 							player.setPlayerListName(IGRankNodes.getPlayerFormatting(player));
+							Location location = IGLocationFactory.getSpawnByPlayerRank(player).toLocation();
+							player.teleport(location);
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a" + CurrencyConverter.convertToCurrency(rankupCostB - playerBalance) + "§c to rankup.");
 						}
@@ -69,6 +77,8 @@ public class RankupCommand implements CommandExecutor {
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group set free");
 							ServerDefaults.econ.withdrawPlayer(player, rankupCostA);
 							player.setPlayerListName(IGRankNodes.getPlayerFormatting(player));
+							Location location = IGLocationFactory.getSpawnByPlayerRank(player).toLocation();
+							player.teleport(location);
 						} else {
 							player.sendMessage(GlobalTags.RANKUP + "§cYou need §a$" + CurrencyConverter.convertToCurrency(rankupCostA - playerBalance) + "§c to rankup.");
 						}
