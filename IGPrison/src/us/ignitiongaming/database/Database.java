@@ -53,7 +53,17 @@ public class Database {
 	public static Statement GetStatement() {
 		try {
 			if (connection == null) {
-				Bukkit.getLogger().log(Level.WARNING, "IS MAIN? " + (IGPrison.environment == IGEnvironments.MAIN));
+				if (IGPrison.environment.equals(IGEnvironments.MAIN)) {
+					ConnectToMain();
+					Bukkit.getLogger().log(Level.INFO, "Connected to Main Database");
+				}
+				else {
+					ConnectToTesting();
+					Bukkit.getLogger().log(Level.INFO, "Connected to Testing Database");
+				}
+			}
+
+			if (connection.isClosed()) {
 				if (IGPrison.environment.equals(IGEnvironments.MAIN)) {
 					ConnectToMain();
 					Bukkit.getLogger().log(Level.INFO, "Connected to Main Database");
