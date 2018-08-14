@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import us.ignitiongaming.command.AdminCommand;
 import us.ignitiongaming.command.BountyCommand;
 import us.ignitiongaming.command.ClearChatCommand;
+import us.ignitiongaming.command.ConvertCommand;
 import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.GangCommand;
@@ -178,6 +179,9 @@ public class IGPrison extends JavaPlugin {
 			
 			// - Visit command --
 			this.getCommand("visit").setExecutor(new TeleportCommand());
+			
+			// - Convert command --
+			this.getCommand("convert").setExecutor(new ConvertCommand());
 		
 		} catch (Exception ex) {
 			

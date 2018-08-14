@@ -99,3 +99,6 @@ commands:
      visit:
         description: Visit a certain cell block.
         permission: igprison.visit
+     convert:
+        description: Convert items to drugs.
+        permission: igprison.convert

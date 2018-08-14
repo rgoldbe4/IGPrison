@@ -45,8 +45,8 @@ public class PlaceSellSignEvent implements Listener {
 					String amt = CurrencyConverter.convertToCurrency(Double.parseDouble(ServerDefaults.getSetting(IGSettings.DEFAULT_HEAD_AMOUNT).getValue().toString()));
 					event.setLine(0, SignTags.SELL_HEAD);
 					event.setLine(1, "§a" + amt);
-					event.setLine(2, "§8" + event.getLine(3));
-					event.setLine(3, "");
+					event.setLine(2, "");
+					event.setLine(3, "§8§l1");
 				}
 			}
 		} catch (Exception ex) {
