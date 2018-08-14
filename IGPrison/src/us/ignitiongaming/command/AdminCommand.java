@@ -16,6 +16,8 @@ import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.enums.IGEnvironments;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.other.IGSettingFactory;
+import us.ignitiongaming.util.items.DefianceArmor;
+import us.ignitiongaming.util.items.DefianceWeapon;
 
 public class AdminCommand implements CommandExecutor{
 
@@ -39,6 +41,14 @@ public class AdminCommand implements CommandExecutor{
 								//Update settings!
 								ServerDefaults.settings = IGSettingFactory.getSettings();
 								player.sendMessage("Plugin data refreshed.");
+							}
+							
+							if (args[0].equalsIgnoreCase("defiance")) {
+								player.getInventory().setHelmet(DefianceArmor.getHelmet());
+								player.getInventory().setChestplate(DefianceArmor.getChestplate());
+								player.getInventory().setLeggings(DefianceArmor.getLeggings());
+								player.getInventory().setBoots(DefianceArmor.getBoots());
+								player.getInventory().setItemInMainHand(DefianceWeapon.getDefianceSword());
 							}
 							
 							if (args[0].equalsIgnoreCase("settings")) {
