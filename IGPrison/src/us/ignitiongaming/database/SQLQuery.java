@@ -97,6 +97,7 @@ public class SQLQuery {
 	 */
 	public void execute() {
 		generate();
+		logQuery();
 		if (type == QueryType.SELECT || type == QueryType.INNER_JOIN || type == QueryType.JOIN) {
 			getResults();
 		} else {
@@ -123,6 +124,7 @@ public class SQLQuery {
 	 */	
 	public ResultSet getResults() {
 		generate();
+		logQuery();
 		try {
 			return Database.GetStatement().executeQuery(getQuery());
 		} catch (Exception ex) {

@@ -118,7 +118,6 @@ public class IGPrison extends JavaPlugin {
 			// -- Donator Commands --
 			this.getCommand("donate").setExecutor(new DonatorCommand());
 			this.getCommand("points").setExecutor(new DonatorCommand());
-			this.getCommand("donatorpoints").setExecutor(new DonatorCommand());
 			
 			// -- Admin Commands --
 			this.getCommand("iga").setExecutor(new AdminCommand());

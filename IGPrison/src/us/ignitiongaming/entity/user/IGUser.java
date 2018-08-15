@@ -13,21 +13,21 @@ public class IGUser extends HasID {
 
 	public static final String TABLE_NAME = "user";
 	
-	private int playerID = 0;
+	private int playerId = 0;
 	//Also has columns: username, password
 	//However, both of these columns should never be accessed unless future code requires it. For now, do not send it...
 	
-	public void setPlayerID(int playerID) { this.playerID = playerID; }
-	public int getPlayerID() { return playerID; }
-	public boolean hasPlayerID() { return playerID != 0; }
+	public void setPlayerId(int playerId) { this.playerId = playerId; }
+	public int getPlayerId() { return playerId; }
+	public boolean hasPlayerId() { return playerId != 0; }
 	
-	public boolean isValid() { return hasPlayerID(); }
+	public boolean isValid() { return hasPlayerId(); }
 	
 	public void save() { 
 		try {
 			SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
+			query.addSet("playerID", playerId);
 			query.addId(getId());
-			query.addSet("playerID", playerID);
 			query.execute();
 		} catch (Exception ex) {
 			
@@ -37,7 +37,7 @@ public class IGUser extends HasID {
 	public void assign(ResultSet results) {
 		try {
 			setId(results);
-			setPlayerID(results.getInt("playerID"));
+			setPlayerId(results.getInt("playerID"));
 		} catch (Exception ex) {
 			
 		}
