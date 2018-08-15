@@ -27,7 +27,7 @@ public class IGPlayerRank extends HasID {
 			SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
 			query.addSet("playerID", playerId);
 			query.addSet("rankID", rankId);
-			query.addID(getId());
+			query.addId(getId());
 			query.execute();
 		}
 	}

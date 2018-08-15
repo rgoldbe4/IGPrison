@@ -1,5 +1,8 @@
 package us.ignitiongaming.command;
 
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,8 +13,11 @@ import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.database.Database;
 import us.ignitiongaming.entity.other.IGSetting;
+import us.ignitiongaming.enums.IGEnvironments;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.other.IGSettingFactory;
+import us.ignitiongaming.util.items.DefianceArmor;
+import us.ignitiongaming.util.items.DefianceWeapon;
 
 public class AdminCommand implements CommandExecutor{
 
@@ -37,6 +43,14 @@ public class AdminCommand implements CommandExecutor{
 								player.sendMessage("Plugin data refreshed.");
 							}
 							
+							if (args[0].equalsIgnoreCase("defiance")) {
+								player.getInventory().setHelmet(DefianceArmor.getHelmet());
+								player.getInventory().setChestplate(DefianceArmor.getChestplate());
+								player.getInventory().setLeggings(DefianceArmor.getLeggings());
+								player.getInventory().setBoots(DefianceArmor.getBoots());
+								player.getInventory().setItemInMainHand(DefianceWeapon.getDefianceSword());
+							}
+							
 							if (args[0].equalsIgnoreCase("settings")) {
 								for (IGSetting setting : ServerDefaults.settings) {
 									player.sendMessage(setting.getLabel() + " = " + setting.getValue());
@@ -47,6 +61,18 @@ public class AdminCommand implements CommandExecutor{
 							
 							if (args[0].equalsIgnoreCase("db")) {
 								player.sendMessage("Is Database Connected? " + !Database.connection.isClosed());
+								//Reconnect if not connected.
+								if (Database.connection.isClosed()) {
+									if (IGPrison.environment.equals(IGEnvironments.MAIN)) {
+										Database.ConnectToMain();
+										Bukkit.getLogger().log(Level.INFO, "Connected to Main Database");
+									}
+									else {
+										Database.ConnectToTesting();
+										Bukkit.getLogger().log(Level.INFO, "Connected to Testing Database");
+									}
+									player.sendMessage("Reconnected to database.");
+								}
 							}
 							
 							if (args[0].equalsIgnoreCase("ranks")) {

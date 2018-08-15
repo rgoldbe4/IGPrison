@@ -30,6 +30,8 @@ public class StaffCommand implements CommandExecutor{
 							IGList.clockedIn.remove(player);
 							player.sendMessage(GlobalTags.LOGO + "You have been clocked out.");
 							player.getInventory().clear();
+							
+							player.teleport(IGLocations.SPAWN.toLocation());
 						} else {
 							IGList.clockedIn.add(player);
 							player.sendMessage(GlobalTags.LOGO + "You have been clocked in.");
@@ -59,6 +61,7 @@ public class StaffCommand implements CommandExecutor{
 							IGList.clockedIn.remove(player);
 							player.sendMessage(GlobalTags.LOGO + "You have been clocked out.");
 							player.getInventory().clear();
+							player.teleport(IGLocations.SPAWN.toLocation());
 						} else {
 							IGList.clockedIn.add(player);
 							player.sendMessage(GlobalTags.LOGO + "You have been clocked in.");

@@ -123,7 +123,7 @@ public class DrugUseEvent implements Listener {
 					
 					//Add default speed for 10 seconds.
 					player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, TickConverter.getTicksInSeconds(10), 0));
-					player.addPotionEffect(new PotionEffect(PotionEffectType.HARM, TickConverter.getTicksInSeconds(10), 0));
+					player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, TickConverter.getTicksInSeconds(10), 0));
 					player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, TickConverter.getTicksInSeconds(10), 0));
 					player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, TickConverter.getTicksInSeconds(10), 0));
 					

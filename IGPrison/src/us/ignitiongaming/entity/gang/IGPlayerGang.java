@@ -61,13 +61,13 @@ public class IGPlayerGang extends HasID {
 		query.addSet("playerID", playerID);
 		query.addSet("gangID", gangID);
 		query.addSet("gangRankID", gangRankID);
-		query.addID(getId());
+		query.addId(getId());
 		query.execute();
 	}
 	
 	public void delete() {
 		SQLQuery query = new SQLQuery(QueryType.DELETE, TABLE_NAME);
-		query.addID(getId());
+		query.addId(getId());
 		query.execute();
 	}
 	

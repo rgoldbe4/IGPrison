@@ -57,13 +57,13 @@ public class IGPlayerSolitary extends HasID {
 		query.addSet("playerID", getPlayerId());
 		query.addSet("start", getStart());
 		query.addSet("end", getEnd());
-		query.addID(getId());
+		query.addId(getId());
 		query.execute();
 	}
 	
 	public void delete() {
 		SQLQuery query = new SQLQuery(QueryType.DELETE, TABLE_NAME);
-		query.addID(getId());
+		query.addId(getId());
 		query.execute();
 	}
 }

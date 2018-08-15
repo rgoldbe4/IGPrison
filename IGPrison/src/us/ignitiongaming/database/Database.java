@@ -29,7 +29,7 @@ public class Database {
 			if (connection != null) {
 				if (!connection.isClosed()) connection.close();
 			}
-			connection = DriverManager.getConnection("jdbc:mysql://ignitiongaming.us:3306/igminecraft?verifyServerCertificate=false&maxReconnects=10&useSSL=true&retainStatementAfterResultSetClose=true",
+			connection = DriverManager.getConnection("jdbc:mysql://ignitiongaming.us:3306/igminecraft?verifyServerCertificate=false&maxReconnects=10&useSSL=true&retainStatementAfterResultSetClose=true&autoReconnect=true",
 					"igminecraft", "7xXTvmgXyrUGvsh6");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -41,7 +41,7 @@ public class Database {
 			if (connection != null) {
 				if (!connection.isClosed()) connection.close();
 			}
-			connection = DriverManager.getConnection("jdbc:mysql://ignitiongaming.us:3306/igminecraft_testing?verifyServerCertificate=false&maxReconnects=10&useSSL=true&retainStatementAfterResultSetClose=true",
+			connection = DriverManager.getConnection("jdbc:mysql://ignitiongaming.us:3306/igminecraft_testing?verifyServerCertificate=false&maxReconnects=10&useSSL=true&retainStatementAfterResultSetClose=true&autoReconnect=true",
 					"igminecraft", "7xXTvmgXyrUGvsh6");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,7 +53,17 @@ public class Database {
 	public static Statement GetStatement() {
 		try {
 			if (connection == null) {
-				Bukkit.getLogger().log(Level.WARNING, "IS MAIN? " + (IGPrison.environment == IGEnvironments.MAIN));
+				if (IGPrison.environment.equals(IGEnvironments.MAIN)) {
+					ConnectToMain();
+					Bukkit.getLogger().log(Level.INFO, "Connected to Main Database");
+				}
+				else {
+					ConnectToTesting();
+					Bukkit.getLogger().log(Level.INFO, "Connected to Testing Database");
+				}
+			}
+
+			if (connection.isClosed()) {
 				if (IGPrison.environment.equals(IGEnvironments.MAIN)) {
 					ConnectToMain();
 					Bukkit.getLogger().log(Level.INFO, "Connected to Main Database");

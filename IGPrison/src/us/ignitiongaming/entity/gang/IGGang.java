@@ -72,13 +72,13 @@ public class IGGang extends HasID {
 		query.addSet("closed", BooleanConverter.getIntegerFromBoolean(closed));
 		query.addSet("founderID", founderId);
 		query.addSet("memberBuyDrugs", BooleanConverter.getIntegerFromBoolean(allowBuyDrugs));
-		query.addID(getId());
+		query.addId(getId());
 		query.execute();
 	}
 	
 	public void delete() {
 		SQLQuery query = new SQLQuery(QueryType.DELETE, TABLE_NAME);
-		query.addID(getId());
+		query.addId(getId());
 		query.execute();
 	}
 }

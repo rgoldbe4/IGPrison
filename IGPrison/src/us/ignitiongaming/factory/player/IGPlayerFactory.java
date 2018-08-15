@@ -38,7 +38,7 @@ public class IGPlayerFactory {
 		IGPlayer igPlayer = new IGPlayer();
 		try {
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayer.TABLE_NAME);
-			query.addID(id);
+			query.addId(id);
 			ResultSet results = query.getResults();
 			
 			while (results.next()) {
