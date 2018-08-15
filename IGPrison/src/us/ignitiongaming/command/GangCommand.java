@@ -600,12 +600,9 @@ public class GangCommand implements CommandExecutor{
 	
 	//When they run [/gang info] UNFINISHED
 	private void showGangInformation(Player player, IGPlayer igPlayer, String name) {
-		IGGang igGang = IGGangFactory.getGangByName(name);
-		List<IGPlayerGang> playersInGang = IGPlayerGangFactory.getPlayersInGang(igGang.getId());
-		if (igGang.isValid()) {
-			IGPlayerGang playerGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igPlayer);
-			IGGang gang = IGGangFactory.getGangById(playerGang.getGangId());
-			
+		IGGang gang = IGGangFactory.getGangByName(name);
+		List<IGPlayerGang> playersInGang = IGPlayerGangFactory.getPlayersInGang(gang.getId());
+		if (gang.isValid()) {			
 			ChatConverter.clearPlayerChat(player);
 			
 			player.sendMessage(" §8§l[ §r§9§l" + gang.getName().toUpperCase() + "§8§l ]");
@@ -616,7 +613,8 @@ public class GangCommand implements CommandExecutor{
 			//Go through each gang and find out their name and rank... Sort by ranks (Leader > Officer > Member) in query.
 			for (IGPlayerGang playerInGang : playersInGang) {
 				IGPlayer igPlayerInGang = IGPlayerFactory.getIGPlayerById(playerInGang.getPlayerId());
-				player.sendMessage(" §7[" +(Bukkit.getPlayer(igPlayerInGang.getName()) == null ? "§4*" : "§2*") + "§r§7] " + playerInGang.getGangRank().getLabel() + " §7" + igPlayerInGang.getName());
+				boolean isPlayerOnline = Bukkit.getPlayer(igPlayerInGang.getName()) != null;
+				player.sendMessage(" §7[" +( !isPlayerOnline ? "§4*" : "§2*") + "§r§7] " + playerInGang.getGangRank().getLabel() + " " + ( !isPlayerOnline ? "§7" : "§f") + igPlayerInGang.getName());
 			}
 		} else {
 			player.sendMessage(GlobalTags.GANG + "§4The gang (" + name + ") was not found.");
@@ -816,11 +814,18 @@ public class GangCommand implements CommandExecutor{
 					
 					//Step 4: Remove the player from the gang.
 					IGPlayerGang igTargetGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igTarget);
-					igTargetGang.delete();
 					
-					player.sendMessage(GlobalTags.GANG + "§cYou have removed §l" + name + " §r§cfrom the gang.");
-					Player target = Bukkit.getPlayer(name);
-					if (target != null) target.sendMessage(GlobalTags.GANG + "§cYou were removed from the gang by §l" + player.getName() + "§r§c.");
+					//Step 5: Determine if they are in the same gang.
+					
+					if (igTargetGang.getGangId() == igPlayerGang.getGangId()) {
+						igTargetGang.delete();
+						
+						player.sendMessage(GlobalTags.GANG + "§cYou have removed §l" + name + " §r§cfrom the gang.");
+						Player target = Bukkit.getPlayer(name);
+						if (target != null) target.sendMessage(GlobalTags.GANG + "§cYou were removed from the gang by §l" + player.getName() + "§r§c.");
+					} else {
+						player.sendMessage(GlobalTags.GANG + "§4You cannot remove a gang member from another gang.");
+					}
 					
 					
 				} else {
