@@ -49,6 +49,11 @@ public enum IGRankNodes {
 		return (player.hasPermission(IGRankNodes.SOLITARY.getNode()));
 	}
 	
+	public static String getPlayerFormatting(Player player) {
+		IGRankNodes rank = getPlayerRank(player);
+		return rank.getFormatting() + player.getDisplayName();
+	}
+	
 	public String getFormatting() {
 		return tag + nameColor;
 	}

@@ -9,6 +9,7 @@ import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.config.SignTags;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.enums.IGSettings;
+import us.ignitiongaming.enums.IGSignItems;
 import us.ignitiongaming.util.convert.CurrencyConverter;
 
 public class PlaceSellSignEvent implements Listener {
@@ -22,10 +23,11 @@ public class PlaceSellSignEvent implements Listener {
 				//Only staff or wardens may create events...
 				boolean isPlayerStaff = IGRankNodes.getPlayerRank(player).isStaff();
 				if (isPlayerStaff) {
+					IGSignItems signItem = IGSignItems.getItem(event.getLine(3));
 					event.setLine(0, SignTags.SELL);
 					event.setLine(1, "§a" + event.getLine(2));
 					event.setLine(2, "§8" + event.getLine(3));
-					event.setLine(3, "");
+					event.setLine(3, "§9§l" + signItem.getAmount());
 				}
 			}
 		} catch (Exception ex) {
@@ -45,8 +47,8 @@ public class PlaceSellSignEvent implements Listener {
 					String amt = CurrencyConverter.convertToCurrency(Double.parseDouble(ServerDefaults.getSetting(IGSettings.DEFAULT_HEAD_AMOUNT).getValue().toString()));
 					event.setLine(0, SignTags.SELL_HEAD);
 					event.setLine(1, "§a" + amt);
-					event.setLine(2, "§8" + event.getLine(3));
-					event.setLine(3, "");
+					event.setLine(2, "");
+					event.setLine(3, "§8§l1");
 				}
 			}
 		} catch (Exception ex) {

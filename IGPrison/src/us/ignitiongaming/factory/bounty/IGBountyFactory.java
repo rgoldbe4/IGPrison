@@ -144,7 +144,7 @@ public class IGBountyFactory {
 		IGBounty bounty = new IGBounty();
 		try {
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGBounty.TABLE_NAME);
-			query.addID(id);
+			query.addId(id);
 			ResultSet results = query.getResults();
 			
 			while (results.next()) {

@@ -8,7 +8,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.config.ServerDefaults;
 import us.ignitiongaming.config.SignTags;
 import us.ignitiongaming.enums.IGSignItems;
@@ -35,6 +34,7 @@ public class InteractBuySignEvent implements Listener {
 					if (sign.getLine(0).contains(SignTags.BUY)) {
 						String strippedPrice = ChatConverter.stripColor( ChatConverter.stripCurrency( sign.getLine(1) ) );
 						IGSignItems signItem = IGSignItems.getItem( ChatConverter.stripColor( sign.getLine(2) ) );
+						double balance = ServerDefaults.econ.getBalance(player);
 
 						double price = 0.0;
 						//If not free...
@@ -42,15 +42,20 @@ public class InteractBuySignEvent implements Listener {
 							price = Double.parseDouble(strippedPrice);
 						}
 						
-						//Charge the user.
-						ServerDefaults.econ.withdrawPlayer(player, price);
+						if (balance >= price) {
 						
-						//Give them the item.
-						ItemStack item = new ItemStack(signItem.toMaterial());
-						item.setAmount(signItem.getAmount());
-						
-						player.getInventory().addItem(item);
-						player.sendMessage(GlobalTags.LOGO + "You were given " + signItem.getName() + ".");
+							//Charge the user.
+							ServerDefaults.econ.withdrawPlayer(player, price);
+							
+							//Give them the item.
+							ItemStack item = new ItemStack(signItem.toMaterial());
+							item.setAmount(signItem.getAmount());
+							
+							player.getInventory().addItem(item);
+							player.sendMessage(SignTags.BUY + " You were given §e" + signItem.getName() + "§f.");
+						} else {
+							player.sendMessage(SignTags.BUY + " §4You do not have enough money to buy §f" + signItem.getName() + "§4.");
+						}
 					}
 				}
 			}

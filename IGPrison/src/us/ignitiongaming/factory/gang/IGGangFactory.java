@@ -35,7 +35,7 @@ public class IGGangFactory {
 		IGGang gang = new IGGang();
 		try {
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGGang.TABLE_NAME);
-			query.addID(id);
+			query.addId(id);
 			ResultSet results = query.getResults();
 			
 			while (results.next()) {

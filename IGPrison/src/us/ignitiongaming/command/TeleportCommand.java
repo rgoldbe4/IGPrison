@@ -10,11 +10,21 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import us.ignitiongaming.config.GlobalMessages;
+import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.entity.other.IGLocation;
+import us.ignitiongaming.entity.player.IGPlayer;
+import us.ignitiongaming.entity.player.IGPlayerSpawn;
+import us.ignitiongaming.entity.player.IGPlayerStats;
+import us.ignitiongaming.enums.IGCells;
 import us.ignitiongaming.enums.IGLocations;
+import us.ignitiongaming.enums.IGRankNodes;
+import us.ignitiongaming.factory.lockdown.IGLockdownFactory;
 import us.ignitiongaming.factory.other.IGLocationFactory;
-import us.ignitiongaming.util.handy.FacingDirection;
+import us.ignitiongaming.factory.player.IGPlayerFactory;
+import us.ignitiongaming.factory.player.IGPlayerSpawnFactory;
+import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
+import us.ignitiongaming.util.convert.DateConverter;
 
 public class TeleportCommand implements CommandExecutor {
 
@@ -25,11 +35,43 @@ public class TeleportCommand implements CommandExecutor {
 				Player player = (Player) sender;
 				// [/spawn]
 				if (lbl.equalsIgnoreCase("spawn")) {
-					//-- TO DO --
-					//Teleport based on rank, rather than the default spawn.
+					IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
+					//Determine if the player's spawn command is on cooldown.
+					//This is exempt for staff and free players.
+					IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
 					Location location = IGLocationFactory.getSpawnByPlayerRank(player).toLocation();
-					location.setYaw(FacingDirection.EAST);
-					player.teleport(location);
+					
+					if (playerRank == IGRankNodes.FREE || playerRank.isStaff()) {
+						player.teleport(location);
+					} else {
+						//Determine if the command is on cooldown
+						IGPlayerSpawn playerSpawn = IGPlayerSpawnFactory.getSpawnByPlayer(igPlayer);
+						
+						if (playerSpawn.isValid()) {
+							if (playerSpawn.isAvailable()) {
+								player.sendMessage(GlobalTags.LOGO + "§cYour /spawn command is now on cooldown for §l1 hour§r§c.");
+								playerSpawn.setCooldown();
+								playerSpawn.save();
+								player.teleport(location);
+							} else {
+								//Determine if player has defiance points to spend.
+								IGPlayerStats igPlayerStats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
+								if (igPlayerStats.getDonatorPoints() > 0) {
+									igPlayerStats.removeDonatorPoint();
+									igPlayerStats.save();
+									player.sendMessage(GlobalTags.LOGO + "§dYou used one (1) " + GlobalTags.DEFIANCE + "§5Points §dto override your /spawn cooldown.");
+									player.teleport(location);
+								} else {
+									player.sendMessage(GlobalTags.LOGO + "§4On cooldown! §cAvailable in: §f" + DateConverter.compareDatesToNowFriendly(playerSpawn.getCooldown()));
+								}
+							}
+						} else {
+							//Not available, so add them to the database.
+							IGPlayerSpawnFactory.add(igPlayer);
+							player.sendMessage(GlobalTags.LOGO + "§cYour /spawn command is now on cooldown for §l1 hour§r§c.");
+							player.teleport(location);
+						}
+					}
 				}
 				
 				// [/warp <label>]
@@ -82,6 +124,28 @@ public class TeleportCommand implements CommandExecutor {
 					}
 				}
 				
+				if (lbl.equalsIgnoreCase("visit")) {
+					
+					if (args.length == 1) {
+						//Determine if cell block is in lockdown
+						if (IGCells.isCell(args[0])) {
+							IGCells cell = IGCells.getCell(args[0]);
+							
+							if (IGLockdownFactory.isCellInLockdown(cell)) {
+								player.sendMessage(GlobalTags.LOGO + cell.getTag() + "§cis currently under lockdown. Try again later.");
+							} else {
+								player.teleport(IGLocations.getLocationByLabel(cell.getLabel() + "_visitation").toLocation());
+								player.sendMessage(GlobalTags.LOGO + "You are now visiting " + cell.getTag() + ".");
+							}
+						} else {
+							player.sendMessage(GlobalTags.LOGO + "You did not enter in the right cell. Try A, B, C, or D.");
+						}
+						
+					} else {
+						player.sendMessage(GlobalTags.LOGO + "Usage: /visit <a/b/c/d>");
+						player.sendMessage(GlobalTags.LOGO + "§cYou may not visit cell blocks in lockdown.");
+					}
+				}
 			
 				
 				

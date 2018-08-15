@@ -98,7 +98,7 @@ public class IGBounty extends HasID {
 		if (isClaimed()) query.addSet("claimedID", claimedId);
 		query.addSet("amount", amount);
 		query.addSet("progress", progress.getId());
-		query.addID(getId());
+		query.addId(getId());
 		query.execute();
 	}
 	
@@ -107,7 +107,7 @@ public class IGBounty extends HasID {
 	 */
 	public void delete() {
 		SQLQuery query = new SQLQuery(QueryType.DELETE, TABLE_NAME);
-		query.addID(getId());
+		query.addId(getId());
 		query.execute();
 	}
 	

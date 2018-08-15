@@ -21,9 +21,6 @@ commands:
      points:
         description: View your donation point count.
         permission: igprison.donatorpoints
-     donatorpoints:
-        description: View your donation point count.
-        permission: igprison.donatorpoints
      solitary:
         description: Add or remove a player from solitary confinement.
         permission: igprison.solitarycmd
@@ -96,3 +93,9 @@ commands:
      tower:
         description: Teleport to a Guard tower.
         permission: igprison.tower
+     visit:
+        description: Visit a certain cell block.
+        permission: igprison.visit
+     convert:
+        description: Convert items to drugs.
+        permission: igprison.convert

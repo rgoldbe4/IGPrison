@@ -10,6 +10,7 @@ import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.user.IGLink;
+import us.ignitiongaming.entity.user.IGUser;
 import us.ignitiongaming.enums.IGEnvironments;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.user.IGLinkFactory;
@@ -28,26 +29,28 @@ public class LinkCommand implements CommandExecutor{
 					
 					if (IGPrison.environment == IGEnvironments.MAIN || player.getName().equalsIgnoreCase("buffsovernexus")) {
 						if (args.length == 0) {
-							player.sendMessage(GlobalTags.LOGO + "§8URL: §7§o§nhttp://www.ignitiongaming.us/mc/link§r");
+							player.sendMessage(GlobalTags.LOGO + "§8URL: §7§o§nhttp://www.ignitiongaming.us/mc/donate/link.php§r");
 						}
 						else if (args.length == 1) {
 							IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
+							boolean isAlreadyLinked = IGUserFactory.doesUserHavePlayerId(igPlayer.getId());
 							//Now see if they have any links.
-							IGLink link = IGLinkFactory.getLinkByIGPlayer(igPlayer);
 							
-							if (link.isValid()) {
-								//They have a link... Check if the code is OK.
-								String code = link.getCode();
-								boolean isCorrect = code.equalsIgnoreCase(args[0]);
-								if (isCorrect) {
+							if (!isAlreadyLinked) {
+								IGLink link = IGLinkFactory.getLinkByCode(args[0]);
+								
+								if (link.isValid()) {
+									IGUser user = IGUserFactory.getUserById(link.getUserId());
+									user.setPlayerId(igPlayer.getId());
+									user.save();
 									link.setConfirm(true);
 									link.save();
 									player.sendMessage("Your account has been verified!");
-									//Now update the IGUser with the correct playerID
-									IGUserFactory.setPlayerIDByUserID(link.getUserId(), igPlayer.getId());
+								} else {
+									player.sendMessage("You have entered in the wrong code for your account. Please visit http://www.ignitiongaming.us/mc/donate/link.php to retrieve a code.");
 								}
 							} else {
-								player.sendMessage("Your account has no pending link code. Please visit http://www.ignitiongaming.us/mc/donate/link.php to retrieve a code.");
+								player.sendMessage("Your account has already been linked. Please report this if it is in error to the forums.");
 							}
 						} else {
 							player.sendMessage(GlobalMessages.INVALID_COMMAND);
