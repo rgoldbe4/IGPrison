@@ -44,7 +44,7 @@ public class DefianceArmor {
 		ItemStack boots = new ItemStack(Material.DIAMOND_BOOTS);
 		boots = addOverallEnchantments(boots);
 		boots.addUnsafeEnchantment(Enchantment.DEPTH_STRIDER, 4);
-		boots.addUnsafeEnchantment(Enchantment.FROST_WALKER, 10);
+		boots.addUnsafeEnchantment(Enchantment.FROST_WALKER, 2);
 		boots.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 5);
 		ItemMeta itemMeta = boots.getItemMeta();
 		itemMeta.setDisplayName("§5Defiance Boots");
