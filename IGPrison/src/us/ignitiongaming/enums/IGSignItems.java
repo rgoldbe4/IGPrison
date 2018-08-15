@@ -13,7 +13,9 @@ public enum IGSignItems {
 	PICKAXE ("PICKAXE", 1),
 	PLAYER_SKULL ("SKULL", 0),
 	MELON ("MELON", 16),
-	STICKS ("STICKS", 16);
+	STICKS ("STICKS", 16),
+	APPLES ("APPLES", 16),
+	APPLE ("APPLE", 16);
 	
 	private String name;
 	private int amount;
@@ -76,6 +78,10 @@ public enum IGSignItems {
 				break;
 			case STICKS:
 				material = Material.STICK;
+				break;
+			case APPLE:
+			case APPLES:
+				material = Material.APPLE;
 				break;
 			default:
 				material = Material.COBBLESTONE;
