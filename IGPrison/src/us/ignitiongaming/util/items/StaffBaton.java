@@ -49,20 +49,4 @@ public class StaffBaton {
 		return item;
 	}
 	
-	public static ItemStack getSolitaryBaton() {
-		ItemStack item = new ItemStack(Material.END_ROD);
-		ItemMeta itemMeta = item.getItemMeta();
-		itemMeta.setDisplayName(IGBatons.SOLITARY_STICK.getTag());
-		
-		List<String> lore = new ArrayList<>();
-		lore.add(IGRankNodes.SOLITARY.getTag());
-		lore.add("Left Click - Enact Solitary");
-		lore.add("Right Click - Check For Contraband");
-		
-		itemMeta.setLore(lore);
-		
-		item.setItemMeta(itemMeta);
-		
-		return item;
-	}
 }

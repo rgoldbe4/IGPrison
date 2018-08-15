@@ -3,7 +3,7 @@ package us.ignitiongaming.enums;
 import org.bukkit.ChatColor;
 
 public enum IGBatons {
-	SHOCK_BATON("§6§lSHOCK BATON"), GUARD_BATON("§2§lGUARD BATON"), SOLITARY_STICK("§8§lSOLITARY STICK");
+	SHOCK_BATON("§6§lSHOCK BATON"), GUARD_BATON("§2§lGUARD BATON");
 	
 	private String tag;
 	

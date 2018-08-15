@@ -44,7 +44,6 @@ public class StaffCommand implements CommandExecutor{
 							player.getInventory().setBoots(GuardArmor.getBoots());
 							//Add guard equipment
 							player.getInventory().addItem(StaffBaton.getBaton());
-							player.getInventory().addItem(StaffBaton.getSolitaryBaton());
 							
 							player.teleport(IGLocations.D_TOWER.toLocation());
 						}
@@ -74,7 +73,6 @@ public class StaffCommand implements CommandExecutor{
 							player.getInventory().setBoots(WardenArmor.getBoots());
 							//Add guard equipment
 							player.getInventory().addItem(StaffBaton.getBaton());
-							player.getInventory().addItem(StaffBaton.getSolitaryBaton());
 							player.getInventory().addItem(StaffBaton.getShockBaton());
 							
 							player.teleport(IGLocations.D_TOWER.toLocation());
