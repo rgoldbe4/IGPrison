@@ -111,6 +111,16 @@ public class RankupCommand implements CommandExecutor {
 				}
 				
 				
+			} else {
+				if (lbl.equalsIgnoreCase("setrank")) {
+					if (args.length == 2) {
+						Player target = Bukkit.getPlayer(args[0]);
+						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + args[0] + " group set " + args[1]);
+						if (target != null) {
+							target.setPlayerListName(IGRankNodes.getPlayerFormatting(target));
+						}
+					}
+				}
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
