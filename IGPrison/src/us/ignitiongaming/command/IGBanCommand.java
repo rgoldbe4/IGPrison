@@ -34,21 +34,7 @@ public class IGBanCommand implements CommandExecutor {
 					ChatConverter.clearPlayerChat(player);
 					player.sendMessage("§eUsage: §r§o/igban <player> <-s> <context> <reason>");
 				}
-				else if (args.length == 2) {
-					// [/igban <player> <context>]
-					boolean isSilent = false;
-					IGPlayer igTarget = IGPlayerFactory.getIGPlayerFromName(args[0]);
-					String context = args[1];
-					banPlayer(player, igPlayer, igTarget, context, isSilent, reason);
-				}
-				else if (args.length == 3) {
-					// [/igban <player> -s <context>]
-					boolean isSilent = args[1].equalsIgnoreCase("-s");
-					IGPlayer igTarget = IGPlayerFactory.getIGPlayerFromName(args[0]);
-					String context = args[2];
-					banPlayer(player, igPlayer, igTarget, context, isSilent, reason);
-				}
-				else if (args.length > 3) {
+				else if (args.length > 2) {
 					// [/igban <player> <-s> <context> <reason>]
 					boolean isSilent = args[1].equalsIgnoreCase("-s");
 					IGPlayer igTarget = IGPlayerFactory.getIGPlayerFromName(args[0]);
@@ -65,6 +51,9 @@ public class IGBanCommand implements CommandExecutor {
 						banPlayer(player, igPlayer, igTarget, context, isSilent, reason);
 					}
 					
+				} else {
+					ChatConverter.clearPlayerChat(player);
+					player.sendMessage("§eUsage: §r§o/igban <player> <-s> <context> <reason>");
 				}
 			}
 		}

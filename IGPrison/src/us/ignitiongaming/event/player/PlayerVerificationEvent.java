@@ -119,7 +119,8 @@ public class PlayerVerificationEvent implements Listener {
 		if (igPlayer.isValid()){
 			if (IGPlayerBannedFactory.isBanned(igPlayer)){
 				IGPlayerBanned playerBan = IGPlayerBannedFactory.getPlayerBan(igPlayer);
-				player.kickPlayer(playerBan.getReason());
+				
+				player.kickPlayer("You were banned for \"" + playerBan.getReason() + "\" until " + DateConverter.toFriendlyDate(playerBan.getEndDate()));
 			}
 		}
 	}
