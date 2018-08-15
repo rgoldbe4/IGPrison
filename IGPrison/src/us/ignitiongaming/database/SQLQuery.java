@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
+
+import us.ignitiongaming.IGPrison;
+import us.ignitiongaming.enums.IGEnvironments;
 /**
  * Create an acceptable SQLQuery dynamically.
  */
@@ -97,7 +100,7 @@ public class SQLQuery {
 	 */
 	public void execute() {
 		generate();
-		logQuery();
+		if (IGPrison.environment == IGEnvironments.TESTING) logQuery();
 		if (type == QueryType.SELECT || type == QueryType.INNER_JOIN || type == QueryType.JOIN) {
 			getResults();
 		} else {
@@ -124,7 +127,7 @@ public class SQLQuery {
 	 */	
 	public ResultSet getResults() {
 		generate();
-		logQuery();
+		if (IGPrison.environment == IGEnvironments.TESTING) logQuery();
 		try {
 			return Database.GetStatement().executeQuery(getQuery());
 		} catch (Exception ex) {
