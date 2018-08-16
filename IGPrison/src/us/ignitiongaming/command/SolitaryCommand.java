@@ -192,7 +192,7 @@ public class SolitaryCommand implements CommandExecutor{
 					//Step 3: Well, add to DB and let both players know the situation.
 					IGPlayerSolitaryFactory.add(igTarget, end);
 					
-					
+					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex group solitary user add " + player.getName());
 					
 					if (targetPlayer != null) {
 						targetPlayer.sendMessage(GlobalTags.SOLITARY + "§cYou were sent to solitary by §f" + player.getName() + "§c.");
