@@ -99,3 +99,6 @@ commands:
      convert:
         description: Convert items to drugs.
         permission: igprison.convert
+     igunban:
+        description: Unban a player from our system.
+        permissions: igprison.unban

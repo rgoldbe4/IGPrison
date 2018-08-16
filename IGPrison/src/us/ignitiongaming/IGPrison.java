@@ -152,6 +152,7 @@ public class IGPrison extends JavaPlugin {
 			// -- Kick Ban Command --
 			this.getCommand("igkick").setExecutor(new IGKickCommand());
 			this.getCommand("igban").setExecutor(new IGBanCommand());
+			this.getCommand("igunban").setExecutor(new IGBanCommand());
 			
 			// -- Clear Chat Command --
 			this.getCommand("clearchat").setExecutor(new ClearChatCommand());

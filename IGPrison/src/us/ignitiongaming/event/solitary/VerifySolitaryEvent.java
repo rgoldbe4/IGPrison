@@ -30,9 +30,10 @@ public class VerifySolitaryEvent implements Listener {
 				if (igPlayerSolitary.hasServed()) {
 					igPlayerSolitary.delete();
 					player.sendMessage(GlobalTags.SOLITARY + "§eYou have served your time in solitary.");
-					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " remove " + IGRankNodes.SOLITARY.getNode());
+					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex group solitary user remove " + player.getName());
 					player.teleport(IGLocationFactory.getSpawnByPlayerRank(player).toLocation());
 					
+					player.setPlayerListName(IGRankNodes.getPlayerFormatting(player));
 				}
 			}
 			

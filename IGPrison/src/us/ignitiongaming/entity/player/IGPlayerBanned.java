@@ -3,6 +3,8 @@ package us.ignitiongaming.entity.player;
 import java.sql.ResultSet;
 import java.util.Date;
 
+import us.ignitiongaming.database.SQLQuery;
+import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.HasID;
 import us.ignitiongaming.util.convert.BooleanConverter;
 import us.ignitiongaming.util.convert.DateConverter;
@@ -58,4 +60,14 @@ public class IGPlayerBanned extends HasID {
 		return !currentTime.after(endTime);
 	}
 	
+	public void save() {
+		SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
+		query.addSet("playerID", playerId);
+		query.addSet("reason", reason);
+		query.addSet("banStart", startDate);
+		query.addSet("banEnd", endDate);
+		query.addSet("permanent", permanent);
+		query.addId(getId());
+		query.execute();
+	}
 }

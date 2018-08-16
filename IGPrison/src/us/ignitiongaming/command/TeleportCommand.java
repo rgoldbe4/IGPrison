@@ -41,7 +41,9 @@ public class TeleportCommand implements CommandExecutor {
 					IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
 					Location location = IGLocationFactory.getSpawnByPlayerRank(player).toLocation();
 					
-					if (playerRank == IGRankNodes.FREE || playerRank.isStaff()) {
+					if (playerRank == IGRankNodes.SOLITARY) {
+						player.sendMessage(GlobalTags.SOLITARY + "§4This command is disabled while in solitary.");
+					} else if (playerRank == IGRankNodes.FREE || playerRank.isStaff()) {
 						player.teleport(location);
 					} else {
 						//Determine if the command is on cooldown
