@@ -31,7 +31,9 @@ public class NotifyPlayerConnectionEvent implements Listener {
 		if (igPlayer.isValid()) {
 			if (!IGPlayerBannedFactory.isBanned(igPlayer)) {
 				event.setQuitMessage("§4§l< §f" + player.getName() + " §4§l>");
-			} 
+			} else {
+				event.setQuitMessage("");
+			}
 		} else {
 			event.setQuitMessage("§4§l< §f" + player.getName() + " §4§l>");
 		}

@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.entity.player.IGPlayer;
+import us.ignitiongaming.entity.player.IGPlayerBanned;
 import us.ignitiongaming.factory.player.IGPlayerBannedFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.util.convert.ChatConverter;
@@ -54,6 +55,20 @@ public class IGBanCommand implements CommandExecutor {
 				} else {
 					ChatConverter.clearPlayerChat(player);
 					player.sendMessage("§eUsage: §r§o/igban <player> <-s> <context> <reason>");
+				}
+			}
+			
+			if (lbl.equalsIgnoreCase("igunban")) {
+				IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
+				
+				if (args.length == 0) {
+					ChatConverter.clearPlayerChat(player);
+					player.sendMessage("§eUsage: §r§o/igunban <player>");
+				} else if (args.length == 1) {
+					unbanPlayer(player, igPlayer, args[0]);					
+				} else {
+					ChatConverter.clearPlayerChat(player);
+					player.sendMessage("§eUsage: §r§o/igunban <player>");
 				}
 			}
 		}
@@ -103,4 +118,28 @@ public class IGBanCommand implements CommandExecutor {
 		}
 	}
 
+	private void unbanPlayer(Player player, IGPlayer igPlayer, String target) {
+		
+		IGPlayer igTarget = IGPlayerFactory.getIGPlayerFromName(target);
+		
+		if (igTarget.isValid()) {
+			
+			if (IGPlayerBannedFactory.isBanned(igTarget)) {
+				
+				//Update the player ban with the current time (which unbans them) and removes the permanent tag.
+				IGPlayerBanned playerBan = IGPlayerBannedFactory.getPlayerBan(igTarget);
+				
+				playerBan.setPermanent(0);
+				playerBan.setEndDate(DateConverter.getCurrentTimeString());
+				playerBan.save();
+				
+				player.sendMessage(GlobalTags.LOGO + "§2You have unbanned §f" + igTarget.getName() + "§2.");
+				
+			} else {
+				player.sendMessage(GlobalTags.LOGO + "§4The player you entered is not banned.");
+			}
+		} else {
+			player.sendMessage(GlobalTags.LOGO + "§4The player you entered was not found.");
+		}
+	}
 }

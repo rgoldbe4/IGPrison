@@ -53,6 +53,10 @@ public class BountyCommand implements CommandExecutor{
 							viewCurrentBounties(player, igPlayer);
 						}
 						
+						else {
+							
+						}
+						
 					} 
 					
 					else if (args.length == 2) {
