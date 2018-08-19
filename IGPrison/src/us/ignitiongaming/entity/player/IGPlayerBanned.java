@@ -38,9 +38,11 @@ public class IGPlayerBanned extends HasID {
 
 	public String getEndDate() { return endDate; }
 	public void setEndDate(String endDate) { this.endDate = endDate; }
+	public Date getEnd() { return DateConverter.convertStringDateTimeToDate(endDate); }
 
 	public String getStartDate() { return startDate;}
-	public void setStartDate(String startDate) { this.startDate = startDate;	}
+	public void setStartDate(String startDate) { this.startDate = startDate; }
+	public Date getStart() { return DateConverter.convertStringDateTimeToDate(startDate); }
 
 	public String getReason() { return reason; }
 	public void setReason(String reason) { this.reason = reason; }

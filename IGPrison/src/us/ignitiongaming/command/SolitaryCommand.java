@@ -157,6 +157,8 @@ public class SolitaryCommand implements CommandExecutor{
 				
 				player.sendMessage(GlobalTags.SOLITARY + "§aYou have freed §f" + igPlayer.getName() + "§a from solitary.");
 				
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex group solitary user remove " + igPlayer.getName());
+				
 				//Determine if the target is online.
 				Player targetPlayer = Bukkit.getPlayer(igPlayer.getName());
 				
