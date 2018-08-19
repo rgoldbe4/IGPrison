@@ -2,11 +2,13 @@ package us.ignitiongaming.event.player;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.enums.IGLocations;
@@ -61,6 +63,7 @@ public class PlayerSpawnEvent implements Listener {
 			Bukkit.broadcastMessage(GlobalTags.LOGO + "Welcome to our server, " + player.getName() + "!");
 			IGRankNodes rank = IGRankNodes.getPlayerRank(player);
 			player.setPlayerListName(rank.getFormatting() + player.getName());
+			player.getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE));
 		}
 	}
 }
