@@ -89,10 +89,8 @@ public class DrugUseEvent implements Listener {
 					if (clickedBlock.getType() == Material.STONE 
 							|| clickedBlock.getType() == Material.IRON_ORE 
 							|| clickedBlock.getType() == Material.DIAMOND_ORE
-							|| clickedBlock.getType() == Material.GRASS 
 							|| clickedBlock.getType() == Material.EMERALD_ORE 
 							|| clickedBlock.getType() == Material.COAL_ORE
-							|| clickedBlock.getType() == Material.COBBLESTONE 
 							|| clickedBlock.getType() == Material.GOLD_ORE) {
 						event.getClickedBlock().breakNaturally();
 					}
