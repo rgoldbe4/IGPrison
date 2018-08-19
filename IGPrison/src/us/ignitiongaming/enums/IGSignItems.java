@@ -3,27 +3,29 @@ package us.ignitiongaming.enums;
 import org.bukkit.Material;
 
 public enum IGSignItems {
-	IRON ("IRON", 64),
-	IRON_INGOT ("IRON_INGOT", 64),
-	GOLD ("GOLD", 64),
-	DIAMOND ("DIAMOND", 64),
-	EMERALD ("EMERALD", 64),
-	COAL ("COAL", 64),
-	COBBLESTONE ("COBBLESTONE", 64),
-	PICKAXE ("PICKAXE", 1),
-	PLAYER_SKULL ("SKULL", 0),
-	MELON ("MELON", 16),
-	STICKS ("STICKS", 16),
-	APPLES ("APPLES", 16),
-	APPLE ("APPLE", 16);
+	// <ITEM> (NAME, BUY, SELL)
+	IRON ("IRON", 64, 1),
+	IRON_INGOT ("IRON_INGOT", 64, 1),
+	GOLD ("GOLD", 64, 1),
+	DIAMOND ("DIAMOND", 64, 1),
+	EMERALD ("EMERALD", 64, 1),
+	COAL ("COAL", 64, 1),
+	COBBLESTONE ("COBBLESTONE", 64, 1),
+	PICKAXE ("PICKAXE", 1, 1),
+	PLAYER_SKULL ("SKULL", 0, 1),
+	MELON ("MELON", 16, 0),
+	STICKS ("STICKS", 16, 0),
+	APPLES ("APPLES", 16, 0),
+	APPLE ("APPLE", 16, 0);
 	
 	private String name;
-	private int amount;
+	private int buy, sell;
 	
 	
-	private IGSignItems(String name, int amount) {
+	private IGSignItems(String name, int buy, int sell) {
 		this.name = name;
-		this.amount = amount;
+		this.buy = buy;
+		this.sell = sell;
 	}
 	
 	public String getName() { return name.toUpperCase(); }
@@ -35,7 +37,8 @@ public enum IGSignItems {
 		return expected;
 	}
 	
-	public int getAmount() { return amount; }
+	public int getBuyAmount() { return buy; }
+	public int getSellAmount() { return sell; }
 	
 	public String getLabel() { return name; }
 	

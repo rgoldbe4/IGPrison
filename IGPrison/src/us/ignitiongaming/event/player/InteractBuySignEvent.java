@@ -49,7 +49,7 @@ public class InteractBuySignEvent implements Listener {
 							
 							//Give them the item.
 							ItemStack item = new ItemStack(signItem.toMaterial());
-							item.setAmount(signItem.getAmount());
+							item.setAmount(signItem.getBuyAmount());
 							
 							player.getInventory().addItem(item);
 							player.sendMessage(SignTags.BUY + " You were given §e" + signItem.getName() + "§f.");
