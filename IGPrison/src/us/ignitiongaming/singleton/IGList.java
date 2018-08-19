@@ -14,4 +14,5 @@ public class IGList {
 	
 	// * DRUGS *
 	public static List<Player> drillUse = new ArrayList<>();
+	public static List<Player> drugCooldown = new ArrayList<>();
 }
