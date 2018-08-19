@@ -50,6 +50,7 @@ import us.ignitiongaming.event.player.PlayerRecordEvent;
 import us.ignitiongaming.event.player.PlayerSpawnEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
 import us.ignitiongaming.event.server.NotifyPlayerConnectionEvent;
+import us.ignitiongaming.event.server.ServerAnnouncementEvent;
 import us.ignitiongaming.event.server.ServerListEvent;
 import us.ignitiongaming.event.solitary.VerifySolitaryEvent;
 import us.ignitiongaming.factory.other.IGSettingFactory;
@@ -109,6 +110,7 @@ public class IGPrison extends JavaPlugin {
 			this.getServer().getPluginManager().registerEvents(new InteractBuySignEvent(), this);
 			this.getServer().getPluginManager().registerEvents(new PickaxeDamageEvent(), this);
 			this.getServer().getPluginManager().registerEvents(new BatonAttackEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new ServerAnnouncementEvent(), this);
 			
 			/* Commands */
 			// -- Help Command --
