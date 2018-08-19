@@ -30,6 +30,10 @@ public class DonatorCommand implements CommandExecutor {
 					player.sendMessage(GlobalTags.DEFIANCE_POINTS + igStats.getDonatorPoints());
 				}
 				
+				if (lbl.equalsIgnoreCase("discord")) {
+					player.sendMessage(GlobalTags.LOGO + "Join our Discord: §b§ohttps://discord.gg/PMtfKu7");
+				}
+				
 				
 			}
 		} catch (Exception ex) {

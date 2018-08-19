@@ -102,3 +102,6 @@ commands:
      igunban:
         description: Unban a player from our system.
         permissions: igprison.unban
+     discord:
+        description: Display a discord link.
+        permissions: igprison.discord

@@ -182,6 +182,9 @@ public class IGPrison extends JavaPlugin {
 			
 			// - Convert command --
 			this.getCommand("convert").setExecutor(new ConvertCommand());
+			
+			// - Discord command --
+			this.getCommand("discord").setExecutor(new DonatorCommand());
 		
 		} catch (Exception ex) {
 			
