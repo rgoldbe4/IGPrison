@@ -105,3 +105,15 @@ commands:
      discord:
         description: Display a discord link.
         permissions: igprison.discord
+     home:
+        description: Go to your set homes.
+        permissions: igprison.home
+     sethome:
+        description: Set a home.
+        permissions: igprison.sethome
+     delhome:
+        description: Delete a home.
+        permissions: igprison.delhome
+     homes:
+        description: View all of your homes.
+        permissions: igprison.homes

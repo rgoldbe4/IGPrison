@@ -95,7 +95,7 @@ public class SQLQuery {
 		return type;
 	}
 	/**
-	 * Execute the query using getSafeQuery(). Return result if query type is SELECT. Also closes connection afterwards.
+	 * Execute the query using getSafeQuery(). Return result if query type is SELECT.
 	 * @return
 	 */
 	public void execute() {

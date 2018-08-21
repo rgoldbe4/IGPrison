@@ -16,6 +16,7 @@ import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.GangCommand;
 import us.ignitiongaming.command.HelpCommand;
+import us.ignitiongaming.command.HomeCommand;
 import us.ignitiongaming.command.IGBanCommand;
 import us.ignitiongaming.command.IGKickCommand;
 import us.ignitiongaming.command.LinkCommand;
@@ -173,20 +174,26 @@ public class IGPrison extends JavaPlugin {
 			// -- Gang command --
 			this.getCommand("gang").setExecutor(new GangCommand());
 			
-			// - Bounty command --
+			// -- Bounty command --
 			this.getCommand("bounty").setExecutor(new BountyCommand());
 			
-			// - Tower command --
+			// -- Tower command --
 			this.getCommand("tower").setExecutor(new TowerCommand());
 			
-			// - Visit command --
+			// -- Visit command --
 			this.getCommand("visit").setExecutor(new TeleportCommand());
 			
-			// - Convert command --
+			// -- Convert command --
 			this.getCommand("convert").setExecutor(new ConvertCommand());
 			
-			// - Discord command --
+			// -- Discord command --
 			this.getCommand("discord").setExecutor(new DonatorCommand());
+			
+			// -- Home command --
+			this.getCommand("home").setExecutor(new HomeCommand());
+			this.getCommand("sethome").setExecutor(new HomeCommand());
+			this.getCommand("delhome").setExecutor(new HomeCommand());
+			this.getCommand("homes").setExecutor(new HomeCommand());
 		
 		} catch (Exception ex) {
 			

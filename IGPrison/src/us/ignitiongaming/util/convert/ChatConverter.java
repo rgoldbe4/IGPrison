@@ -3,6 +3,8 @@ package us.ignitiongaming.util.convert;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import com.google.common.base.CaseFormat;
+
 public class ChatConverter {
 
 	public static String convertToColor(String message) {
@@ -24,6 +26,10 @@ public class ChatConverter {
 	
 	public static String stripCurrency(String message) {
 		return message.replace("$", "").replace(",", "");
+	}
+	
+	public static String toCamelCase(String message) {
+		return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, message);
 	}
 	
 	

@@ -36,6 +36,7 @@ public class IGPlayerHome extends HasID {
 		SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
 		query.addSet("playerID", getPlayerId());
 		query.addSet("homeID", getHomeId());
+		query.addSet("visible", getVisible());
 		query.addId(getId());
 		query.execute();
 	}
@@ -44,5 +45,6 @@ public class IGPlayerHome extends HasID {
 		SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
 		query.addSet("visible", getVisible());
 		query.addId(getId());
+		query.execute();
 	}
 }
