@@ -31,7 +31,7 @@ public class DonatorCommand implements CommandExecutor {
 				}
 				
 				if (lbl.equalsIgnoreCase("discord")) {
-					player.sendMessage(GlobalTags.LOGO + "Join our Discord: §b§ohttps://discord.gg/PMtfKu7");
+					player.sendMessage(GlobalTags.LOGO + "Join our Discord: §b§nhttps://discord.gg/M7Jc4N6");
 				}
 				
 				
