@@ -12,7 +12,9 @@ public enum IGRankNodes {
 	FREE ("igprison.free", "§8[§aFree§8] §r", "§a", false),
 	GUARD ("igprison.guard", "§8[§6Guard§8] §r", "§6", true),
 	WARDEN ("igprison.warden", "§8[§4Warden§8] §r", "§4", true),
-	STAFF ("igprison.staff", "§8[§bStaff§8] §r", "§b", true);
+	STAFF ("igprison.staff", "§8[§bStaff§8] §r", "§b", true),
+	ARCHITECT ("igprison.staff", "§8[§bArchitect§8] §r", "§b", true),
+	OWNER ("igprison.staff", "§8[§bOwner§8] §r", "§b", true);
 	
 	private String node, tag, nameColor;
 	private boolean isStaff;
@@ -51,7 +53,7 @@ public enum IGRankNodes {
 	
 	public static String getPlayerFormatting(Player player) {
 		IGRankNodes rank = getPlayerRank(player);
-		return rank.getFormatting() + player.getDisplayName();
+		return rank.getFormatting() + player.getName();
 	}
 	
 	public String getFormatting() {

@@ -27,6 +27,7 @@ import us.ignitiongaming.command.SmeltCommand;
 import us.ignitiongaming.command.SolitaryCommand;
 import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.StaffCommand;
+import us.ignitiongaming.command.StatsCommand;
 import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.command.TowerCommand;
 import us.ignitiongaming.config.ServerDefaults;
@@ -50,6 +51,7 @@ import us.ignitiongaming.event.player.PlayerListEvent;
 import us.ignitiongaming.event.player.PlayerRecordEvent;
 import us.ignitiongaming.event.player.PlayerSpawnEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
+import us.ignitiongaming.event.player.ShowPlayerStatsEvent;
 import us.ignitiongaming.event.server.NotifyPlayerConnectionEvent;
 import us.ignitiongaming.event.server.ServerAnnouncementEvent;
 import us.ignitiongaming.event.server.ServerListEvent;
@@ -112,6 +114,7 @@ public class IGPrison extends JavaPlugin {
 			this.getServer().getPluginManager().registerEvents(new PickaxeDamageEvent(), this);
 			this.getServer().getPluginManager().registerEvents(new BatonAttackEvent(), this);
 			this.getServer().getPluginManager().registerEvents(new ServerAnnouncementEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new ShowPlayerStatsEvent(), this);
 			
 			/* Commands */
 			// -- Help Command --
@@ -131,7 +134,7 @@ public class IGPrison extends JavaPlugin {
 			
 			// -- Teleport Commands --
 			this.getCommand("spawn").setExecutor(new TeleportCommand());
-			this.getCommand("warp").setExecutor(new TeleportCommand());
+			this.getCommand("igwarp").setExecutor(new TeleportCommand());
 			this.getCommand("setspawn").setExecutor(new TeleportCommand());
 			this.getCommand("goto").setExecutor(new TeleportCommand());
 			this.getCommand("bring").setExecutor(new TeleportCommand());
@@ -194,6 +197,9 @@ public class IGPrison extends JavaPlugin {
 			this.getCommand("sethome").setExecutor(new HomeCommand());
 			this.getCommand("delhome").setExecutor(new HomeCommand());
 			this.getCommand("homes").setExecutor(new HomeCommand());
+			
+			// -- IG command --
+			this.getCommand("ig").setExecutor(new StatsCommand());
 		
 		} catch (Exception ex) {
 			

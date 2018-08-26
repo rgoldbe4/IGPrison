@@ -77,7 +77,7 @@ public class TeleportCommand implements CommandExecutor {
 				}
 				
 				// [/warp <label>]
-				if (lbl.equalsIgnoreCase("warp")) {
+				if (lbl.equalsIgnoreCase("igwarp")) {
 					if (args.length == 1) {
 						IGLocations loc = IGLocations.getLocationByLabel(args[0]);
 						Bukkit.getLogger().log(Level.INFO, IGLocationFactory.getLocationByIGLocations(loc).toLocation().toString());

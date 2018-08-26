@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
 
 import us.ignitiongaming.IGPrison;
 import us.ignitiongaming.config.GlobalMessages;
@@ -16,6 +17,7 @@ import us.ignitiongaming.entity.other.IGSetting;
 import us.ignitiongaming.enums.IGEnvironments;
 import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.other.IGSettingFactory;
+import us.ignitiongaming.util.handy.ScoreboardAnnouncer;
 import us.ignitiongaming.util.items.DefianceArmor;
 import us.ignitiongaming.util.items.DefianceWeapon;
 
@@ -79,6 +81,15 @@ public class AdminCommand implements CommandExecutor{
 								for (IGRankNodes rank : IGRankNodes.values()) {
 									player.sendMessage(rank.getFormatting());
 								}
+							}
+							
+							if (args[0].equalsIgnoreCase("scoreboard")) {
+								ScoreboardAnnouncer scoreboard = new ScoreboardAnnouncer(player);
+								scoreboard.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+								scoreboard.addSpacer();
+								scoreboard.addLine("Ignition Gaming Prison");
+								scoreboard.addTimer(10);
+								scoreboard.hook();
 							}
 							
 							

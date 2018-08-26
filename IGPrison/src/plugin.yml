@@ -30,7 +30,7 @@ commands:
      setspawn:
         description: Set the spawn of a location.
         permission: igprison.setspawn
-     warp:
+     igwarp:
         description: Warp to a location.
         permission: igprison.warp
      now:
@@ -117,3 +117,6 @@ commands:
      homes:
         description: View all of your homes.
         permissions: igprison.homes
+     ig:
+        description: View your stats.
+        permissions: igprison.stats

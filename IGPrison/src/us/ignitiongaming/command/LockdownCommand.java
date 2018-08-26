@@ -17,6 +17,7 @@ import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.util.convert.BooleanConverter;
 import us.ignitiongaming.util.convert.ChatConverter;
 import us.ignitiongaming.util.convert.DateConverter;
+import us.ignitiongaming.util.handy.ScoreboardAnnouncer;
 
 public class LockdownCommand implements CommandExecutor {
 
@@ -67,12 +68,14 @@ public class LockdownCommand implements CommandExecutor {
 	}
 	
 	private void viewLockdowns(Player player) {
-		ChatConverter.clearPlayerChat(player);
-		player.sendMessage("§8 -- " + GlobalTags.LOCKDOWN + "Status §8--");
+		ScoreboardAnnouncer scoreboard = new ScoreboardAnnouncer(player);
+		scoreboard.setTitle(GlobalTags.LOCKDOWN);
 		for (IGCells cell : IGCells.values()) {
 			boolean isCellInLockdown = IGLockdownFactory.isCellInLockdown(cell);
-			player.sendMessage(" " + cell.getTag() + ">> " + BooleanConverter.getYesNoFromBooleanWithColor(isCellInLockdown));
+			scoreboard.addLine(" " + cell.getTag() + ">> " + BooleanConverter.getYesNoFromBooleanWithColor(isCellInLockdown));
 		}
+		scoreboard.addTimer(10);
+		scoreboard.hook();
 	}
 	
 	private void showHelp(Player player) {
