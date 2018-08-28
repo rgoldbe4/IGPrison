@@ -26,6 +26,7 @@ public class BuyCommandsMenu implements Listener {
 	@EventHandler
 	public static void onInteractBuyMenu(InventoryClickEvent event) {
 		try {
+			if (event.getCurrentItem() == null) return;
 			Player player = (Player) event.getWhoClicked();
 			ItemStack item = event.getCurrentItem();
 			Inventory menu = event.getInventory();

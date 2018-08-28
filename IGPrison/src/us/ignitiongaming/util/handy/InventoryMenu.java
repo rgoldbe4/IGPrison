@@ -12,6 +12,29 @@ import us.ignitiongaming.enums.IGMenus;
 
 public class InventoryMenu {
 
+	public static Inventory getMainMenu() {
+		Inventory menu = Bukkit.createInventory(null, 27, IGMenus.GENERAL_MENU.getName());
+		ItemStack close = new ItemStack(Material.BARRIER);
+		ItemStack buyCommand = new ItemStack(Material.COMMAND);
+		ItemStack defianceShop = new ItemStack(Material.NETHER_BRICK);
+		
+		ItemMeta defianceShopMeta = defianceShop.getItemMeta();
+		ItemMeta buyCommandMeta = buyCommand.getItemMeta();
+		ItemMeta closeMeta = close.getItemMeta();
+		defianceShopMeta.setDisplayName(IGMenus.DEFIANCE_POINTS.getName());
+		defianceShop.setItemMeta(defianceShopMeta);
+		buyCommandMeta.setDisplayName(IGMenus.BUY_COMMANDS.getName());
+		buyCommand.setItemMeta(buyCommandMeta);
+		closeMeta.setDisplayName(IGMenuItems.CLOSE.getDisplayName());
+		close.setItemMeta(closeMeta);
+		
+		menu.setItem(8, close);
+		menu.setItem(11, buyCommand);
+		menu.setItem(12, defianceShop);
+		
+		return menu;
+	}
+	
 	public static Inventory getBuyCommandMenu(Player player) {
 		Inventory menu = Bukkit.createInventory(null, 27, IGMenus.BUY_COMMANDS.getName());
 		ItemStack close = new ItemStack(Material.BARRIER);

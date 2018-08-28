@@ -1,10 +1,12 @@
 package us.ignitiongaming.enums;
 
+import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.util.convert.ChatConverter;
 
 public enum IGMenus {
-	BUY_COMMANDS ("§d§lBUY IN-GAME COMMANDS"),
-	DEFIANCE_POINTS ("§d§lPURCHASE DEFIANCE POINTS");
+	BUY_COMMANDS ("§b§lBUY IN-GAME COMMANDS"),
+	DEFIANCE_POINTS ("§d§lBUY DEFIANCE POINTS"),
+	GENERAL_MENU (GlobalTags.LOGO + "§8§lMAIN MENU");
 	
 	private String name;
 	

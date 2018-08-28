@@ -11,9 +11,10 @@ import us.ignitiongaming.factory.menu.IGMenuItemFactory;
 import us.ignitiongaming.util.convert.ChatConverter;
 
 public enum IGMenuItems {
+	INVALID (-10, "invalid", "", ""),
 	CLOSE (-1, "close", "§4Close Menu", ""),
 	PURCHASED (0, "purchased", "§a§lPURCHASED!", ""),
-	FIX (1, "fix", "§b§l/fix", "essentials.repair.all"),
+	FIX (1, "fix", "§b§l/fix", "essentials.repair"),
 	WORKBENCH (2, "workbench", "§e§l/workbench", "essentials.workbench"),
 	MSG (3, "msg", "§a§l/msg", "essentials.msg"),
 	NICKNAME (4, "nickname", "§d§l/nickname", "igprison.nickname"),
@@ -47,11 +48,14 @@ public enum IGMenuItems {
 	public String getNode() { return node; }
 	
 	public static IGMenuItems getMenuItem(ItemStack item) {
+		if (item.getItemMeta() == null) return IGMenuItems.INVALID;
+		if (item.getItemMeta().getDisplayName() == null) return IGMenuItems.INVALID;
+		
 		for (IGMenuItems menuItem : IGMenuItems.values()) {
 			if (ChatConverter.stripColor(menuItem.getDisplayName()).equalsIgnoreCase(ChatConverter.stripColor(item.getItemMeta().getDisplayName()))) 
 				return menuItem;
 		}
-		return null;
+		return IGMenuItems.INVALID;
 	}
 	
 	public IGMenuItem toMenuItem() {

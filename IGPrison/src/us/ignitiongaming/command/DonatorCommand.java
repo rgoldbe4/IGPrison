@@ -25,7 +25,7 @@ public class DonatorCommand implements CommandExecutor {
 				}
 				
 				if (lbl.equalsIgnoreCase("shop")) {
-					player.openInventory(InventoryMenu.getBuyCommandMenu(player));
+					player.openInventory(InventoryMenu.getMainMenu());
 				}
 				
 				// [/points]
