@@ -4,7 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public enum IGGuardArmor {
 
-	HELMET ("Helmet"), CHESTPLATE ("Chestplate"), LEGGINGS ("Leggings"), BOOTS ("Boots");
+	HELMET ("§6§lGuard Helmet"), CHESTPLATE ("§6§lGuard Chestplate"), LEGGINGS ("§6§lGuard Leggings"), BOOTS ("§6§lGuard Boots");
 	
 	private String label;
 	

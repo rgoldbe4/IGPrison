@@ -4,32 +4,34 @@ import org.bukkit.entity.Player;
 
 public enum IGRankNodes {
 	//node, tag, nameColor, isStaff (default: false)
-	SOLITARY ("igprison.solitary", "§7[§8§lSolitary§r§7] §r", "§8", false),
-	D ("igprison.d", "§8[§5D§8] §r", "§5", false),
-	C ("igprison.c", "§8[§2C§8] §r", "§2", false),
-	B ("igprison.b", "§8[§eB§8] §r", "§e", false),
-	A ("igprison.a", "§8[§cA§8] §r", "§c", false),
-	FREE ("igprison.free", "§8[§aFree§8] §r", "§a", false),
-	GUARD ("igprison.guard", "§8[§6Guard§8] §r", "§6", true),
-	WARDEN ("igprison.warden", "§8[§4Warden§8] §r", "§4", true),
-	STAFF ("igprison.staff", "§8[§bStaff§8] §r", "§b", true),
-	ARCHITECT ("igprison.staff", "§8[§bArchitect§8] §r", "§b", true),
-	OWNER ("igprison.staff", "§8[§bOwner§8] §r", "§b", true);
+	SOLITARY ("igprison.solitary", "§7[§8§lSolitary§r§7] §r", "§8", false, false),
+	D ("igprison.d", "§8[§5D§8] §r", "§5", false, true),
+	C ("igprison.c", "§8[§2C§8] §r", "§2", false, true),
+	B ("igprison.b", "§8[§eB§8] §r", "§e", false, true),
+	A ("igprison.a", "§8[§cA§8] §r", "§c", false, true),
+	FREE ("igprison.free", "§8[§aFree§8] §r", "§a", false, false),
+	GUARD ("igprison.guard", "§8[§6Guard§8] §r", "§6", true, false),
+	WARDEN ("igprison.warden", "§8[§4Warden§8] §r", "§4", true, false),
+	STAFF ("igprison.staff", "§8[§bStaff§8] §r", "§b", true, false),
+	ARCHITECT ("igprison.staff", "§8[§bArchitect§8] §r", "§b", true, false),
+	OWNER ("igprison.staff", "§8[§bOwner§8] §r", "§b", true, false);
 	
 	private String node, tag, nameColor;
-	private boolean isStaff;
+	private boolean isStaff, isInJail;
 	
-	private IGRankNodes(String node, String tag, String nameColor, boolean isStaff) { 
+	private IGRankNodes(String node, String tag, String nameColor, boolean isStaff, boolean isInJail) { 
 		this.node = node;
 		this.tag = tag;
 		this.nameColor = nameColor;
 		this.isStaff = isStaff;
+		this.isInJail = isInJail;
 	}
 	
 	public String getNode() { return node; }
 	public boolean isStaff() { return isStaff; }
 	public String getTag() { return tag; }
 	public String getNameColor() { return nameColor; }
+	public boolean isInJail() { return isInJail; }
 	
 	/**
 	 * Get a player's rank based on permission nodes.

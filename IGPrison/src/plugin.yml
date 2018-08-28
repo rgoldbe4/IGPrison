@@ -120,3 +120,6 @@ commands:
      ig:
         description: View your stats.
         permissions: igprison.stats
+     shop:
+        description: Open the donator shop menu.
+        permissions: igprison.shop

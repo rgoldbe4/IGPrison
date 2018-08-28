@@ -10,6 +10,7 @@ import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerStats;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
+import us.ignitiongaming.util.handy.InventoryMenu;
 
 public class DonatorCommand implements CommandExecutor {
 
@@ -21,6 +22,10 @@ public class DonatorCommand implements CommandExecutor {
 				// [/donate]
 				if (lbl.equalsIgnoreCase("donate")) {
 					player.sendMessage(GlobalTags.DONATION + "§8URL: §7§o§nhttp://www.ignitiongaming.us/mc/donate§r");
+				}
+				
+				if (lbl.equalsIgnoreCase("shop")) {
+					player.openInventory(InventoryMenu.getBuyCommandMenu(player));
 				}
 				
 				// [/points]

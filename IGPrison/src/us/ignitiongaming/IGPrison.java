@@ -37,6 +37,7 @@ import us.ignitiongaming.event.bounty.KillPlayerWithBountyEvent;
 import us.ignitiongaming.event.gang.DrugUseEvent;
 import us.ignitiongaming.event.gang.GangAttackEvent;
 import us.ignitiongaming.event.gang.PendingRequestEvent;
+import us.ignitiongaming.event.menu.BuyCommandsMenu;
 import us.ignitiongaming.event.other.BatonAttackEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
 import us.ignitiongaming.event.player.GuardDeathEvent;
@@ -78,7 +79,6 @@ public class IGPrison extends JavaPlugin {
 			} else {
 				environment = IGEnvironments.TESTING;
 			}
-			this.getLogger().log(Level.INFO, "Assigned Environment: " + environment);
 			
 			//You know? Vault is kinda stupid for making me use a global variable...
 			setupEconomy();
@@ -115,6 +115,7 @@ public class IGPrison extends JavaPlugin {
 			this.getServer().getPluginManager().registerEvents(new BatonAttackEvent(), this);
 			this.getServer().getPluginManager().registerEvents(new ServerAnnouncementEvent(), this);
 			this.getServer().getPluginManager().registerEvents(new ShowPlayerStatsEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new BuyCommandsMenu(), this);
 			
 			/* Commands */
 			// -- Help Command --
@@ -200,6 +201,9 @@ public class IGPrison extends JavaPlugin {
 			
 			// -- IG command --
 			this.getCommand("ig").setExecutor(new StatsCommand());
+			
+			// -- Shop system command --
+			this.getCommand("shop").setExecutor(new DonatorCommand());
 		
 		} catch (Exception ex) {
 			

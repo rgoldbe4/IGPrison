@@ -2,7 +2,6 @@ package us.ignitiongaming.event.other;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -13,7 +12,7 @@ import us.ignitiongaming.util.convert.ChatConverter;
 
 public class BatonAttackEvent implements Listener {
 
-	@EventHandler
+	
 	public static void onBatonAttack(EntityDamageByEntityEvent event) {
 		try {
 			//Ignore the event if it's not player on player.
