@@ -63,12 +63,26 @@ public class InventoryMenu {
 		close.setItemMeta(closeMeta);
 		
 		// Add items to inventory menu.
-		menu.setItem(9, close);
+		menu.setItem(8, close);
 		menu.setItem(11, player.hasPermission(IGMenuItems.FIX.getNode()) ? bedrock : fix);
 		menu.setItem(12, player.hasPermission(IGMenuItems.WORKBENCH.getNode()) ? bedrock : workbench);
 		menu.setItem(13, player.hasPermission(IGMenuItems.MSG.getNode()) ? bedrock : msg);
 		menu.setItem(14, player.hasPermission(IGMenuItems.NICKNAME.getNode()) ? bedrock : nickname);
 		menu.setItem(15, player.hasPermission(IGMenuItems.ENDERCHEST.getNode()) ? bedrock : enderchest);
+		
+		return menu;
+	}
+	
+	public static Inventory getBuyDefianceMenu(Player player) {
+		Inventory menu = Bukkit.createInventory(null, 27, IGMenus.DEFIANCE_POINTS.getName());
+		ItemStack close = new ItemStack(Material.BARRIER);
+		ItemMeta closeMeta = close.getItemMeta();
+		
+		// -- Close --
+		closeMeta.setDisplayName(IGMenuItems.CLOSE.getDisplayName());
+		close.setItemMeta(closeMeta);
+				
+		menu.setItem(8, close);
 		
 		return menu;
 	}
