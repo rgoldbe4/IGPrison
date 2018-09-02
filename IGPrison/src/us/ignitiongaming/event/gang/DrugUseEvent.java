@@ -38,34 +38,40 @@ public class DrugUseEvent implements Listener {
 				//Determine if player is using auto drop.
 				if (itemInHand.getItemMeta().getLore().get(0).equalsIgnoreCase(GlobalTags.DRUGS + IGDrugType.AUTO_DROP.getTitle())) {
 					
-					if (!IGList.drillUse.contains(player)) {
-						//Ensure we don't delete an entire stack for nothing...
-						if (itemInHand.getAmount() > 1)
-							itemInHand.setAmount(itemInHand.getAmount() - 1);
-						else
-							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-						
-						//Add default speed for 10 seconds.
-						player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, TickConverter.getTicksInSeconds(10), 0));
-						player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, TickConverter.getTicksInSeconds(10), 0));
-						
-						player.sendMessage(GlobalTags.DRUGS + "You have consumed: " + IGDrugType.AUTO_DROP.getTitle());
-						
-						//Add them to the list.
-						IGList.drillUse.add(player);
-						//Now, in 15 seconds, cancel the event.
-						Bukkit.getScheduler().runTaskLater(IGPrison.plugin, new Runnable()
-						{
-							@Override
-							public void run(){
-								if (IGList.drillUse.contains(player))
-								{
-									IGList.drillUse.remove(player);
+					if (!IGList.drugCooldown.contains(player)) {
+						if (!IGList.drillUse.contains(player)) {
+							//Ensure we don't delete an entire stack for nothing...
+							if (itemInHand.getAmount() > 1)
+								itemInHand.setAmount(itemInHand.getAmount() - 1);
+							else
+								player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+							
+							//Add default speed for 10 seconds.
+							player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, TickConverter.getTicksInSeconds(10), 0));
+							player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, TickConverter.getTicksInSeconds(10), 0));
+							
+							player.sendMessage(GlobalTags.DRUGS + "You have consumed: " + IGDrugType.AUTO_DROP.getTitle());
+							
+							
+							//Add them to the list.
+							IGList.drillUse.add(player);
+							//Now, in 15 seconds, cancel the event.
+							Bukkit.getScheduler().runTaskLater(IGPrison.plugin, new Runnable() {
+								@Override
+								public void run(){
+									if (IGList.drillUse.contains(player)) {
+										IGList.drillUse.remove(player);
+										//Want to add the cooldown AFTER the drug is finished.
+										runCooldown(player);
+									}
 								}
-							}
-						}, TickConverter.getTicksInSeconds(10));
+							}, TickConverter.getTicksInSeconds(10));
+							
+						} else {
+							player.sendMessage(GlobalTags.DRUGS + "§4You currently have this drug in use.");
+						}
 					} else {
-						player.sendMessage(GlobalTags.DRUGS + "§4You currently have this drug in use.");
+						player.sendMessage(GlobalTags.DRUGS + "You may only use one (1) drug per 10 seconds.");
 					}
 				}
 			}
@@ -83,10 +89,8 @@ public class DrugUseEvent implements Listener {
 					if (clickedBlock.getType() == Material.STONE 
 							|| clickedBlock.getType() == Material.IRON_ORE 
 							|| clickedBlock.getType() == Material.DIAMOND_ORE
-							|| clickedBlock.getType() == Material.GRASS 
 							|| clickedBlock.getType() == Material.EMERALD_ORE 
 							|| clickedBlock.getType() == Material.COAL_ORE
-							|| clickedBlock.getType() == Material.COBBLESTONE 
 							|| clickedBlock.getType() == Material.GOLD_ORE) {
 						event.getClickedBlock().breakNaturally();
 					}
@@ -115,24 +119,52 @@ public class DrugUseEvent implements Listener {
 				
 				//Determine if player is using warrior.
 				if (itemInHand.getItemMeta().getLore().get(0).equalsIgnoreCase(GlobalTags.DRUGS + IGDrugType.WARRIOR.getTitle())) {
-					//Ensure we don't delete an entire stack for nothing...
-					if (itemInHand.getAmount() > 1)
-						itemInHand.setAmount(itemInHand.getAmount() - 1);
-					else
-						player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 					
-					//Add default speed for 10 seconds.
-					player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, TickConverter.getTicksInSeconds(10), 0));
-					player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, TickConverter.getTicksInSeconds(10), 0));
-					player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, TickConverter.getTicksInSeconds(10), 0));
-					player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, TickConverter.getTicksInSeconds(10), 0));
+					if (!IGList.drugCooldown.contains(player)) {
+						//Ensure we don't delete an entire stack for nothing...
+						if (itemInHand.getAmount() > 1)
+							itemInHand.setAmount(itemInHand.getAmount() - 1);
+						else
+							player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+						
+						//Add default speed for 10 seconds.
+						player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, TickConverter.getTicksInSeconds(10), 0));
+						player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, TickConverter.getTicksInSeconds(10), 0));
+						player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, TickConverter.getTicksInSeconds(10), 0));
+						player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, TickConverter.getTicksInSeconds(10), 0));
+						
+						player.sendMessage(GlobalTags.DRUGS + "You have consumed: " + IGDrugType.WARRIOR.getTitle());
+						
+						//Now, after 10 seconds, add the cooldown.
+						Bukkit.getScheduler().runTaskLater(IGPrison.plugin, new Runnable() {
+							@Override
+							public void run(){
+								//After the drug is finished... Run the cooldown.
+								runCooldown(player);
+							}
+						}, TickConverter.getTicksInSeconds(10));
 					
-					player.sendMessage(GlobalTags.DRUGS + "You have consumed: " + IGDrugType.WARRIOR.getTitle());
-					
+					} else {
+						player.sendMessage(GlobalTags.DRUGS + "You may only use one (1) drug per 10 seconds.");
+					}
 				}
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	private static void runCooldown(Player player) {
+		IGList.drugCooldown.add(player);
+		Bukkit.getScheduler().runTaskLater(IGPrison.plugin, new Runnable()
+		{
+			@Override
+			public void run(){
+				if (IGList.drugCooldown.contains(player))
+				{
+					IGList.drugCooldown.remove(player);
+				}
+			}
+		}, TickConverter.getTicksInSeconds(10));
 	}
 }

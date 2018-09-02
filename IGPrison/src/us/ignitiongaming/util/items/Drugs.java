@@ -17,10 +17,12 @@ public class Drugs {
 	
 	public static ItemStack getAutoDrop() {
 		int drugAmount = Integer.parseInt(ServerDefaults.getSetting(IGSettings.DEFAULT_DRUG_AMOUNT).getValue().toString());
-		return getAutoDrop(drugAmount);
+		return getAutoDrop(drugAmount * 16);
 	}
 	
 	public static ItemStack getAutoDrop(int amount) {
+		//Update the amount...
+		amount = amount / 16; // 64 cactus = 4 auto drop.
 		ItemMeta cactusMeta = cactus.getItemMeta();
 		cactusMeta.setLore(DrugLore.getAutoDropLore());
 		cactusMeta.setDisplayName(IGDrugType.AUTO_DROP.getTitle());
@@ -32,10 +34,11 @@ public class Drugs {
 	
 	public static ItemStack getWarrior() {
 		int drugAmount = Integer.parseInt(ServerDefaults.getSetting(IGSettings.DEFAULT_DRUG_AMOUNT).getValue().toString());
-		return getWarrior(drugAmount);
+		return getWarrior(drugAmount * 16);
 	}
 	
 	public static ItemStack getWarrior(int amount) {
+		amount = amount / 16; // 64 sugar cane = 4 warrior.
 		ItemMeta itemMeta = sugarCane.getItemMeta();
 		itemMeta.setLore(DrugLore.getWarriorLore());
 		itemMeta.setDisplayName(IGDrugType.WARRIOR.getTitle());

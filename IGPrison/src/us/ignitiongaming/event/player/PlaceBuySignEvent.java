@@ -17,7 +17,7 @@ public class PlaceBuySignEvent implements Listener {
 		try {
 			Player player = event.getPlayer();
 			//Determine if the player was attempting to make a sell event...
-			if (event.getLine(1).contains("[BUY]")) {
+			if (event.getLine(1).contains("[Buy]")) {
 				//Only staff or wardens may create events...
 				boolean isPlayerStaff = IGRankNodes.getPlayerRank(player).isStaff();
 				if (isPlayerStaff) {
@@ -25,7 +25,7 @@ public class PlaceBuySignEvent implements Listener {
 					event.setLine(0, SignTags.BUY);
 					event.setLine(1, "§a" + CurrencyConverter.convertToCurrency(event.getLine(2)));
 					event.setLine(2, "§8" + signItem.getName());
-					event.setLine(3, "§9" + signItem.getAmount());
+					event.setLine(3, "§9" + signItem.getBuyAmount());
 				}
 			}
 		} catch (Exception ex) {

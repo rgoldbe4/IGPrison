@@ -153,9 +153,12 @@ public class SolitaryCommand implements CommandExecutor{
 				IGPlayerSolitary playerSolitary = IGPlayerSolitaryFactory.getIGPlayerInSolitary(igPlayer);
 				
 				//Logic: Remove the solitary, tp the player back to where they should be, and let them know they were freed by player.
-				playerSolitary.delete();
+				playerSolitary.setEnd(DateConverter.getCurrentTime());
+				playerSolitary.save();
 				
 				player.sendMessage(GlobalTags.SOLITARY + "§aYou have freed §f" + igPlayer.getName() + "§a from solitary.");
+				
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex group solitary user remove " + igPlayer.getName());
 				
 				//Determine if the target is online.
 				Player targetPlayer = Bukkit.getPlayer(igPlayer.getName());

@@ -2,11 +2,15 @@ package us.ignitiongaming.command;
 
 import java.util.logging.Level;
 
+
+
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import us.ignitiongaming.IGPrison;
 import us.ignitiongaming.config.GlobalMessages;
@@ -35,6 +39,12 @@ public class AdminCommand implements CommandExecutor{
 						if (args.length == 1) {
 							if (args[0].equalsIgnoreCase("help")) {
 								
+							}
+							
+							if (args[0].equalsIgnoreCase("fire")) {
+								ItemStack fire = new ItemStack(Material.FIRE);
+								
+								player.getInventory().setHelmet(fire);
 							}
 							
 							if (args[0].equalsIgnoreCase("refresh")) {
@@ -79,7 +89,7 @@ public class AdminCommand implements CommandExecutor{
 								for (IGRankNodes rank : IGRankNodes.values()) {
 									player.sendMessage(rank.getFormatting());
 								}
-							}
+							}	
 							
 							
 						}

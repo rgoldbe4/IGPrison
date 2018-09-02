@@ -21,7 +21,7 @@ public class IGPlayerBannedFactory {
 			
 			while (results.next()) {
 				IGPlayerBanned player = new IGPlayerBanned();
-				player.assign(results);
+				player.assign(results);	
 				//If any of the bans found are applicable, mark them as "yes".
 				if (player.isBanned()) isPlayerBanned = true;
 			}

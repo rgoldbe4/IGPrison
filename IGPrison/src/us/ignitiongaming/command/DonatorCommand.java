@@ -10,6 +10,7 @@ import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerStats;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
+import us.ignitiongaming.util.handy.InventoryMenu;
 
 public class DonatorCommand implements CommandExecutor {
 
@@ -23,11 +24,19 @@ public class DonatorCommand implements CommandExecutor {
 					player.sendMessage(GlobalTags.DONATION + "§8URL: §7§o§nhttp://www.ignitiongaming.us/mc/donate§r");
 				}
 				
+				if (lbl.equalsIgnoreCase("shop")) {
+					player.openInventory(InventoryMenu.getMainMenu());
+				}
+				
 				// [/points]
 				if (lbl.equalsIgnoreCase("points")) {
 					IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
 					IGPlayerStats igStats = IGPlayerStatsFactory.getIGPlayerStatsByIGPlayer(igPlayer);
 					player.sendMessage(GlobalTags.DEFIANCE_POINTS + igStats.getDonatorPoints());
+				}
+				
+				if (lbl.equalsIgnoreCase("discord")) {
+					player.sendMessage(GlobalTags.LOGO + "Join our Discord: §b§nhttps://discord.gg/M7Jc4N6");
 				}
 				
 				

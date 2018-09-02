@@ -30,7 +30,7 @@ commands:
      setspawn:
         description: Set the spawn of a location.
         permission: igprison.setspawn
-     warp:
+     igwarp:
         description: Warp to a location.
         permission: igprison.warp
      now:
@@ -102,3 +102,27 @@ commands:
      igunban:
         description: Unban a player from our system.
         permissions: igprison.unban
+     discord:
+        description: Display a discord link.
+        permissions: igprison.discord
+     home:
+        description: Go to your set homes.
+        permissions: igprison.home
+     sethome:
+        description: Set a home.
+        permissions: igprison.sethome
+     delhome:
+        description: Delete a home.
+        permissions: igprison.delhome
+     homes:
+        description: View all of your homes.
+        permissions: igprison.homes
+     ig:
+        description: View your stats.
+        permissions: igprison.stats
+     shop:
+        description: Open the donator shop menu.
+        permissions: igprison.shop
+     igsetwarp:
+        description: Update a warp.
+        permissions: igprison.setwarp

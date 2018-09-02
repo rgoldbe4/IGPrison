@@ -17,20 +17,23 @@ public class ConvertCommand implements CommandExecutor {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				if (lbl.contains("convert")) {
+					int cactusAmount = 0, sugarCaneAmount = 0;
 					for (int i = 0; i < player.getInventory().getSize(); i++) {
 						ItemStack item = player.getInventory().getItem(i);
 						if (item == null) continue;
 						switch (item.getType()) {
 							case CACTUS:
-								player.getInventory().setItem(i, Drugs.getAutoDrop(item.getAmount()));
+								cactusAmount += item.getAmount();
 								break;
 							case SUGAR_CANE:
-								player.getInventory().setItem(i, Drugs.getWarrior(item.getAmount()));
+								sugarCaneAmount += item.getAmount();
 								break;
 							default:
 								break;
 						}
 					}
+					player.getInventory().addItem(Drugs.getWarrior(cactusAmount));
+					player.getInventory().addItem(Drugs.getAutoDrop(sugarCaneAmount));
 					player.sendMessage(GlobalTags.DRUGS + "Your inventory has converted specific items into drugs.");
 				}
 			}
