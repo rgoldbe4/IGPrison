@@ -6,6 +6,7 @@ import java.util.Date;
 import us.ignitiongaming.database.SQLQuery;
 import us.ignitiongaming.database.SQLQuery.QueryType;
 import us.ignitiongaming.entity.HasID;
+import us.ignitiongaming.util.convert.BooleanConverter;
 import us.ignitiongaming.util.convert.DateConverter;
 
 public class IGPlayerSolitary extends HasID {
@@ -14,6 +15,7 @@ public class IGPlayerSolitary extends HasID {
 	
 	private int playerId = 0, staffId = 0;
 	private String start, end, reason;
+	private boolean hasLeft;
 	
 	public void assign(ResultSet results) {
 		try {
@@ -23,6 +25,7 @@ public class IGPlayerSolitary extends HasID {
 			setEnd(results.getString("end"));
 			setStaffId(results.getInt("staffID"));
 			setReason(results.getString("reason"));
+			setHasLeft(BooleanConverter.getBooleanFromInteger(results.getInt("hasLeft")));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -36,6 +39,9 @@ public class IGPlayerSolitary extends HasID {
 	
 	public void setReason(String reason) { this.reason = reason; }
 	public String getReason() { return reason; }
+	
+	public void setHasLeft(boolean hasLeft) { this.hasLeft = hasLeft; }
+	public boolean hasLeft() { return hasLeft; }
 	
 	public String getStart() { return start; }
 	public void setStart(String start) { this.start = start; }
@@ -67,6 +73,7 @@ public class IGPlayerSolitary extends HasID {
 		query.addSet("reason", reason);
 		query.addSet("start", getStart());
 		query.addSet("end", getEnd());
+		query.addSet("hasLeft", BooleanConverter.getIntegerFromBoolean(hasLeft));
 		query.addId(getId());
 		query.execute();
 	}

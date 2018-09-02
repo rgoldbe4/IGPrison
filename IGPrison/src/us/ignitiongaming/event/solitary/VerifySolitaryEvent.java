@@ -15,7 +15,6 @@ import us.ignitiongaming.enums.IGRankNodes;
 import us.ignitiongaming.factory.other.IGLocationFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerSolitaryFactory;
-import us.ignitiongaming.util.convert.DateConverter;
 
 public class VerifySolitaryEvent implements Listener {
 
@@ -28,7 +27,9 @@ public class VerifySolitaryEvent implements Listener {
 			//Only care if the player is in solitary.
 			if (IGPlayerSolitaryFactory.isIGPlayerInSolitary(igPlayer)) {
 				IGPlayerSolitary igPlayerSolitary = IGPlayerSolitaryFactory.getIGPlayerInSolitary(igPlayer);
-				if (igPlayerSolitary.hasServed()) {
+				if (!igPlayerSolitary.hasLeft()) {
+					igPlayerSolitary.setHasLeft(true);
+					igPlayerSolitary.save();
 					player.sendMessage(GlobalTags.SOLITARY + "§eYou have served your time in solitary.");
 					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex group solitary user remove " + player.getName());
 					player.teleport(IGLocationFactory.getSpawnByPlayerRank(player).toLocation());
@@ -52,8 +53,8 @@ public class VerifySolitaryEvent implements Listener {
 				//We have a record of them, yes, but, are they IN solitary?
 				IGPlayerSolitary playerSolitary = IGPlayerSolitaryFactory.getIGPlayerInSolitary(igPlayer);
 				
-				if (playerSolitary.hasServed()) {
-					playerSolitary.setEnd(DateConverter.getCurrentTime());
+				if (!playerSolitary.hasLeft()) {
+					playerSolitary.setHasLeft(true);
 					playerSolitary.save();
 					player.teleport(IGLocationFactory.getSpawnByPlayerRank(player).toLocation());
 					player.sendMessage(GlobalTags.SOLITARY + "§aYou are no longer in solitary.");

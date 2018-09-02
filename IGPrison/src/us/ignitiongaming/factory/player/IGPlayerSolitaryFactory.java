@@ -24,7 +24,7 @@ public class IGPlayerSolitaryFactory {
 			while (results.next()) {
 				IGPlayerSolitary solitary = new IGPlayerSolitary();
 				solitary.assign(results);
-				if (!solitary.hasServed()) isInSolitary = true;
+				if (!solitary.hasServed() || !solitary.hasLeft()) isInSolitary = true;
 			}
 			
 			
@@ -33,15 +33,30 @@ public class IGPlayerSolitaryFactory {
 		}
 		return isInSolitary;
 	}
+	public static boolean isPlayerInsideOfSolitary(IGPlayer igPlayer) {
+		boolean hasLeft = false;
+		try {
+			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerSolitary.TABLE_NAME);
+			query.addWhere("playerID", igPlayer.getId());
+			query.addWhere("hasLeft", 0);
+			ResultSet results = query.getResults();
+			
+			int numRows = DatabaseUtils.getNumRows(results);
+			
+			return numRows > 0;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return hasLeft;
+	}
 	
 	public static IGPlayerSolitary getIGPlayerInSolitary(IGPlayer igPlayer) {
 		try {
 			IGPlayerSolitary igPlayerSolitary = new IGPlayerSolitary();
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerSolitary.TABLE_NAME);
 			query.addWhere("playerID", igPlayer.getId());
+			query.addWhere("hasLeft", 0); //Player must not have left the solitary yet.
 			ResultSet results = query.getResults();
-			
-			if (DatabaseUtils.getNumRows(results) == 0) return null;
 			
 			while (results.next()) {
 				igPlayerSolitary.assign(results);
@@ -64,8 +79,8 @@ public class IGPlayerSolitaryFactory {
 			while (results.next()) {
 				IGPlayerSolitary player = new IGPlayerSolitary();
 				player.assign(results);
-				//Make sure to only show players who haven't served their sentence.
-				if (!player.hasServed())
+				//Make sure to only show players who haven't served their sentence. Also, check if they have physically left solitary yet.
+				if (!player.hasServed() && !player.hasLeft())
 					players.add(player);
 			}
 			
