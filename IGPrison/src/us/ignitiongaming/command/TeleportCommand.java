@@ -77,7 +77,7 @@ public class TeleportCommand implements CommandExecutor {
 				}
 				
 				// [/warp <label>]
-				if (lbl.equalsIgnoreCase("warp")) {
+				if (lbl.equalsIgnoreCase("igwarp")) {
 					if (args.length == 1) {
 						IGLocations loc = IGLocations.getLocationByLabel(args[0]);
 						Bukkit.getLogger().log(Level.INFO, IGLocationFactory.getLocationByIGLocations(loc).toLocation().toString());
@@ -147,6 +147,18 @@ public class TeleportCommand implements CommandExecutor {
 						player.sendMessage(GlobalTags.LOGO + "Usage: /visit <a/b/c/d>");
 						player.sendMessage(GlobalTags.LOGO + "§cYou may not visit cell blocks in lockdown.");
 					}
+				}
+				
+				if (lbl.equalsIgnoreCase("igsetwarp")) {
+					if (args.length == 1) {
+						IGLocations loc = IGLocations.getLocationByLabel(args[0]);
+						Location location = player.getLocation();
+						IGLocation warp = IGLocationFactory.getLocationByIGLocations(loc);
+						warp.fromLocation(location);
+						warp.save();
+						player.sendMessage(GlobalTags.LOGO + "The warp, " + loc.getLabel().toUpperCase() + ", has been updated to your coordinates.");
+					}
+					if (args.length == 0 || args.length > 1) player.sendMessage("Available warps: " + ConvertUtils.getStringFromCommand(0, IGLocationFactory.getAllLocations().toArray(new String[0])));
 				}
 			
 				

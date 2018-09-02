@@ -12,4 +12,5 @@ public class GlobalMessages {
 	
 	public static final String GUARD_DEATH = GlobalTags.LOGO + "§4§l****§r§c A GUARD HAS BEEN SLAIN §4§l****§r";
 	public static final String INSUFFICIENT_FUNDS_RANKUP = GlobalTags.RANKUP + "§4You do not have enough to rankup.";
-}
+	public static final String INSUFFICIENT_FUNDS_SHOP = GlobalTags.DEFIANCE + "§4You do not have enough points for that item.";
+ }

@@ -27,7 +27,7 @@ public class PlaceSellSignEvent implements Listener {
 					event.setLine(0, SignTags.SELL);
 					event.setLine(1, "§a" + event.getLine(2));
 					event.setLine(2, "§8" + event.getLine(3));
-					event.setLine(3, "§9§l" + signItem.getAmount());
+					event.setLine(3, "§9§l" + signItem.getSellAmount());
 				}
 			}
 		} catch (Exception ex) {

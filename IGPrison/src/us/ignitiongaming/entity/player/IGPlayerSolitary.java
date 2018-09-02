@@ -60,10 +60,4 @@ public class IGPlayerSolitary extends HasID {
 		query.addId(getId());
 		query.execute();
 	}
-	
-	public void delete() {
-		SQLQuery query = new SQLQuery(QueryType.DELETE, TABLE_NAME);
-		query.addId(getId());
-		query.execute();
-	}
 }

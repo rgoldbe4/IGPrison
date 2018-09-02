@@ -15,6 +15,14 @@ public class BooleanConverter {
 	}
 	
 	public static String getYesNoFromBooleanWithColor(boolean condition) {
-		return condition ? "§aYes" : "§cNo";
+		return condition ? "§2Yes" : "§4No";
+	}
+	
+	public static boolean toBoolean(int id) {
+		return getBooleanFromInteger(id);
+	}
+	
+	public static int toInteger(boolean condition) {
+		return getIntegerFromBoolean(condition);
 	}
 }

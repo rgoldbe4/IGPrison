@@ -16,6 +16,7 @@ import us.ignitiongaming.command.DevelopmentCommand;
 import us.ignitiongaming.command.DonatorCommand;
 import us.ignitiongaming.command.GangCommand;
 import us.ignitiongaming.command.HelpCommand;
+import us.ignitiongaming.command.HomeCommand;
 import us.ignitiongaming.command.IGBanCommand;
 import us.ignitiongaming.command.IGKickCommand;
 import us.ignitiongaming.command.LinkCommand;
@@ -26,6 +27,7 @@ import us.ignitiongaming.command.SmeltCommand;
 import us.ignitiongaming.command.SolitaryCommand;
 import us.ignitiongaming.command.StaffChatCommand;
 import us.ignitiongaming.command.StaffCommand;
+import us.ignitiongaming.command.StatsCommand;
 import us.ignitiongaming.command.TeleportCommand;
 import us.ignitiongaming.command.TowerCommand;
 import us.ignitiongaming.config.ServerDefaults;
@@ -35,6 +37,9 @@ import us.ignitiongaming.event.bounty.KillPlayerWithBountyEvent;
 import us.ignitiongaming.event.gang.DrugUseEvent;
 import us.ignitiongaming.event.gang.GangAttackEvent;
 import us.ignitiongaming.event.gang.PendingRequestEvent;
+import us.ignitiongaming.event.menu.BuyCommandsMenu;
+import us.ignitiongaming.event.menu.BuyDefiancePointsMenu;
+import us.ignitiongaming.event.menu.MainMenuEvent;
 import us.ignitiongaming.event.other.BatonAttackEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
 import us.ignitiongaming.event.player.GuardDeathEvent;
@@ -49,7 +54,9 @@ import us.ignitiongaming.event.player.PlayerListEvent;
 import us.ignitiongaming.event.player.PlayerRecordEvent;
 import us.ignitiongaming.event.player.PlayerSpawnEvent;
 import us.ignitiongaming.event.player.PlayerVerificationEvent;
+import us.ignitiongaming.event.player.ShowPlayerStatsEvent;
 import us.ignitiongaming.event.server.NotifyPlayerConnectionEvent;
+import us.ignitiongaming.event.server.ServerAnnouncementEvent;
 import us.ignitiongaming.event.server.ServerListEvent;
 import us.ignitiongaming.event.solitary.VerifySolitaryEvent;
 import us.ignitiongaming.factory.other.IGSettingFactory;
@@ -74,7 +81,6 @@ public class IGPrison extends JavaPlugin {
 			} else {
 				environment = IGEnvironments.TESTING;
 			}
-			this.getLogger().log(Level.INFO, "Assigned Environment: " + environment);
 			
 			//You know? Vault is kinda stupid for making me use a global variable...
 			setupEconomy();
@@ -109,6 +115,11 @@ public class IGPrison extends JavaPlugin {
 			this.getServer().getPluginManager().registerEvents(new InteractBuySignEvent(), this);
 			this.getServer().getPluginManager().registerEvents(new PickaxeDamageEvent(), this);
 			this.getServer().getPluginManager().registerEvents(new BatonAttackEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new ServerAnnouncementEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new ShowPlayerStatsEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new BuyCommandsMenu(), this);
+			this.getServer().getPluginManager().registerEvents(new BuyDefiancePointsMenu(), this);
+			this.getServer().getPluginManager().registerEvents(new MainMenuEvent(), this);
 			
 			/* Commands */
 			// -- Help Command --
@@ -128,10 +139,11 @@ public class IGPrison extends JavaPlugin {
 			
 			// -- Teleport Commands --
 			this.getCommand("spawn").setExecutor(new TeleportCommand());
-			this.getCommand("warp").setExecutor(new TeleportCommand());
+			this.getCommand("igwarp").setExecutor(new TeleportCommand());
 			this.getCommand("setspawn").setExecutor(new TeleportCommand());
 			this.getCommand("goto").setExecutor(new TeleportCommand());
 			this.getCommand("bring").setExecutor(new TeleportCommand());
+			this.getCommand("igsetwarp").setExecutor(new TeleportCommand());
 			
 			// -- Solitary Commands --
 			this.getCommand("solitary").setExecutor(new SolitaryCommand());
@@ -171,17 +183,32 @@ public class IGPrison extends JavaPlugin {
 			// -- Gang command --
 			this.getCommand("gang").setExecutor(new GangCommand());
 			
-			// - Bounty command --
+			// -- Bounty command --
 			this.getCommand("bounty").setExecutor(new BountyCommand());
 			
-			// - Tower command --
+			// -- Tower command --
 			this.getCommand("tower").setExecutor(new TowerCommand());
 			
-			// - Visit command --
+			// -- Visit command --
 			this.getCommand("visit").setExecutor(new TeleportCommand());
 			
-			// - Convert command --
+			// -- Convert command --
 			this.getCommand("convert").setExecutor(new ConvertCommand());
+			
+			// -- Discord command --
+			this.getCommand("discord").setExecutor(new DonatorCommand());
+			
+			// -- Home command --
+			this.getCommand("home").setExecutor(new HomeCommand());
+			this.getCommand("sethome").setExecutor(new HomeCommand());
+			this.getCommand("delhome").setExecutor(new HomeCommand());
+			this.getCommand("homes").setExecutor(new HomeCommand());
+			
+			// -- IG command --
+			this.getCommand("ig").setExecutor(new StatsCommand());
+			
+			// -- Shop system command --
+			this.getCommand("shop").setExecutor(new DonatorCommand());
 		
 		} catch (Exception ex) {
 			
