@@ -76,6 +76,10 @@ public class ScoreboardAnnouncer {
 		texts.add(" ");
 	}
 	
+	public void addLineBreak() {
+		texts.add("--------------------");
+	}
+	
 	/**
 	 * Bind the scoreboard to the player. Will override other scoreboards.
 	 */
@@ -114,6 +118,7 @@ public class ScoreboardAnnouncer {
 		this.displaySlot = slot; 
 		init();
 	}
+	
 	public DisplaySlot getDisplaySlot() { return displaySlot; }
 	
 	

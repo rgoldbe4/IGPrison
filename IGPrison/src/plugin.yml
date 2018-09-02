@@ -123,3 +123,6 @@ commands:
      shop:
         description: Open the donator shop menu.
         permissions: igprison.shop
+     igsetwarp:
+        description: Update a warp.
+        permissions: igprison.setwarp

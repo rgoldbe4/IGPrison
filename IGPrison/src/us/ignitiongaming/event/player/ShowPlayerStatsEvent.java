@@ -7,9 +7,13 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 import us.ignitiongaming.config.GlobalTags;
 import us.ignitiongaming.config.ServerDefaults;
+import us.ignitiongaming.entity.gang.IGGang;
+import us.ignitiongaming.entity.gang.IGPlayerGang;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerStats;
 import us.ignitiongaming.enums.IGRankNodes;
+import us.ignitiongaming.factory.gang.IGGangFactory;
+import us.ignitiongaming.factory.gang.IGPlayerGangFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
 import us.ignitiongaming.util.convert.CurrencyConverter;
@@ -32,8 +36,14 @@ public class ShowPlayerStatsEvent implements Listener {
 				scoreboard.addLine("§dPoints §7>> §f" + stats.getDonatorPoints());
 				scoreboard.addLine("§4Deaths §7>> §f" + stats.getDeaths());
 				scoreboard.addLine("§eKills §7>> §f" + stats.getKills());
-				scoreboard.addLine("§2Money §7>> §f" + CurrencyConverter.convertToCurrency(ServerDefaults.econ.getBalance(target)));
+				scoreboard.addLine("§aMoney §7>> §f" + CurrencyConverter.convertToCurrency(ServerDefaults.econ.getBalance(target)));
 				scoreboard.addSpacer();
+				if (IGPlayerGangFactory.isPlayerInGang(igTarget)) {
+					IGPlayerGang targetGang = IGPlayerGangFactory.getPlayerGangFromPlayer(igTarget);
+					IGGang gang = IGGangFactory.getGangById(targetGang.getGangId());
+					scoreboard.addLine("§8§l[ §9§l" + gang.getName().toUpperCase() + " §8§l]");
+					scoreboard.addSpacer();
+				}
 				scoreboard.addLine(IGRankNodes.getPlayerFormatting(target));
 				scoreboard.addTimer(8);
 				scoreboard.hook();

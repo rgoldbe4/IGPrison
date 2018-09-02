@@ -143,6 +143,7 @@ public class IGPrison extends JavaPlugin {
 			this.getCommand("setspawn").setExecutor(new TeleportCommand());
 			this.getCommand("goto").setExecutor(new TeleportCommand());
 			this.getCommand("bring").setExecutor(new TeleportCommand());
+			this.getCommand("igsetwarp").setExecutor(new TeleportCommand());
 			
 			// -- Solitary Commands --
 			this.getCommand("solitary").setExecutor(new SolitaryCommand());
