@@ -15,16 +15,23 @@ import us.ignitiongaming.util.convert.DateConverter;
 public class IGPlayerSolitaryFactory {
 
 	public static boolean isIGPlayerInSolitary(IGPlayer igPlayer) {
+		boolean isInSolitary = false;
 		try {
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGPlayerSolitary.TABLE_NAME);
 			query.addWhere("playerID", igPlayer.getId());
 			ResultSet results = query.getResults();
 			
-			return DatabaseUtils.getNumRows(results) == 1;
+			while (results.next()) {
+				IGPlayerSolitary solitary = new IGPlayerSolitary();
+				solitary.assign(results);
+				if (!solitary.hasServed()) isInSolitary = true;
+			}
+			
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return false;
 		}
+		return isInSolitary;
 	}
 	
 	public static IGPlayerSolitary getIGPlayerInSolitary(IGPlayer igPlayer) {
