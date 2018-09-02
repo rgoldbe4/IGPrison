@@ -65,7 +65,7 @@ public class IGPlayerBanned extends HasID {
 	public void save() {
 		SQLQuery query = new SQLQuery(QueryType.UPDATE, TABLE_NAME);
 		query.addSet("playerID", playerId);
-		query.addSet("reason", reason);
+		query.addSet("Reason", reason);
 		query.addSet("banStart", startDate);
 		query.addSet("banEnd", endDate);
 		query.addSet("permanent", permanent);
