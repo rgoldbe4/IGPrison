@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import us.ignitiongaming.config.GlobalMessages;
 import us.ignitiongaming.config.GlobalTags;
+import us.ignitiongaming.database.ConvertUtils;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.entity.player.IGPlayerSolitary;
 import us.ignitiongaming.enums.IGLocations;
@@ -59,7 +60,7 @@ public class SolitaryCommand implements CommandExecutor{
 					}
 					else if (args.length == 3) {
 						if (args[0].equalsIgnoreCase("add")) {
-							addPlayer(player, args[1], args[2]);
+							addPlayer(player, args[1], args[2], ConvertUtils.getStringFromCommand(3, args));
 						} else {
 							player.sendMessage(GlobalMessages.INVALID_COMMAND);
 						}
@@ -83,7 +84,7 @@ public class SolitaryCommand implements CommandExecutor{
 		player.sendMessage(" /solitary -> Shows this.");
 		player.sendMessage(" /solitary help -> Shows this.");
 		player.sendMessage(" /solitary context -> Display all context you can use for <duration> arguments.");
-		player.sendMessage(" /solitary add <player> <duration> -> Add a player to solitary.");
+		player.sendMessage(" /solitary add <player> <duration> <reason> -> Add a player to solitary.");
 		player.sendMessage(" /solitary remove <player> -> Remove a player from solitary.");
 		player.sendMessage(" /solitary list -> Display all current players in solitary.");
 		player.sendMessage(" /solitary info <player> -> Display in-depth information on a player.");
@@ -179,8 +180,9 @@ public class SolitaryCommand implements CommandExecutor{
 		
 	}
 
-	private void addPlayer(Player player, String target, String context) {
+	private void addPlayer(Player player, String target, String context, String reason) {
 		try {
+			IGPlayer igStaff = IGPlayerFactory.getIGPlayerByPlayer(player);
 			IGPlayer igTarget = IGPlayerFactory.getIGPlayerFromName(target);
 			Player targetPlayer = Bukkit.getPlayer(target);
 			Date end = DateConverter.convertSingleArgumentContextToDate(context);
@@ -193,7 +195,7 @@ public class SolitaryCommand implements CommandExecutor{
 				if (!IGPlayerSolitaryFactory.isIGPlayerInSolitary(igTarget)) {
 					
 					//Step 3: Well, add to DB and let both players know the situation.
-					IGPlayerSolitaryFactory.add(igTarget, end);
+					IGPlayerSolitaryFactory.add(igTarget, end, igStaff, reason);
 					
 					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pex group solitary user add " + player.getName());
 					

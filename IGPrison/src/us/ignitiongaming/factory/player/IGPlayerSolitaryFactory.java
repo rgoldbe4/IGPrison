@@ -64,7 +64,9 @@ public class IGPlayerSolitaryFactory {
 			while (results.next()) {
 				IGPlayerSolitary player = new IGPlayerSolitary();
 				player.assign(results);
-				players.add(player);
+				//Make sure to only show players who haven't served their sentence.
+				if (!player.hasServed())
+					players.add(player);
 			}
 			
 		} catch (Exception ex) {
@@ -80,11 +82,12 @@ public class IGPlayerSolitaryFactory {
 	 * @param igPlayer
 	 * @param end
 	 */
-	public static void add(IGPlayer igPlayer, Date end) {
+	public static void add(IGPlayer igPlayer, Date end, IGPlayer igStaff, String reason) {
 		try {
 			SQLQuery query = new SQLQuery(QueryType.INSERT, IGPlayerSolitary.TABLE_NAME);
-			query.addGrabColumns("playerID", "start", "end");
-			query.addValues(igPlayer.getId(), DateConverter.getCurrentTimeString(), DateConverter.convertDateToString(end));
+			query.addGrabColumns("playerID", "start", "end", "staffID", "reason");
+			query.addValues(igPlayer.getId(), DateConverter.getCurrentTimeString(), DateConverter.convertDateToString(end),
+					igStaff.getId(), reason);
 			query.execute();
 		} catch (Exception ex) {
 			ex.printStackTrace();
