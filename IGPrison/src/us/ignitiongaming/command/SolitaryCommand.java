@@ -58,7 +58,7 @@ public class SolitaryCommand implements CommandExecutor{
 							player.sendMessage(GlobalMessages.INVALID_COMMAND);
 						}
 					}
-					else if (args.length == 3) {
+					else if (args.length >= 3) {
 						if (args[0].equalsIgnoreCase("add")) {
 							addPlayer(player, args[1], args[2], ConvertUtils.getStringFromCommand(3, args));
 						} else {
