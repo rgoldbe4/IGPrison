@@ -29,8 +29,8 @@ public class Database {
 			if (connection != null) {
 				if (!connection.isClosed()) connection.close();
 			}
-			connection = DriverManager.getConnection("jdbc:mysql://ignitiongaming.us:3306/igminecraft?verifyServerCertificate=false&maxReconnects=10&useSSL=true&retainStatementAfterResultSetClose=true&autoReconnect=true",
-					"igminecraft", "7xXTvmgXyrUGvsh6");
+			connection = DriverManager.getConnection("jdbc:mysql://66.85.144.162:3306/mcph746387?verifyServerCertificate=false&maxReconnects=10&useSSL=true&retainStatementAfterResultSetClose=true&autoReconnect=true",
+					"mcph746387", "0a59de0688");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -41,7 +41,7 @@ public class Database {
 			if (connection != null) {
 				if (!connection.isClosed()) connection.close();
 			}
-			connection = DriverManager.getConnection("jdbc:mysql://ignitiongaming.us:3306/igminecraft_testing?verifyServerCertificate=false&maxReconnects=10&useSSL=true&retainStatementAfterResultSetClose=true&autoReconnect=true",
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/igminecraft_testing?verifyServerCertificate=false&maxReconnects=10&useSSL=true&retainStatementAfterResultSetClose=true&autoReconnect=true",
 					"igminecraft", "7xXTvmgXyrUGvsh6");
 		} catch (SQLException e) {
 			e.printStackTrace();

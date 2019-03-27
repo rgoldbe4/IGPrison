@@ -18,7 +18,7 @@ public class PickaxeDamageEvent implements Listener {
 			Entity damaged = event.getEntity();
 			if (damager instanceof Player && damaged instanceof Player) {
 				Player damagingPlayer = (Player) damager;
-				if (event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK)|| event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
+				if (event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)|| event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
 					ItemStack held = damagingPlayer.getInventory().getItemInMainHand();
 					if (held != null)
 						if (   held.getType() == Material.DIAMOND_PICKAXE

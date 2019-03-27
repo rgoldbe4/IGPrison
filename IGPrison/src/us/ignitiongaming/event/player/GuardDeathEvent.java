@@ -56,7 +56,8 @@ public class GuardDeathEvent implements Listener {
 					//Drop the player's head.
 					ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
 					SkullMeta sm = (SkullMeta) item.getItemMeta();
-					sm.setOwningPlayer(event.getEntity());
+					sm.setOwner(event.getEntity().getName());
+					//sm.setOwningPlayer(event.getEntity());
 					item.setItemMeta(sm);
 
 					killer.getInventory().addItem(item);

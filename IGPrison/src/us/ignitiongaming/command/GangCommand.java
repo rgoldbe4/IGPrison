@@ -210,7 +210,7 @@ public class GangCommand implements CommandExecutor{
 		//Go through each gang and find out their name and rank... Sort by ranks (Leader > Officer > Member) in query.
 		for (IGPlayerGang playerInGang : playersInGang) {
 			IGPlayer igPlayerInGang = IGPlayerFactory.getIGPlayerById(playerInGang.getPlayerId());
-			boolean isPlayerOnline = Bukkit.getPlayer(igPlayerInGang.getName()) != null;
+			boolean isPlayerOnline = Bukkit.getPlayer(igPlayerInGang.getUUID()) != null;
 			player.sendMessage(" §7[" +( !isPlayerOnline ? "§4*" : "§2*") + "§r§7] " + playerInGang.getGangRank().getLabel() + " " + ( !isPlayerOnline ? "§7" : "§f") + igPlayerInGang.getName());
 		}
 		

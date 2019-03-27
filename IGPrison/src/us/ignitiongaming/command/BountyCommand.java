@@ -236,7 +236,8 @@ public class BountyCommand implements CommandExecutor{
 				
 				//Step 4: Alert the player and the target (if online).
 				player.sendMessage(GlobalTags.BOUNTY + "§aYou have removed the bounty.");
-				Player targetPlayer = Bukkit.getPlayer(target.getName());
+				Player targetPlayer = Bukkit.getPlayer(target.getUUID());
+				
 				if (targetPlayer != null) targetPlayer.sendMessage(GlobalTags.BOUNTY + "§e" + player.getName() + "§f has removed their bounty against you.");
 				
 			} else {
