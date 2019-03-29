@@ -32,8 +32,8 @@ public class ConvertCommand implements CommandExecutor {
 								break;
 						}
 					}
-					player.getInventory().addItem(Drugs.getWarrior(cactusAmount));
-					player.getInventory().addItem(Drugs.getAutoDrop(sugarCaneAmount));
+					player.getInventory().addItem(Drugs.getAutoDrop(cactusAmount));
+					player.getInventory().addItem(Drugs.getWarrior(sugarCaneAmount));
 					player.sendMessage(GlobalTags.DRUGS + "Your inventory has converted specific items into drugs.");
 				}
 			}

@@ -41,7 +41,7 @@ public class IGLocationFactory {
 			SQLQuery query = new SQLQuery(QueryType.SELECT, IGLocation.TABLE_NAME);
 			ResultSet results = query.getResults();	
 			ArrayList<String> warps = new ArrayList<String>();
-			while(results.next())warps.add(results.getString(2));
+			while(results.next()) warps.add(results.getString(2));
 			return warps;
 		}
 		catch(Exception e) {
