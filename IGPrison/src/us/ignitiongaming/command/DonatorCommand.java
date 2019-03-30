@@ -21,7 +21,7 @@ public class DonatorCommand implements CommandExecutor {
 				Player player = (Player) sender;
 				// [/donate]
 				if (lbl.equalsIgnoreCase("donate")) {
-					player.sendMessage(GlobalTags.DONATION + "§8URL: §7§o§nhttp://www.ignitiongaming.us/mc/donate§r");
+					player.sendMessage(GlobalTags.DONATION + "§8URL: §7§o§nhttp://ignitiongaming.heliohost.org/mc/donate§r");
 				}
 				
 				if (lbl.equalsIgnoreCase("shop")) {
@@ -36,7 +36,7 @@ public class DonatorCommand implements CommandExecutor {
 				}
 				
 				if (lbl.equalsIgnoreCase("discord")) {
-					player.sendMessage(GlobalTags.LOGO + "Join our Discord: §b§nhttps://discord.gg/M7Jc4N6");
+					player.sendMessage(GlobalTags.LOGO + "Join our Discord: §b§nhttps://discord.gg/HJwzmSM");
 				}
 				
 				
