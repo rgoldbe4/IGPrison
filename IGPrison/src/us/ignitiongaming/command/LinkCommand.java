@@ -29,7 +29,7 @@ public class LinkCommand implements CommandExecutor{
 					
 					if (IGPrison.environment == IGEnvironments.MAIN || player.getName().equalsIgnoreCase("buffsovernexus")) {
 						if (args.length == 0) {
-							player.sendMessage(GlobalTags.LOGO + "§8URL: §7§o§nhttp://www.ignitiongaming.us/mc/donate/link.php§r");
+							player.sendMessage(GlobalTags.LOGO + "§8URL: §7§o§nhttp://ignitiongaming.heliohost.org/mc/donate/link.php§r");
 						}
 						else if (args.length == 1) {
 							IGPlayer igPlayer = IGPlayerFactory.getIGPlayerByPlayer(player);
@@ -47,7 +47,7 @@ public class LinkCommand implements CommandExecutor{
 									link.save();
 									player.sendMessage("Your account has been verified!");
 								} else {
-									player.sendMessage("You have entered in the wrong code for your account. Please visit http://www.ignitiongaming.us/mc/donate/link.php to retrieve a code.");
+									player.sendMessage("You have entered in the wrong code for your account. Please visit http://ignitiongaming.heliohost.org/mc/donate/link.php to retrieve a code.");
 								}
 							} else {
 								player.sendMessage("Your account has already been linked. Please report this if it is in error to the forums.");

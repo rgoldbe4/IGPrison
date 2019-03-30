@@ -10,7 +10,7 @@ public enum IGLocations {
 	SPAWN ("spawn"), SOLITARY ("solitary"), D ("d"), C ("c"), B ("b"), A ("a"),
 	A_TOWER ("a_block_tower"), B_TOWER ("b_block_tower"), C_TOWER ("c_block_tower"), D_TOWER ("d_block_tower"),
 	A_VISITATION ("a_visitation"), B_VISITATION ("b_visitation"), C_VISITATION ("c_visitation"), D_VISITATION ("d_visitation"),
-	TUTORIAL ("tutorial");
+	TUTORIAL ("tutorial"), A_ENDER_PORTAL("a_ender_portal");
 	
 	private String label;
 	

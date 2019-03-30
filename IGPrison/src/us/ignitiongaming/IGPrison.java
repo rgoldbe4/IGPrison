@@ -2,12 +2,11 @@ package us.ignitiongaming;
 
 import java.util.logging.Level;
 
-import net.milkbowl.vault.economy.Economy;
-
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.milkbowl.vault.economy.Economy;
 import us.ignitiongaming.command.AdminCommand;
 import us.ignitiongaming.command.BountyCommand;
 import us.ignitiongaming.command.ClearChatCommand;
@@ -42,6 +41,7 @@ import us.ignitiongaming.event.menu.BuyDefiancePointsMenu;
 import us.ignitiongaming.event.menu.MainMenuEvent;
 import us.ignitiongaming.event.other.BatonAttackEvent;
 import us.ignitiongaming.event.other.FancySignEvent;
+import us.ignitiongaming.event.player.ABlockPortalEvent;
 import us.ignitiongaming.event.player.GuardDeathEvent;
 import us.ignitiongaming.event.player.InteractBuySignEvent;
 import us.ignitiongaming.event.player.InteractSellHeadSignEvent;
@@ -120,6 +120,7 @@ public class IGPrison extends JavaPlugin {
 			this.getServer().getPluginManager().registerEvents(new BuyCommandsMenu(), this);
 			this.getServer().getPluginManager().registerEvents(new BuyDefiancePointsMenu(), this);
 			this.getServer().getPluginManager().registerEvents(new MainMenuEvent(), this);
+			this.getServer().getPluginManager().registerEvents(new ABlockPortalEvent(), this);
 			
 			/* Commands */
 			// -- Help Command --
