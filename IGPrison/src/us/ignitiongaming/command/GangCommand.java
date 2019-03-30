@@ -375,6 +375,10 @@ public class GangCommand implements CommandExecutor{
 					String gangName = gang.getName();
 					gang.delete();
 					
+					//Step 6: Remove all gang requests.
+					List<IGPlayerGangRequest> requests = IGPlayerGangRequestFactory.getRequestsByGang(gang.getId());
+					for (IGPlayerGangRequest request : requests) request.delete();
+					
 					Bukkit.broadcastMessage(GlobalTags.GANG + "§c" + gangName + " has been disbanded.");
 					
 				}
