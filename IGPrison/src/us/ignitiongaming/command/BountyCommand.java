@@ -14,7 +14,9 @@ import us.ignitiongaming.entity.bounty.IGBounty;
 import us.ignitiongaming.entity.player.IGPlayer;
 import us.ignitiongaming.enums.IGBountyProgress;
 import us.ignitiongaming.enums.IGRankNodes;
+import us.ignitiongaming.enums.IGSettings;
 import us.ignitiongaming.factory.bounty.IGBountyFactory;
+import us.ignitiongaming.factory.other.IGSettingFactory;
 import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.util.convert.ChatConverter;
 import us.ignitiongaming.util.convert.CurrencyConverter;
@@ -175,20 +177,27 @@ public class BountyCommand implements CommandExecutor{
 						player.sendMessage(GlobalTags.BOUNTY + "§4You entered an invalid amount to pay the bounty.");
 					} else if (amt <= balance) {
 						
-						//Step 4: Place the bounty.
-						IGBountyFactory.add(igCreator, igTarget, amt);
-						IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
-						//Step 5: Deduct from the player.
-						ServerDefaults.econ.withdrawPlayer(player, amt);
+						//Step 4: Determine if the bounty is above the default amount.
+						double defaultAmt = Double.parseDouble(ServerDefaults.getSetting(IGSettings.DEFAULT_BOUNTY_AMOUNT).getValue().toString());
 						
-						StringBuilder builder = new StringBuilder();
-						builder.append(" " + playerRank.getFormatting() + player.getName() + " §fhas placed a new bounty!");
-						
-						Bukkit.broadcastMessage(GlobalTags.BOUNTY);
-						Bukkit.broadcastMessage(" ");
-						Bukkit.broadcastMessage(builder.toString());
-						Bukkit.broadcastMessage(" ");
-						Bukkit.broadcastMessage(GlobalTags.BOUNTY);
+						if (amt >= defaultAmt) {
+							//Step 5: Place the bounty.
+							IGBountyFactory.add(igCreator, igTarget, amt);
+							IGRankNodes playerRank = IGRankNodes.getPlayerRank(player);
+							//Step 6: Deduct from the player.
+							ServerDefaults.econ.withdrawPlayer(player, amt);
+							
+							StringBuilder builder = new StringBuilder();
+							builder.append(" " + playerRank.getFormatting() + player.getName() + " §fhas placed a new bounty!");
+							
+							Bukkit.broadcastMessage(GlobalTags.BOUNTY);
+							Bukkit.broadcastMessage(" ");
+							Bukkit.broadcastMessage(builder.toString());
+							Bukkit.broadcastMessage(" ");
+							Bukkit.broadcastMessage(GlobalTags.BOUNTY);
+						} else {
+							player.sendMessage(GlobalTags.BOUNTY + "§4You must enter a bounty of at least §r$" + CurrencyConverter.convertToCurrency(defaultAmt) + "§4.");
+						}
 						
 					} else {
 						player.sendMessage(GlobalTags.BOUNTY + "§4You do not have enough money to place the bounty.");
