@@ -18,6 +18,7 @@ import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.util.convert.ChatConverter;
 import us.ignitiongaming.util.convert.DateConverter;
 
+@SuppressWarnings("deprecation")
 public class IGBanCommand implements CommandExecutor {
 
 	@Override

@@ -26,6 +26,7 @@ import us.ignitiongaming.factory.player.IGPlayerSpawnFactory;
 import us.ignitiongaming.factory.player.IGPlayerStatsFactory;
 import us.ignitiongaming.util.convert.DateConverter;
 
+@SuppressWarnings("deprecation")
 public class TeleportCommand implements CommandExecutor {
 
 	@Override

@@ -29,6 +29,7 @@ import us.ignitiongaming.util.calculator.GangCalculator;
 import us.ignitiongaming.util.convert.ChatConverter;
 import us.ignitiongaming.util.convert.CurrencyConverter;
 
+@SuppressWarnings("deprecation")
 public class GangCommand implements CommandExecutor{
 
 	@Override
@@ -393,6 +394,7 @@ public class GangCommand implements CommandExecutor{
 		}
 	}
 
+	
 	private void promotePlayer(Player player, IGPlayer igPlayer, boolean isPlayerInGang, String name) {
 		
 		if (isPlayerInGang) {

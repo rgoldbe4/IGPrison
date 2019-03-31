@@ -14,6 +14,7 @@ import us.ignitiongaming.enums.IGSettings;
 import us.ignitiongaming.factory.other.IGLocationFactory;
 import us.ignitiongaming.util.convert.CurrencyConverter;
 
+@SuppressWarnings("deprecation")
 public class RankupCommand implements CommandExecutor {
 
 	@Override

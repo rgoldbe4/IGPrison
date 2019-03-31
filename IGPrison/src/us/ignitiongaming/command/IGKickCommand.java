@@ -13,6 +13,7 @@ import us.ignitiongaming.factory.player.IGPlayerFactory;
 import us.ignitiongaming.factory.player.IGPlayerKickedFactory;
 import us.ignitiongaming.util.convert.ChatConverter;
 
+@SuppressWarnings("deprecation")
 public class IGKickCommand implements CommandExecutor {
 
 	@Override

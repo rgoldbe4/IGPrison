@@ -21,6 +21,7 @@ import us.ignitiongaming.factory.player.IGPlayerSolitaryFactory;
 import us.ignitiongaming.util.convert.ChatConverter;
 import us.ignitiongaming.util.convert.DateConverter;
 
+@SuppressWarnings("deprecation")
 public class SolitaryCommand implements CommandExecutor{
 
 	@Override
