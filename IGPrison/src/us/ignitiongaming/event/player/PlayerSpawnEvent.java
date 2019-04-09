@@ -43,18 +43,7 @@ public class PlayerSpawnEvent implements Listener {
 			ex.printStackTrace();
 		}
 	}
-	
-	@EventHandler
-	public static void onPlayerJoinGoToSpawn(PlayerJoinEvent event) {
-		Player player = event.getPlayer();
 		
-		if (IGPlayerFactory.getIGPlayerByPlayer(player).isValid()) {
-			Location location = IGLocationFactory.getSpawnByPlayerRank(player).toLocation();
-			location.setYaw(FacingDirection.EAST);
-			player.teleport(location);
-		}
-	}
-	
 	@EventHandler
 	public static void onPlayerJoinFirstTime(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
