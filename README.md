@@ -14,7 +14,7 @@ Lastly, this project was intended to have a donation shop in tandem with IGWebsi
 1) Identify any outdated `SQLQuery` usage and transition it to Hibernate (https://hibernate.org/) completely
 2) Normalize a few tables within the database to properly reflect ERM expectations from Hibernate
 3) Convert project to Maven with working builds
-4) Update Issues table with remaining issues from old project
+4) Update Issues tab with remaining issues from old project
 5) Update MySQL with proper users (accounts are no longer existing) so plugin can access databases.
 
 ## To any future employer viewing this
