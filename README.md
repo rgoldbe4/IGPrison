@@ -11,7 +11,7 @@ Lastly, this project was intended to have a donation shop in tandem with IGWebsi
 2) Submit any usable data to the remote database to be analyzed
 
 ## Project Future Plans
-1) Identify any outdated `SQLQuery` usage and transition it Hibernate (https://hibernate.org/)
+1) Identify any outdated `SQLQuery` usage and transition it to Hibernate (https://hibernate.org/) completely
 2) Normalize a few tables within the database to properly reflect ERM expectations from Hibernate
 3) Convert project to Maven with working builds
 4) Update Issues table with remaining issues from old project
